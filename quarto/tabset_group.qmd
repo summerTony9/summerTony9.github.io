@@ -8,11 +8,11 @@ title: "Tabset Group"
 ```{r}
 library(tidyverse)
 map(
-  1:10,
+  1:100000,
   \(x){
     x^2
   }
-)
+) -> ans
 ```
 
 ## Python
