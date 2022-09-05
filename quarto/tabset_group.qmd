@@ -5,10 +5,17 @@ title: "Tabset Group"
 ::: {.panel-tabset group="language"}
 ## R
 
-Tab content
+```{r}
+library(tidyverse)
+map(
+  1:10,
+  \(x){
+    x^2
+  }
+)
+```
 
 ## Python
 
 Tab content
 :::
-
