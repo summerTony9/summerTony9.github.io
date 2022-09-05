@@ -7,7 +7,9 @@ title: "Tabset Group"
 多语言实现可以以下代码实现
 
 ### 源代码
+
 ```` markdown
+
 ::: {.panel-tabset group="language"}
 ### R
 
@@ -35,6 +37,10 @@ Tab content
 使用 \`\`\`\` markdown可以将```转化为md内容
 :::
 
+:::{.callout-note}
+使用 {.r} 代码就不会运行，使用{r}才会
+:::
+
 ### 效果
 
 ::: {.panel-tabset group="language"}
@@ -42,13 +48,15 @@ Tab content
 
 ```{r}
 #| warning: false
+
 library(tidyverse)
-map(
-  1:100000,
+map_dbl(
+  1:100,
   \(x){
     x^2
   }
 ) -> ans
+ans[1]
 ```
 
 ### Python

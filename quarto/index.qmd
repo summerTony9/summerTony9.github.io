@@ -1,4 +1,57 @@
 ---
 title: "Quarto"
+
+format: 
+  html: 
+    code-fold: true
 ---
+
+## 自动生成目录的程序
+
+```{r}
+#| warning: false
+
+rm(list=ls())
+library(tidyverse)
+
+files = list.files()
+
+map(
+  files,
+  function(file_name){
+    if(grepl(".qmd", file_name, fixed=TRUE)){
+      return(
+        file.info(file_name) %>%
+          rownames_to_column(var = "file_name") %>%
+          as_tibble() %>%
+          select(file_name, mtime)
+        )
+    }else{
+      return(data.frame())
+    }
+  }
+) %>% 
+  bind_rows() %>%
+  mutate(file_name = str_c("[", file_name,"]", "(", file_name, ")")) %>%
+  arrange(desc(mtime)) %>%
+  rename(
+    `文件名` = file_name,
+    `修改日期` = mtime
+  ) -> file_info_df
+
+file_info_df %>% head()
+```
+:::{.callout-note}
+使用rownames_to_column(var = "file_name")将df的行名转化为一列，便于转化为tibble
+:::
+
+结果已经按照最后保存日期排序
+
+## 结果转化为目录
+
+`r knitr::kable(file_info_df, format = "markdown")`
+
+:::{.callout-note}
+使用\``r` xxxx\` 可以使用内存中的变量或运行R代码
+:::
 
