@@ -1,0 +1,14 @@
+---
+title: "Tabset Group"
+---
+
+::: {.panel-tabset group="language"}
+## R
+
+Tab content
+
+## Python
+
+Tab content
+:::
+

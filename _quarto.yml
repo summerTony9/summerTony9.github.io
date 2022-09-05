@@ -29,6 +29,9 @@ website:
     - title: "Quarto"
       contents: 
         - quarto/index.qmd
+        - section: "20220905"
+          contents: 
+            - quarto/tabset_group.qmd
     
     - title: "算法"
       contents: 
