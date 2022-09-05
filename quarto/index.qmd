@@ -1,3 +1,10 @@
 ---
 title: "Quarto"
+
+format: 
+  html: 
+    smooth-scroll: true
+  
+comments:
+  hypothesis: true
 ---
