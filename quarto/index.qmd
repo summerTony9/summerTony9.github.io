@@ -46,7 +46,11 @@ map(
   ) -> file_info_df
 ```
 :::{.callout-note}
-使用rownames_to_column(var = "file_name")将df的行名转化为一列，便于转化为tibble
+使用`rownames_to_column(var = "file_name")`将df的行名转化为一列，便于转化为tibble
+:::
+
+:::{.callout-note}
+`rename(新列名=旧列名)`实现重新命名df的列
 :::
 
 结果已经按照最后保存日期排序

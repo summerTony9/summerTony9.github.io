@@ -1,10 +1,24 @@
 [
   {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "个人介绍",
+    "section": "",
+    "text": "未完待续…"
+  },
+  {
     "objectID": "quarto/index.html",
     "href": "quarto/index.html",
     "title": "Quarto",
     "section": "",
-    "text": "Code\nrm(list=ls())\nlibrary(tidyverse)\nlibrary(lubridate)\n\nfiles = list.files()\n\nmap(\n  files,\n  function(file_name){\n    if(grepl(\".qmd\", file_name, fixed=TRUE)){\n      return(\n        file.info(file_name) %>%\n          rownames_to_column(var = \"file_name\") %>%\n          as_tibble() %>%\n          select(file_name, mtime)\n        )\n    }else{\n      return(data.frame())\n    }\n  }\n) %>% \n  bind_rows() %>%\n  mutate(\n    file_name = str_c(\"[\", file_name,\"]\", \"(\", file_name, \")\"),\n  ) %>%\n  arrange(desc(mtime)) %>%\n  mutate(\n    mtime = as_date(mtime)\n  ) %>%\n  rename(\n    `文件名` = file_name,\n    `修改日期` = mtime\n  ) -> file_info_df\n\n\n\n\n\n\n\n\nNote\n\n\n\n使用rownames_to_column(var = “file_name”)将df的行名转化为一列，便于转化为tibble\n\n\n结果已经按照最后保存日期排序"
+    "text": "Code\nrm(list=ls())\nlibrary(tidyverse)\nlibrary(lubridate)\n\nfiles = list.files()\n\nmap(\n  files,\n  function(file_name){\n    if(grepl(\".qmd\", file_name, fixed=TRUE)){\n      return(\n        file.info(file_name) %>%\n          rownames_to_column(var = \"file_name\") %>%\n          as_tibble() %>%\n          select(file_name, mtime)\n        )\n    }else{\n      return(data.frame())\n    }\n  }\n) %>% \n  bind_rows() %>%\n  mutate(\n    file_name = str_c(\"[\", file_name,\"]\", \"(\", file_name, \")\"),\n  ) %>%\n  arrange(desc(mtime)) %>%\n  mutate(\n    mtime = as_date(mtime)\n  ) %>%\n  rename(\n    `文件名` = file_name,\n    `修改日期` = mtime\n  ) -> file_info_df\n\n\n\n\n\n\n\n\nNote\n\n\n\n使用rownames_to_column(var = \"file_name\")将df的行名转化为一列，便于转化为tibble\n\n\n\n\n\n\n\n\nNote\n\n\n\nrename(新列名=旧列名)实现重新命名df的列\n\n\n结果已经按照最后保存日期排序"
+  },
+  {
+    "objectID": "quarto/index.html#tibble转目录",
+    "href": "quarto/index.html#tibble转目录",
+    "title": "Quarto",
+    "section": "tibble转目录",
+    "text": "tibble转目录\n\n\n\n文件名\n修改日期\n\n\n\n\ntabset_group.qmd\n2022-09-05\n\n\nindex.qmd\n2022-09-05\n\n\n\n\n\n\n\n\n\nNote\n\n\n\n使用`r xxxx` 可以使用内存中的变量或运行R代码"
   },
   {
     "objectID": "quarto/tabset_group.html",
@@ -12,19 +26,5 @@
     "title": "Tabset Group",
     "section": "",
     "text": "多语言实现可以以下代码实现\n\n\n\n::: {.panel-tabset group=\"language\"}\n### R\n\n```{.r}\n#| warning: false\n\n# 防止导入tidyverse时的warning影响输出的整洁\nlibrary(tidyverse)\nmap(\n  1:100000,\n  \\(x){\n    x^2\n  }\n) -> ans\n```\n\n### Python\n\nTab content\n:::\n\n\n\n\n\n\nNote\n\n\n\n使用 ```` markdown可以将```转化为md内容\n\n\n\n\n\n\n\n\nNote\n\n\n\n使用 {.r} 代码就不会运行，使用{r}才会\n\n\n\n\n\n\nRPython\n\n\n\nlibrary(tidyverse)\nmap_dbl(\n  1:100,\n  \\(x){\n    x^2\n  }\n) -> ans\nans[1]\n\n[1] 1\n\n\n\n\nTab content"
-  },
-  {
-    "objectID": "quarto/index.html#结果转化为目录",
-    "href": "quarto/index.html#结果转化为目录",
-    "title": "Quarto",
-    "section": "结果转化为目录",
-    "text": "结果转化为目录\n\n\n\n文件名\n修改日期\n\n\n\n\nindex.qmd\n2022-09-05\n\n\ntabset_group.qmd\n2022-09-05\n\n\n\n\n\n\n\n\n\nNote\n\n\n\n使用`r xxxx` 可以使用内存中的变量或运行R代码"
-  },
-  {
-    "objectID": "quarto/index.html#tibble转目录",
-    "href": "quarto/index.html#tibble转目录",
-    "title": "Quarto",
-    "section": "tibble转目录",
-    "text": "tibble转目录\n\n\n\n文件名\n修改日期\n\n\n\n\nindex.qmd\n2022-09-05\n\n\ntabset_group.qmd\n2022-09-05\n\n\n\n\n\n\n\n\n\nNote\n\n\n\n使用`r xxxx` 可以使用内存中的变量或运行R代码"
   }
 ]
