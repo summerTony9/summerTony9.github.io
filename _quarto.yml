@@ -10,9 +10,11 @@ website:
       - text: "R"
         file: "R/index.qmd"
       - text: "Python"
-        file: "python/about.qmd"
+        file: "python/index.qmd"
       - text: "Quarto"
         file: "quarto/index.qmd"
+      - text: "算法"
+        file: "算法/index.qmd"
         
   sidebar:
     - title: "R"
@@ -21,12 +23,15 @@ website:
     
     - title: "Python"
       contents: 
-        - python/about.qmd
+        - python/index.qmd
         
     - title: "Quarto"
       contents: 
         - quarto/index.qmd
-        
+    
+    - title: "算法"
+      contents: 
+        - 算法/index.qmd
         
 format:
   html:
