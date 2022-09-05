@@ -3,13 +3,31 @@ project:
   output-dir: docs
 
 website:
-  title: "QuartoWebsite"
+  title: "Luyueti-Web"
+  background: primary
   navbar:
     left:
-      - href: index.qmd
-        text: Home
-      - about.qmd
-
+      - text: "R"
+        file: "R/index.qmd"
+      - text: "Python"
+        file: "python/about.qmd"
+      - text: "Quarto"
+        file: "quarto/index.qmd"
+        
+  sidebar:
+    - title: "R"
+      contents: 
+        - R/index.qmd
+    
+    - title: "Python"
+      contents: 
+        - python/about.qmd
+        
+    - title: "Quarto"
+      contents: 
+        - quarto/index.qmd
+        
+        
 format:
   html:
     theme: cosmo

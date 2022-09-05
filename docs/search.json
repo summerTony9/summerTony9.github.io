@@ -1,15 +1,50 @@
 [
   {
+    "objectID": "tidyverse_learn.html",
+    "href": "tidyverse_learn.html",
+    "title": "tidyverse_learn",
+    "section": "",
+    "text": "Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see https://quarto.org."
+  },
+  {
+    "objectID": "tidyverse_learn.html#running-code",
+    "href": "tidyverse_learn.html#running-code",
+    "title": "tidyverse_learn",
+    "section": "Running Code",
+    "text": "Running Code\nWhen you click the Render button a document will be generated that includes both content and the output of embedded code. You can embed code like this:\n\n1 + 1\n\n[1] 2\n\n\nYou can add options to executable code like this\n\n\n[1] 4\n\n\nThe echo: false option disables the printing of code (only output is displayed)."
+  },
+  {
+    "objectID": "个人介绍/intro.html",
+    "href": "个人介绍/intro.html",
+    "title": "个人介绍",
+    "section": "",
+    "text": "个人介绍！！！！"
+  },
+  {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "QuartoWebsite",
+    "title": "个人介绍",
     "section": "",
-    "text": "To learn more about Quarto websites visit https://quarto.org/docs/websites.\n\n1 + 1\n\n[1] 2"
+    "text": "未完待续…"
+  },
+  {
+    "objectID": "index.html#t1",
+    "href": "index.html#t1",
+    "title": "个人介绍",
+    "section": "T1",
+    "text": "T1\n\n1 + 1\n\n[1] 2\n\n\n\nT1.1"
+  },
+  {
+    "objectID": "index.html#t2",
+    "href": "index.html#t2",
+    "title": "个人介绍",
+    "section": "T2",
+    "text": "T2"
   },
   {
     "objectID": "about.html",
     "href": "about.html",
-    "title": "About",
+    "title": "R",
     "section": "",
     "text": "1 + 1\n\n[1] 2"
   }
