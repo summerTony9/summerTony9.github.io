@@ -44,8 +44,6 @@ map(
     `文件名` = file_name,
     `修改日期` = mtime
   ) -> file_info_df
-
-file_info_df %>% head()
 ```
 :::{.callout-note}
 使用rownames_to_column(var = "file_name")将df的行名转化为一列，便于转化为tibble
