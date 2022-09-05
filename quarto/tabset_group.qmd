@@ -31,6 +31,10 @@ Tab content
 
 ````
 
+:::{.callout-note}
+使用 \`\`\`\` markdown可以将```转化为md内容
+:::
+
 ### 效果
 
 ::: {.panel-tabset group="language"}
