@@ -13,6 +13,7 @@ format:
 
 rm(list=ls())
 library(tidyverse)
+library(lubridate)
 
 files = list.files()
 
@@ -32,8 +33,13 @@ map(
   }
 ) %>% 
   bind_rows() %>%
-  mutate(file_name = str_c("[", file_name,"]", "(", file_name, ")")) %>%
+  mutate(
+    file_name = str_c("[", file_name,"]", "(", file_name, ")"),
+  ) %>%
   arrange(desc(mtime)) %>%
+  mutate(
+    mtime = as_date(mtime)
+  ) %>%
   rename(
     `文件名` = file_name,
     `修改日期` = mtime

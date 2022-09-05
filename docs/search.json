@@ -4,7 +4,7 @@
     "href": "quarto/index.html",
     "title": "Quarto",
     "section": "",
-    "text": "Code\nrm(list=ls())\nlibrary(tidyverse)\n\nfiles = list.files()\n\nmap(\n  files,\n  function(file_name){\n    if(grepl(\".qmd\", file_name, fixed=TRUE)){\n      return(\n        file.info(file_name) %>%\n          rownames_to_column(var = \"file_name\") %>%\n          as_tibble() %>%\n          select(file_name, mtime)\n        )\n    }else{\n      return(data.frame())\n    }\n  }\n) %>% \n  bind_rows() %>%\n  mutate(file_name = str_c(\"[\", file_name,\"]\", \"(\", file_name, \")\")) %>%\n  arrange(desc(mtime)) %>%\n  rename(\n    `文件名` = file_name,\n    `修改日期` = mtime\n  ) -> file_info_df\n\nfile_info_df %>% head()\n\n\n# A tibble: 2 × 2\n  文件名                               修改日期           \n  <chr>                                <dttm>             \n1 [index.qmd](index.qmd)               2022-09-05 20:23:23\n2 [tabset_group.qmd](tabset_group.qmd) 2022-09-05 19:44:37\n\n\n\n\n\n\n\n\nNote\n\n\n\n使用rownames_to_column(var = “file_name”)将df的行名转化为一列，便于转化为tibble\n\n\n结果已经按照最后保存日期排序"
+    "text": "Code\nrm(list=ls())\nlibrary(tidyverse)\nlibrary(lubridate)\n\nfiles = list.files()\n\nmap(\n  files,\n  function(file_name){\n    if(grepl(\".qmd\", file_name, fixed=TRUE)){\n      return(\n        file.info(file_name) %>%\n          rownames_to_column(var = \"file_name\") %>%\n          as_tibble() %>%\n          select(file_name, mtime)\n        )\n    }else{\n      return(data.frame())\n    }\n  }\n) %>% \n  bind_rows() %>%\n  mutate(\n    file_name = str_c(\"[\", file_name,\"]\", \"(\", file_name, \")\"),\n  ) %>%\n  arrange(desc(mtime)) %>%\n  mutate(\n    mtime = as_date(mtime)\n  ) %>%\n  rename(\n    `文件名` = file_name,\n    `修改日期` = mtime\n  ) -> file_info_df\n\nfile_info_df %>% head()\n\n\n# A tibble: 2 × 2\n  文件名                               修改日期  \n  <chr>                                <date>    \n1 [index.qmd](index.qmd)               2022-09-05\n2 [tabset_group.qmd](tabset_group.qmd) 2022-09-05\n\n\n\n\n\n\n\n\nNote\n\n\n\n使用rownames_to_column(var = “file_name”)将df的行名转化为一列，便于转化为tibble\n\n\n结果已经按照最后保存日期排序"
   },
   {
     "objectID": "quarto/tabset_group.html",
@@ -18,6 +18,6 @@
     "href": "quarto/index.html#结果转化为目录",
     "title": "Quarto",
     "section": "结果转化为目录",
-    "text": "结果转化为目录\n\n\n\n文件名\n修改日期\n\n\n\n\nindex.qmd\n2022-09-05 20:23:23\n\n\ntabset_group.qmd\n2022-09-05 19:44:37\n\n\n\n\n\n\n\n\n\nNote\n\n\n\n使用`r xxxx` 可以使用内存中的变量或运行R代码"
+    "text": "结果转化为目录\n\n\n\n文件名\n修改日期\n\n\n\n\nindex.qmd\n2022-09-05\n\n\ntabset_group.qmd\n2022-09-05\n\n\n\n\n\n\n\n\n\nNote\n\n\n\n使用`r xxxx` 可以使用内存中的变量或运行R代码"
   }
 ]
