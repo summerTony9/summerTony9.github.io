@@ -6,7 +6,7 @@ format:
     code-fold: true
 ---
 
-## 自动生成目录的程序
+## 自动生成目录
 
 ```{r}
 #| warning: false
@@ -51,7 +51,7 @@ map(
 
 结果已经按照最后保存日期排序
 
-## 结果转化为目录
+## tibble转目录
 
 `r knitr::kable(file_info_df, format = "markdown")`
 

@@ -19,5 +19,12 @@
     "title": "Quarto",
     "section": "结果转化为目录",
     "text": "结果转化为目录\n\n\n\n文件名\n修改日期\n\n\n\n\nindex.qmd\n2022-09-05\n\n\ntabset_group.qmd\n2022-09-05\n\n\n\n\n\n\n\n\n\nNote\n\n\n\n使用`r xxxx` 可以使用内存中的变量或运行R代码"
+  },
+  {
+    "objectID": "quarto/index.html#tibble转目录",
+    "href": "quarto/index.html#tibble转目录",
+    "title": "Quarto",
+    "section": "tibble转目录",
+    "text": "tibble转目录\n\n\n\n文件名\n修改日期\n\n\n\n\nindex.qmd\n2022-09-05\n\n\ntabset_group.qmd\n2022-09-05\n\n\n\n\n\n\n\n\n\nNote\n\n\n\n使用`r xxxx` 可以使用内存中的变量或运行R代码"
   }
 ]
