@@ -19,3 +19,14 @@ map(
 
 Tab content
 :::
+
+```{r}
+iris %>%
+  group_by(Sepal.Length) %>%
+  summarise(cnt = n())
+```
+
+
+
+
+

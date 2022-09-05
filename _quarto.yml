@@ -42,6 +42,10 @@ format:
     theme: cosmo
     css: styles.css
     toc: true
+    code-tools:
+      source: true
+      toggle: true
+      caption: none
 
 editor: visual
 
