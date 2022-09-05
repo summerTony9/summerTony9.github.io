@@ -6,5 +6,5 @@ format:
     smooth-scroll: true
   
 comments:
-  hypothesis: true
+  hypothesis: false
 ---
