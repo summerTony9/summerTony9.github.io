@@ -46,6 +46,7 @@ format:
       source: true
       toggle: true
       caption: none
+    smooth-scroll: true
 
 editor: visual
 
