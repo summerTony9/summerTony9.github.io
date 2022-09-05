@@ -11,6 +11,6 @@
     "href": "quarto/tabset_group.html",
     "title": "Tabset Group",
     "section": "",
-    "text": "iris %>%\n  group_by(Sepal.Length) %>%\n  summarise(cnt = n())\n\n# A tibble: 35 × 2\n   Sepal.Length   cnt\n          <dbl> <int>\n 1          4.3     1\n 2          4.4     3\n 3          4.5     1\n 4          4.6     4\n 5          4.7     2\n 6          4.8     5\n 7          4.9     6\n 8          5      10\n 9          5.1     9\n10          5.2     4\n# … with 25 more rows"
+    "text": "多语言实现可以以下代码实现\n\n\n::: {.panel-tabset group=\"language\"}\n### R\n\n```{.r}\n#| warning: false\n\n# 防止导入tidyverse时的warning影响输出的整洁\nlibrary(tidyverse)\nmap(\n  1:100000,\n  \\(x){\n    x^2\n  }\n) -> ans\n```\n\n### Python\n\nTab content\n:::\n\n\n\n\nRPython\n\n\n\nlibrary(tidyverse)\nmap(\n  1:100000,\n  \\(x){\n    x^2\n  }\n) -> ans\n\n\n\nTab content"
   }
 ]

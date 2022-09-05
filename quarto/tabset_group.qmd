@@ -2,10 +2,19 @@
 title: "Tabset Group"
 ---
 
-::: {.panel-tabset group="language"}
-## R
+## 多语言
 
-```{r}
+多语言实现可以以下代码实现
+
+### 源代码
+```` markdown
+::: {.panel-tabset group="language"}
+### R
+
+```{.r}
+#| warning: false
+
+# 防止导入tidyverse时的warning影响输出的整洁
 library(tidyverse)
 map(
   1:100000,
@@ -15,16 +24,34 @@ map(
 ) -> ans
 ```
 
-## Python
+### Python
 
 Tab content
 :::
 
+````
+
+### 效果
+
+::: {.panel-tabset group="language"}
+### R
+
 ```{r}
-iris %>%
-  group_by(Sepal.Length) %>%
-  summarise(cnt = n())
+#| warning: false
+library(tidyverse)
+map(
+  1:100000,
+  \(x){
+    x^2
+  }
+) -> ans
 ```
+
+### Python
+
+Tab content
+:::
+
 
 
 
