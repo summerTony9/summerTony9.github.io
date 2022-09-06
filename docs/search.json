@@ -14,6 +14,41 @@
     "text": "Plot function pair (x(u), y(u)). See Figure 1 for an example.\n\nusing Plots\n\nplot(sin, \n     x->sin(2x), \n     0, \n     2π, \n     leg=false, \n     fill=(0,:lavender))\n\n\n\n\nFigure 1: Parametric Plots"
   },
   {
+    "objectID": "quarto/learn_julia.html#查看变量类型",
+    "href": "quarto/learn_julia.html#查看变量类型",
+    "title": "Learn Julia",
+    "section": "查看变量类型",
+    "text": "查看变量类型\n\nx = 10\ntypeof(x)\n\nInt64"
+  },
+  {
+    "objectID": "quarto/learn_julia.html#多项式支持",
+    "href": "quarto/learn_julia.html#多项式支持",
+    "title": "Learn Julia",
+    "section": "多项式支持",
+    "text": "多项式支持\n\n2x^2 - 3x + 1\n\n171"
+  },
+  {
+    "objectID": "quarto/learn_julia.html#向量化操作",
+    "href": "quarto/learn_julia.html#向量化操作",
+    "title": "Learn Julia",
+    "section": "向量化操作",
+    "text": "向量化操作\n\n[1, 2, 3] .^ 3\n\n3-element Vector{Int64}:\n  1\n  8\n 27"
+  },
+  {
+    "objectID": "quarto/learn_julia.html#类型转换",
+    "href": "quarto/learn_julia.html#类型转换",
+    "title": "Learn Julia",
+    "section": "类型转换",
+    "text": "类型转换\n\nx = 1.5\nround(x)\n\n2.0\n\n\n\nInt(round(x))\n\n2"
+  },
+  {
+    "objectID": "quarto/learn_julia.html#函数",
+    "href": "quarto/learn_julia.html#函数",
+    "title": "Learn Julia",
+    "section": "函数",
+    "text": "函数\n\n∑(x, y) = x + y\n∑(1, 2)\n\n3\n\n\n\n函数可以包含类型\n\nfunction ∑(x::Integer, y::Integer)::Integer\n    x + y\nend\n∑(1, 2)\n\n3\n\n\n\n\n没有返回值 return noting\n\nfunction printx(x)\n    println(\"x = $x\")\n    return nothing\nend\n\nprintx (generic function with 1 method)\n\n\n\n\n匿名函数\n\nmap(\n    x -> x^2 + 1,\n    [1, 2, 3]\n)\n\n3-element Vector{Int64}:\n  2\n  5\n 10"
+  },
+  {
     "objectID": "quarto/Presentation.html#每页的大标题",
     "href": "quarto/Presentation.html#每页的大标题",
     "title": "revealjs 学习",
