@@ -9,7 +9,6 @@ title: "Tabset Group"
 ### 源代码
 
 ```` markdown
-
 ::: {.panel-tabset group="language"}
 ### R
 
@@ -30,14 +29,13 @@ map(
 
 Tab content
 :::
-
 ````
 
-:::{.callout-note}
-使用 \`\`\`\` markdown可以将```转化为md内容
+::: callout-note
+使用 \`\`\`\` markdown可以将\`\`\`转化为md内容
 :::
 
-:::{.callout-note}
+::: callout-note
 使用 `{.r}` 代码就不会运行，使用`{r}`才会
 :::
 
@@ -63,8 +61,6 @@ ans[1]
 
 Tab content
 :::
-
-
 
 
 

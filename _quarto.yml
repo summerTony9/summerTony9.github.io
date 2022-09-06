@@ -31,6 +31,7 @@ website:
         - quarto/index.qmd
         - section: "20220906"
           contents: 
+            - quarto/learn_julia.qmd
             - quarto/Presentation.qmd
         - section: "20220905"
           contents: 

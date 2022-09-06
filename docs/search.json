@@ -7,6 +7,55 @@
     "text": "未完待续…"
   },
   {
+    "objectID": "quarto/learn_julia.html",
+    "href": "quarto/learn_julia.html",
+    "title": "Learn Julia",
+    "section": "",
+    "text": "x = 10\ntypeof(x)\nprint(x)"
+  },
+  {
+    "objectID": "quarto/learn_julia.html#多项式支持",
+    "href": "quarto/learn_julia.html#多项式支持",
+    "title": "Learn Julia",
+    "section": "多项式支持",
+    "text": "多项式支持\n2x^2 - 3x + 1"
+  },
+  {
+    "objectID": "quarto/learn_julia.html#向量化操作",
+    "href": "quarto/learn_julia.html#向量化操作",
+    "title": "Learn Julia",
+    "section": "向量化操作",
+    "text": "向量化操作\n[1, 2, 3] .^ 3"
+  },
+  {
+    "objectID": "quarto/learn_julia.html#类型转换",
+    "href": "quarto/learn_julia.html#类型转换",
+    "title": "Learn Julia",
+    "section": "类型转换",
+    "text": "类型转换\nx = 1.5\nround(x)\nInt(round(x))"
+  },
+  {
+    "objectID": "quarto/learn_julia.html#函数",
+    "href": "quarto/learn_julia.html#函数",
+    "title": "Learn Julia",
+    "section": "函数",
+    "text": "函数\n∑(x, y) = x + y\nprintln(\n    ∑(1, 2)\n)\n# 函数可以包含类型\nfunction ∑(x::Integer, y::Integer)::Integer\n    x + y\nend\n∑(1, 2)"
+  },
+  {
+    "objectID": "quarto/learn_julia.html#没有返回值-return-noting",
+    "href": "quarto/learn_julia.html#没有返回值-return-noting",
+    "title": "Learn Julia",
+    "section": "没有返回值 return noting",
+    "text": "没有返回值 return noting\nfunction printx(x)\n    println(\"x = $x\")\n    return nothing\nend"
+  },
+  {
+    "objectID": "quarto/learn_julia.html#匿名函数",
+    "href": "quarto/learn_julia.html#匿名函数",
+    "title": "Learn Julia",
+    "section": "匿名函数",
+    "text": "匿名函数\nmap(\n    x -> x^2 + 1,\n    [1, 2, 3]\n)"
+  },
+  {
     "objectID": "quarto/Presentation.html#每页的大标题",
     "href": "quarto/Presentation.html#每页的大标题",
     "title": "revealjs 学习",
@@ -32,13 +81,13 @@
     "href": "quarto/index.html#tibble转目录",
     "title": "Quarto",
     "section": "tibble转目录",
-    "text": "tibble转目录\n\n\n\n文件名\n修改日期\n\n\n\n\nPresentation.qmd\n2022-09-06\n\n\nindex.qmd\n2022-09-05\n\n\ntabset_group.qmd\n2022-09-05\n\n\n\n\n\n\n\n\n\nNote\n\n\n\n使用`r xxxx` 可以使用内存中的变量或运行R代码"
+    "text": "tibble转目录\n\n\n\n文件名\n修改日期\n\n\n\n\nlearn_julia.qmd\n2022-09-06\n\n\nindex.qmd\n2022-09-06\n\n\ntabset_group.qmd\n2022-09-06\n\n\nPresentation.qmd\n2022-09-06\n\n\n\n\n\n\n\n\n\nNote\n\n\n\n使用`r xxxx` 可以使用内存中的变量或运行R代码"
   },
   {
     "objectID": "quarto/tabset_group.html",
     "href": "quarto/tabset_group.html",
     "title": "Tabset Group",
     "section": "",
-    "text": "多语言实现可以以下代码实现\n\n\n\n::: {.panel-tabset group=\"language\"}\n### R\n\n```{.r}\n#| warning: false\n\n# 防止导入tidyverse时的warning影响输出的整洁\nlibrary(tidyverse)\nmap(\n  1:100000,\n  \\(x){\n    x^2\n  }\n) -> ans\n```\n\n### Python\n\nTab content\n:::\n\n\n\n\n\n\nNote\n\n\n\n使用 ```` markdown可以将```转化为md内容\n\n\n\n\n\n\n\n\nNote\n\n\n\n使用 {.r} 代码就不会运行，使用{r}才会\n\n\n\n\n\n\nRPython\n\n\n\n\nCode\nlibrary(tidyverse)\nmap_dbl(\n  1:100,\n  \\(x){\n    x^2\n  }\n) -> ans\nans[1]\n\n\n[1] 1\n\n\n\n\nTab content"
+    "text": "多语言实现可以以下代码实现\n\n\n::: {.panel-tabset group=\"language\"}\n### R\n\n```{.r}\n#| warning: false\n\n# 防止导入tidyverse时的warning影响输出的整洁\nlibrary(tidyverse)\nmap(\n  1:100000,\n  \\(x){\n    x^2\n  }\n) -> ans\n```\n\n### Python\n\nTab content\n:::\n\n\n\n\n\n\nNote\n\n\n\n使用 ```` markdown可以将```转化为md内容\n\n\n\n\n\n\n\n\nNote\n\n\n\n使用 {.r} 代码就不会运行，使用{r}才会\n\n\n\n\n\n\nRPython\n\n\n\n\nCode\nlibrary(tidyverse)\nmap_dbl(\n  1:100,\n  \\(x){\n    x^2\n  }\n) -> ans\nans[1]\n\n\n[1] 1\n\n\n\n\nTab content"
   }
 ]

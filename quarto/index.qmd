@@ -44,11 +44,12 @@ map(
     `修改日期` = mtime
   ) -> file_info_df
 ```
-:::{.callout-note}
+
+::: callout-note
 使用`rownames_to_column(var = "file_name")`将df的行名转化为一列，便于转化为tibble
 :::
 
-:::{.callout-note}
+::: callout-note
 `rename(新列名=旧列名)`实现重新命名df的列
 :::
 
@@ -58,7 +59,13 @@ map(
 
 `r knitr::kable(file_info_df, format = "markdown")`
 
-:::{.callout-note}
+::: callout-note
 使用\``r` xxxx\` 可以使用内存中的变量或运行R代码
 :::
+
+
+
+
+
+
 
