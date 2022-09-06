@@ -29,6 +29,9 @@ website:
     - title: "Quarto"
       contents: 
         - quarto/index.qmd
+        - section: "20220906"
+          contents: 
+            - quarto/Presentation.qmd
         - section: "20220905"
           contents: 
             - quarto/tabset_group.qmd
