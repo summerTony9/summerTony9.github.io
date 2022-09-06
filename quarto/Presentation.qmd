@@ -6,6 +6,7 @@ format:
     transition: slide
     background-transition: fade
     transition-speed: fast
+    touch: true
 ---
 
 ## 每页的大标题 {auto-animate=true}
@@ -15,9 +16,13 @@ format:
 
 ## 下一页 {auto-animate=true}
 
+:::{.callout-note}
+标题中添加{auto-animate=true}可自动添加动画
+:::
+- 列表内容3
 - 列表内容1
 - 列表内容2
-- 列表内容3
+
 
 
 
