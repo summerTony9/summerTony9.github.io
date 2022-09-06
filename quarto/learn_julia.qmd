@@ -4,9 +4,9 @@ title: "Learn Julia"
 
 ## 查看变量类型
 
-```{julia}
+```{.julia}
 x = 10
-typeof(x)
+
 print(x)
 ```
 
