@@ -1,0 +1,25 @@
+---
+title: "revealjs 学习"
+author: "Luyueti"
+format: 
+  revealjs: 
+    transition: slide
+    background-transition: fade
+    transition-speed: fast
+---
+
+## 每页的大标题 {auto-animate=true}
+
+- 列表内容1
+- 列表内容2
+
+## 下一页 {auto-animate=true}
+
+- 列表内容1
+- 列表内容2
+- 列表内容3
+
+
+
+
+

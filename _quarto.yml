@@ -47,6 +47,7 @@ format:
       toggle: true
       caption: none
     smooth-scroll: true
+    code-fold: true
 
 editor: visual
 
