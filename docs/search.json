@@ -49,6 +49,41 @@
     "text": "函数\n\n∑(x, y) = x + y\n∑(1, 2)\n\n3\n\n\n\n函数可以包含类型\n\nfunction ∑(x::Integer, y::Integer)::Integer\n    x + y\nend\n∑(1, 2)\n\n3\n\n\n\n\n没有返回值 return noting\n\nfunction printx(x)\n    println(\"x = $x\")\n    return nothing\nend\n\nprintx (generic function with 1 method)\n\n\n\n\n匿名函数\n\nmap(\n    x -> x^2 + 1,\n    [1, 2, 3]\n)\n\n3-element Vector{Int64}:\n  2\n  5\n 10"
   },
   {
+    "objectID": "quarto/learn_julia.html#元组",
+    "href": "quarto/learn_julia.html#元组",
+    "title": "Learn Julia",
+    "section": "元组",
+    "text": "元组\n\nx = (a=2, b=3)\n\n(a = 2, b = 3)\n\n\n\n使用下标访问元组\n\nx[1]\n\n2\n\n\n\n\n使用key访问元组\n\nx.a\n\n2"
+  },
+  {
+    "objectID": "quarto/learn_julia.html#do",
+    "href": "quarto/learn_julia.html#do",
+    "title": "Learn Julia",
+    "section": "do",
+    "text": "do\ndo x 语法创建一个带有参数 x 的匿名函数，并将其作为第一个参数传递给 map。 类似地，do a,b 将创建一个有两个参数的匿名函数。 请注意，do (a,b) 将创建一个单参数匿名函数，其参数是一个要解构的元组。 一个简单的 do 会声明接下来是一个形式为 () -> … 的匿名函数。\n\nmap([-2, 0, 10]) do x\n    if x < 0 && iseven(x)\n        return 0\n    elseif x == 0\n        return 1\n    else\n        return x\n    end\nend\n\n3-element Vector{Int64}:\n  0\n  1\n 10"
+  },
+  {
+    "objectID": "quarto/learn_julia.html#管道函数",
+    "href": "quarto/learn_julia.html#管道函数",
+    "title": "Learn Julia",
+    "section": "管道函数",
+    "text": "管道函数\n\n1:10 |> sum |> sqrt\n\n7.416198487095663\n\n\n\n管道函数配合广播\n\n[\"a\", \"list\", \"of\", \"strings\"] .|> [uppercase, reverse, titlecase, length]\n\n4-element Vector{Any}:\n  \"A\"\n  \"tsil\"\n  \"Of\"\n 7"
+  },
+  {
+    "objectID": "quarto/learn_julia.html#函数的向量化操作",
+    "href": "quarto/learn_julia.html#函数的向量化操作",
+    "title": "Learn Julia",
+    "section": "函数的向量化操作",
+    "text": "函数的向量化操作\n\n常数和向量\n\nf(x, y) = 3x+4y\nA = [1, 2, 3]\nf.(pi, A)\n\n3-element Vector{Float64}:\n 13.42477796076938\n 17.42477796076938\n 21.42477796076938\n\n\n\n\n向量和向量\n\nB = [4, 5, 6]\nf.(A, B)\n\n3-element Vector{Int64}:\n 19\n 26\n 33\n\n\n\n\n@宏\n\nY = [1., 2., 3.]\nX = similar(Y)\n@. X = sin(cos(Y)) # equivalent to X .= sin.(cos.(Y))\n\n3-element Vector{Float64}:\n  0.5143952585235492\n -0.4042391538522658\n -0.8360218615377305"
+  },
+  {
+    "objectID": "quarto/learn_julia.html#dataframe",
+    "href": "quarto/learn_julia.html#dataframe",
+    "title": "Learn Julia",
+    "section": "DataFrame",
+    "text": "DataFrame\n\nusing DataFrames\ndf = DataFrame(A=1:4, B=[\"M\", \"F\", \"F\", \"M\"])\n\n\n4 rows × 2 columnsABInt64String11M22F33F44M"
+  },
+  {
     "objectID": "quarto/Presentation.html#每页的大标题",
     "href": "quarto/Presentation.html#每页的大标题",
     "title": "revealjs 学习",
@@ -74,7 +109,7 @@
     "href": "quarto/index.html#tibble转目录",
     "title": "Quarto",
     "section": "tibble转目录",
-    "text": "tibble转目录\n\n\n\n文件名\n修改日期\n\n\n\n\nlearn_julia.qmd\n2022-09-06\n\n\nindex.qmd\n2022-09-06\n\n\ntabset_group.qmd\n2022-09-06\n\n\nPresentation.qmd\n2022-09-06\n\n\n\n\n\n\n\n\n\nNote\n\n\n\n使用`r xxxx` 可以使用内存中的变量或运行R代码"
+    "text": "tibble转目录\n\n\n\n文件名\n修改日期\n\n\n\n\nlearn_julia.qmd\n2022-09-07\n\n\nindex.qmd\n2022-09-06\n\n\ntabset_group.qmd\n2022-09-06\n\n\nPresentation.qmd\n2022-09-06\n\n\n\n\n\n\n\n\n\nNote\n\n\n\n使用`r xxxx` 可以使用内存中的变量或运行R代码"
   },
   {
     "objectID": "quarto/tabset_group.html",

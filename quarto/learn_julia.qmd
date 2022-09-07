@@ -77,3 +77,69 @@ map(
     [1, 2, 3]
 )
 ```
+
+## 元组
+```{julia}
+x = (a=2, b=3)
+```
+### 使用下标访问元组
+```{julia}
+x[1]
+```
+### 使用key访问元组
+```{julia}
+x.a
+```
+
+## do
+do x 语法创建一个带有参数 x 的匿名函数，并将其作为第一个参数传递给 map。 类似地，do a,b 将创建一个有两个参数的匿名函数。 请注意，do (a,b) 将创建一个单参数匿名函数，其参数是一个要解构的元组。 一个简单的 do 会声明接下来是一个形式为 () -> ... 的匿名函数。
+
+```{julia}
+map([-2, 0, 10]) do x
+    if x < 0 && iseven(x)
+        return 0
+    elseif x == 0
+        return 1
+    else
+        return x
+    end
+end
+```
+
+## 管道函数
+```{julia}
+1:10 |> sum |> sqrt
+```
+
+### 管道函数配合广播
+```{julia}
+["a", "list", "of", "strings"] .|> [uppercase, reverse, titlecase, length]
+```
+
+## 函数的向量化操作
+
+### 常数和向量
+```{julia}
+f(x, y) = 3x+4y
+A = [1, 2, 3]
+f.(pi, A)
+```
+
+### 向量和向量
+```{julia}
+B = [4, 5, 6]
+f.(A, B)
+```
+
+### @宏
+```{julia}
+Y = [1., 2., 3.]
+X = similar(Y)
+@. X = sin(cos(Y)) # equivalent to X .= sin.(cos.(Y))
+```
+
+## DataFrame
+```{julia}
+using DataFrames
+df = DataFrame(A=1:4, B=["M", "F", "F", "M"])
+```

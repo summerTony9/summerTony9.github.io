@@ -119,6 +119,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   }
 }</script>
 <style>html{ scroll-behavior: smooth; }</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 
 
 <link rel="stylesheet" href="../styles.css">
@@ -230,6 +233,23 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <li><a href="#没有返回值-return-noting" id="toc-没有返回值-return-noting" class="nav-link" data-scroll-target="#没有返回值-return-noting">没有返回值 return noting</a></li>
   <li><a href="#匿名函数" id="toc-匿名函数" class="nav-link" data-scroll-target="#匿名函数">匿名函数</a></li>
   </ul></li>
+  <li><a href="#元组" id="toc-元组" class="nav-link" data-scroll-target="#元组">元组</a>
+  <ul class="collapse">
+  <li><a href="#使用下标访问元组" id="toc-使用下标访问元组" class="nav-link" data-scroll-target="#使用下标访问元组">使用下标访问元组</a></li>
+  <li><a href="#使用key访问元组" id="toc-使用key访问元组" class="nav-link" data-scroll-target="#使用key访问元组">使用key访问元组</a></li>
+  </ul></li>
+  <li><a href="#do" id="toc-do" class="nav-link" data-scroll-target="#do">do</a></li>
+  <li><a href="#管道函数" id="toc-管道函数" class="nav-link" data-scroll-target="#管道函数">管道函数</a>
+  <ul class="collapse">
+  <li><a href="#管道函数配合广播" id="toc-管道函数配合广播" class="nav-link" data-scroll-target="#管道函数配合广播">管道函数配合广播</a></li>
+  </ul></li>
+  <li><a href="#函数的向量化操作" id="toc-函数的向量化操作" class="nav-link" data-scroll-target="#函数的向量化操作">函数的向量化操作</a>
+  <ul class="collapse">
+  <li><a href="#常数和向量" id="toc-常数和向量" class="nav-link" data-scroll-target="#常数和向量">常数和向量</a></li>
+  <li><a href="#向量和向量" id="toc-向量和向量" class="nav-link" data-scroll-target="#向量和向量">向量和向量</a></li>
+  <li><a href="#宏" id="toc-宏" class="nav-link" data-scroll-target="#宏"><span class="citation" data-cites="宏">@宏</span></a></li>
+  </ul></li>
+  <li><a href="#dataframe" id="toc-dataframe" class="nav-link" data-scroll-target="#dataframe">DataFrame</a></li>
   </ul>
 </nav>
     </div>
@@ -368,11 +388,136 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
  10</code></pre>
 </div>
 </div>
+</section>
+</section>
+<section id="元组" class="level2">
+<h2 class="anchored" data-anchor-id="元组">元组</h2>
+<div class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> (a<span class="op">=</span><span class="fl">2</span>, b<span class="op">=</span><span class="fl">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="12">
+<pre><code>(a = 2, b = 3)</code></pre>
+</div>
+</div>
+<section id="使用下标访问元组" class="level3">
+<h3 class="anchored" data-anchor-id="使用下标访问元组">使用下标访问元组</h3>
+<div class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>x[<span class="fl">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="13">
+<pre><code>2</code></pre>
+</div>
+</div>
+</section>
+<section id="使用key访问元组" class="level3">
+<h3 class="anchored" data-anchor-id="使用key访问元组">使用key访问元组</h3>
+<div class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>x.a</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="14">
+<pre><code>2</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="do" class="level2">
+<h2 class="anchored" data-anchor-id="do">do</h2>
+<p>do x 语法创建一个带有参数 x 的匿名函数，并将其作为第一个参数传递给 map。 类似地，do a,b 将创建一个有两个参数的匿名函数。 请注意，do (a,b) 将创建一个单参数匿名函数，其参数是一个要解构的元组。 一个简单的 do 会声明接下来是一个形式为 () -&gt; … 的匿名函数。</p>
+<div class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">map</span>([<span class="op">-</span><span class="fl">2</span>, <span class="fl">0</span>, <span class="fl">10</span>]) <span class="cf">do</span> x</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> x <span class="op">&lt;</span> <span class="fl">0</span> <span class="op">&amp;&amp;</span> <span class="fu">iseven</span>(x)</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="fl">0</span></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elseif</span> x <span class="op">==</span> <span class="fl">0</span></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="fl">1</span></span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span></span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> x</span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a><span class="cf">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="15">
+<pre><code>3-element Vector{Int64}:
+  0
+  1
+ 10</code></pre>
+</div>
+</div>
+</section>
+<section id="管道函数" class="level2">
+<h2 class="anchored" data-anchor-id="管道函数">管道函数</h2>
+<div class="cell" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="fl">1</span><span class="op">:</span><span class="fl">10</span> <span class="op">|&gt;</span> sum <span class="op">|&gt;</span> sqrt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="16">
+<pre><code>7.416198487095663</code></pre>
+</div>
+</div>
+<section id="管道函数配合广播" class="level3">
+<h3 class="anchored" data-anchor-id="管道函数配合广播">管道函数配合广播</h3>
+<div class="cell" data-execution_count="16">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>[<span class="st">"a"</span>, <span class="st">"list"</span>, <span class="st">"of"</span>, <span class="st">"strings"</span>] <span class="op">.|&gt;</span> [uppercase, reverse, titlecase, length]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="17">
+<pre><code>4-element Vector{Any}:
+  "A"
+  "tsil"
+  "Of"
+ 7</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="函数的向量化操作" class="level2">
+<h2 class="anchored" data-anchor-id="函数的向量化操作">函数的向量化操作</h2>
+<section id="常数和向量" class="level3">
+<h3 class="anchored" data-anchor-id="常数和向量">常数和向量</h3>
+<div class="cell" data-execution_count="17">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">f</span>(x, y) <span class="op">=</span> <span class="fl">3</span>x<span class="op">+</span><span class="fl">4</span>y</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>A <span class="op">=</span> [<span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span>]</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="fu">f</span>.(<span class="cn">pi</span>, A)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="18">
+<pre><code>3-element Vector{Float64}:
+ 13.42477796076938
+ 17.42477796076938
+ 21.42477796076938</code></pre>
+</div>
+</div>
+</section>
+<section id="向量和向量" class="level3">
+<h3 class="anchored" data-anchor-id="向量和向量">向量和向量</h3>
+<div class="cell" data-execution_count="18">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>B <span class="op">=</span> [<span class="fl">4</span>, <span class="fl">5</span>, <span class="fl">6</span>]</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="fu">f</span>.(A, B)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="19">
+<pre><code>3-element Vector{Int64}:
+ 19
+ 26
+ 33</code></pre>
+</div>
+</div>
+</section>
+<section id="宏" class="level3">
+<h3 class="anchored" data-anchor-id="宏"><span class="citation" data-cites="宏">@宏</span></h3>
+<div class="cell" data-execution_count="19">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>Y <span class="op">=</span> [<span class="fl">1</span>., <span class="fl">2</span>., <span class="fl">3</span>.]</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> <span class="fu">similar</span>(Y)</span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>@. X <span class="op">=</span> <span class="fu">sin</span>(<span class="fu">cos</span>(Y)) <span class="co"># equivalent to X .= sin.(cos.(Y))</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="20">
+<pre><code>3-element Vector{Float64}:
+  0.5143952585235492
+ -0.4042391538522658
+ -0.8360218615377305</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="dataframe" class="level2">
+<h2 class="anchored" data-anchor-id="dataframe">DataFrame</h2>
+<div class="cell" data-execution_count="20">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">DataFrames</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> <span class="fu">DataFrame</span>(A<span class="op">=</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span>, B<span class="op">=</span>[<span class="st">"M"</span>, <span class="st">"F"</span>, <span class="st">"F"</span>, <span class="st">"M"</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="21">
+
+<div class="data-frame"><p>4 rows × 2 columns</p><table class="data-frame table table-sm table-striped"><thead><tr><th></th><th>A</th><th>B</th></tr><tr><th></th><th title="Int64">Int64</th><th title="String">String</th></tr></thead><tbody><tr><th>1</th><td>1</td><td>M</td></tr><tr><th>2</th><td>2</td><td>F</td></tr><tr><th>3</th><td>3</td><td>F</td></tr><tr><th>4</th><td>4</td><td>M</td></tr></tbody></table></div>
+</div>
+</div>
 
 
 <!-- -->
 
-</section>
 </section>
 
 </main> <!-- /main -->
@@ -536,85 +681,151 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="sourceCode" id="cb20" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Learn Julia"</span></span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="an">jupyter:</span><span class="co"> julia-1.8</span></span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a><span class="fu">## 画图预览</span></span>
-<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>Plot function pair (x(u), y(u)). </span>
-<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>See @fig-parametric for an example.</span>
-<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a><span class="in">```{julia}</span></span>
-<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-parametric</span></span>
-<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "Parametric Plots"</span></span>
-<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a>using Plots</span>
-<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a>plot(<span class="fu">sin</span>, </span>
-<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a>     x-&gt;<span class="fu">sin</span>(<span class="dv">2</span>x), </span>
-<span id="cb20-21"><a href="#cb20-21" aria-hidden="true" tabindex="-1"></a>     <span class="dv">0</span>, </span>
-<span id="cb20-22"><a href="#cb20-22" aria-hidden="true" tabindex="-1"></a>     <span class="dv">2</span>π, </span>
-<span id="cb20-23"><a href="#cb20-23" aria-hidden="true" tabindex="-1"></a>     leg=false, </span>
-<span id="cb20-24"><a href="#cb20-24" aria-hidden="true" tabindex="-1"></a>     fill=(<span class="dv">0</span>,:lavender))</span>
-<span id="cb20-25"><a href="#cb20-25" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb20-26"><a href="#cb20-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-27"><a href="#cb20-27" aria-hidden="true" tabindex="-1"></a><span class="fu">## 查看变量类型</span></span>
-<span id="cb20-30"><a href="#cb20-30" aria-hidden="true" tabindex="-1"></a><span class="in">```{julia}</span></span>
-<span id="cb20-31"><a href="#cb20-31" aria-hidden="true" tabindex="-1"></a>x = <span class="dv">10</span></span>
-<span id="cb20-32"><a href="#cb20-32" aria-hidden="true" tabindex="-1"></a>typeof(x)</span>
-<span id="cb20-33"><a href="#cb20-33" aria-hidden="true" tabindex="-1"></a><span class="ot">```</span></span>
-<span id="cb20-34"><a href="#cb20-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-35"><a href="#cb20-35" aria-hidden="true" tabindex="-1"></a><span class="st">## 多项式支持</span></span>
-<span id="cb20-38"><a href="#cb20-38" aria-hidden="true" tabindex="-1"></a><span class="in">```{julia}</span></span>
-<span id="cb20-39"><a href="#cb20-39" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span>x^<span class="dv">2</span> - <span class="dv">3</span>x + <span class="dv">1</span></span>
-<span id="cb20-40"><a href="#cb20-40" aria-hidden="true" tabindex="-1"></a><span class="ot">```</span></span>
-<span id="cb20-41"><a href="#cb20-41" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-42"><a href="#cb20-42" aria-hidden="true" tabindex="-1"></a><span class="st">## 向量化操作</span></span>
-<span id="cb20-45"><a href="#cb20-45" aria-hidden="true" tabindex="-1"></a><span class="in">```{julia}</span></span>
-<span id="cb20-46"><a href="#cb20-46" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>] .^ <span class="dv">3</span></span>
-<span id="cb20-47"><a href="#cb20-47" aria-hidden="true" tabindex="-1"></a><span class="ot">```</span></span>
-<span id="cb20-48"><a href="#cb20-48" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-49"><a href="#cb20-49" aria-hidden="true" tabindex="-1"></a><span class="st">## 类型转换</span></span>
-<span id="cb20-52"><a href="#cb20-52" aria-hidden="true" tabindex="-1"></a><span class="in">```{julia}</span></span>
-<span id="cb20-53"><a href="#cb20-53" aria-hidden="true" tabindex="-1"></a>x = <span class="fl">1.5</span></span>
-<span id="cb20-54"><a href="#cb20-54" aria-hidden="true" tabindex="-1"></a>round(x)</span>
-<span id="cb20-55"><a href="#cb20-55" aria-hidden="true" tabindex="-1"></a><span class="ot">```</span></span>
-<span id="cb20-58"><a href="#cb20-58" aria-hidden="true" tabindex="-1"></a><span class="in">```{julia}</span></span>
-<span id="cb20-59"><a href="#cb20-59" aria-hidden="true" tabindex="-1"></a>Int(round(x))</span>
-<span id="cb20-60"><a href="#cb20-60" aria-hidden="true" tabindex="-1"></a><span class="ot">```</span></span>
-<span id="cb20-61"><a href="#cb20-61" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-62"><a href="#cb20-62" aria-hidden="true" tabindex="-1"></a><span class="st">## 函数</span></span>
-<span id="cb20-65"><a href="#cb20-65" aria-hidden="true" tabindex="-1"></a><span class="in">```{julia}</span></span>
-<span id="cb20-66"><a href="#cb20-66" aria-hidden="true" tabindex="-1"></a>∑(x, y) = x + y</span>
-<span id="cb20-67"><a href="#cb20-67" aria-hidden="true" tabindex="-1"></a>∑(<span class="dv">1</span>, <span class="dv">2</span>)</span>
-<span id="cb20-68"><a href="#cb20-68" aria-hidden="true" tabindex="-1"></a><span class="ot">```</span></span>
-<span id="cb20-69"><a href="#cb20-69" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-70"><a href="#cb20-70" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-71"><a href="#cb20-71" aria-hidden="true" tabindex="-1"></a><span class="st">### 函数可以包含类型</span></span>
-<span id="cb20-74"><a href="#cb20-74" aria-hidden="true" tabindex="-1"></a><span class="in">```{julia}</span></span>
-<span id="cb20-75"><a href="#cb20-75" aria-hidden="true" tabindex="-1"></a>function ∑(<span class="fu">x::Integer</span>, <span class="fu">y::Integer</span>)::Integer</span>
-<span id="cb20-76"><a href="#cb20-76" aria-hidden="true" tabindex="-1"></a>    x + y</span>
-<span id="cb20-77"><a href="#cb20-77" aria-hidden="true" tabindex="-1"></a>end</span>
-<span id="cb20-78"><a href="#cb20-78" aria-hidden="true" tabindex="-1"></a>∑(<span class="dv">1</span>, <span class="dv">2</span>)</span>
-<span id="cb20-79"><a href="#cb20-79" aria-hidden="true" tabindex="-1"></a><span class="ot">```</span></span>
-<span id="cb20-80"><a href="#cb20-80" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-81"><a href="#cb20-81" aria-hidden="true" tabindex="-1"></a><span class="st">### 没有返回值 return noting</span></span>
-<span id="cb20-84"><a href="#cb20-84" aria-hidden="true" tabindex="-1"></a><span class="in">```{julia}</span></span>
-<span id="cb20-85"><a href="#cb20-85" aria-hidden="true" tabindex="-1"></a>function printx(x)</span>
-<span id="cb20-86"><a href="#cb20-86" aria-hidden="true" tabindex="-1"></a>    println(<span class="ot">"</span><span class="st">x = </span><span class="dt">$x</span><span class="ot">"</span>)</span>
-<span id="cb20-87"><a href="#cb20-87" aria-hidden="true" tabindex="-1"></a>    <span class="kw">return</span> nothing</span>
-<span id="cb20-88"><a href="#cb20-88" aria-hidden="true" tabindex="-1"></a>end</span>
-<span id="cb20-89"><a href="#cb20-89" aria-hidden="true" tabindex="-1"></a><span class="ot">```</span></span>
-<span id="cb20-90"><a href="#cb20-90" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-91"><a href="#cb20-91" aria-hidden="true" tabindex="-1"></a><span class="st">### 匿名函数</span></span>
-<span id="cb20-94"><a href="#cb20-94" aria-hidden="true" tabindex="-1"></a><span class="in">```{julia}</span></span>
-<span id="cb20-95"><a href="#cb20-95" aria-hidden="true" tabindex="-1"></a><span class="fu">map</span>(</span>
-<span id="cb20-96"><a href="#cb20-96" aria-hidden="true" tabindex="-1"></a>    x -&gt; x^<span class="dv">2</span> + <span class="dv">1</span>,</span>
-<span id="cb20-97"><a href="#cb20-97" aria-hidden="true" tabindex="-1"></a>    [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>]</span>
-<span id="cb20-98"><a href="#cb20-98" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb20-99"><a href="#cb20-99" aria-hidden="true" tabindex="-1"></a><span class="ot">```</span></span>
+<div class="sourceCode" id="cb39" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Learn Julia"</span></span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a><span class="an">jupyter:</span><span class="co"> julia-1.8</span></span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a><span class="fu">## 画图预览</span></span>
+<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a>Plot function pair (x(u), y(u)). </span>
+<span id="cb39-9"><a href="#cb39-9" aria-hidden="true" tabindex="-1"></a>See @fig-parametric for an example.</span>
+<span id="cb39-10"><a href="#cb39-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-13"><a href="#cb39-13" aria-hidden="true" tabindex="-1"></a><span class="in">```{julia}</span></span>
+<span id="cb39-14"><a href="#cb39-14" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-parametric</span></span>
+<span id="cb39-15"><a href="#cb39-15" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: "Parametric Plots"</span></span>
+<span id="cb39-16"><a href="#cb39-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-17"><a href="#cb39-17" aria-hidden="true" tabindex="-1"></a>using Plots</span>
+<span id="cb39-18"><a href="#cb39-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-19"><a href="#cb39-19" aria-hidden="true" tabindex="-1"></a>plot(<span class="fu">sin</span>, </span>
+<span id="cb39-20"><a href="#cb39-20" aria-hidden="true" tabindex="-1"></a>     x-&gt;<span class="fu">sin</span>(<span class="dv">2</span>x), </span>
+<span id="cb39-21"><a href="#cb39-21" aria-hidden="true" tabindex="-1"></a>     <span class="dv">0</span>, </span>
+<span id="cb39-22"><a href="#cb39-22" aria-hidden="true" tabindex="-1"></a>     <span class="dv">2</span>π, </span>
+<span id="cb39-23"><a href="#cb39-23" aria-hidden="true" tabindex="-1"></a>     leg=false, </span>
+<span id="cb39-24"><a href="#cb39-24" aria-hidden="true" tabindex="-1"></a>     fill=(<span class="dv">0</span>,:lavender))</span>
+<span id="cb39-25"><a href="#cb39-25" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb39-26"><a href="#cb39-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-27"><a href="#cb39-27" aria-hidden="true" tabindex="-1"></a><span class="fu">## 查看变量类型</span></span>
+<span id="cb39-30"><a href="#cb39-30" aria-hidden="true" tabindex="-1"></a><span class="in">```{julia}</span></span>
+<span id="cb39-31"><a href="#cb39-31" aria-hidden="true" tabindex="-1"></a>x = <span class="dv">10</span></span>
+<span id="cb39-32"><a href="#cb39-32" aria-hidden="true" tabindex="-1"></a>typeof(x)</span>
+<span id="cb39-33"><a href="#cb39-33" aria-hidden="true" tabindex="-1"></a><span class="ot">```</span></span>
+<span id="cb39-34"><a href="#cb39-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-35"><a href="#cb39-35" aria-hidden="true" tabindex="-1"></a><span class="st">## 多项式支持</span></span>
+<span id="cb39-38"><a href="#cb39-38" aria-hidden="true" tabindex="-1"></a><span class="in">```{julia}</span></span>
+<span id="cb39-39"><a href="#cb39-39" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span>x^<span class="dv">2</span> - <span class="dv">3</span>x + <span class="dv">1</span></span>
+<span id="cb39-40"><a href="#cb39-40" aria-hidden="true" tabindex="-1"></a><span class="ot">```</span></span>
+<span id="cb39-41"><a href="#cb39-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-42"><a href="#cb39-42" aria-hidden="true" tabindex="-1"></a><span class="st">## 向量化操作</span></span>
+<span id="cb39-45"><a href="#cb39-45" aria-hidden="true" tabindex="-1"></a><span class="in">```{julia}</span></span>
+<span id="cb39-46"><a href="#cb39-46" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>] .^ <span class="dv">3</span></span>
+<span id="cb39-47"><a href="#cb39-47" aria-hidden="true" tabindex="-1"></a><span class="ot">```</span></span>
+<span id="cb39-48"><a href="#cb39-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-49"><a href="#cb39-49" aria-hidden="true" tabindex="-1"></a><span class="st">## 类型转换</span></span>
+<span id="cb39-52"><a href="#cb39-52" aria-hidden="true" tabindex="-1"></a><span class="in">```{julia}</span></span>
+<span id="cb39-53"><a href="#cb39-53" aria-hidden="true" tabindex="-1"></a>x = <span class="fl">1.5</span></span>
+<span id="cb39-54"><a href="#cb39-54" aria-hidden="true" tabindex="-1"></a>round(x)</span>
+<span id="cb39-55"><a href="#cb39-55" aria-hidden="true" tabindex="-1"></a><span class="ot">```</span></span>
+<span id="cb39-58"><a href="#cb39-58" aria-hidden="true" tabindex="-1"></a><span class="in">```{julia}</span></span>
+<span id="cb39-59"><a href="#cb39-59" aria-hidden="true" tabindex="-1"></a>Int(round(x))</span>
+<span id="cb39-60"><a href="#cb39-60" aria-hidden="true" tabindex="-1"></a><span class="ot">```</span></span>
+<span id="cb39-61"><a href="#cb39-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-62"><a href="#cb39-62" aria-hidden="true" tabindex="-1"></a><span class="st">## 函数</span></span>
+<span id="cb39-65"><a href="#cb39-65" aria-hidden="true" tabindex="-1"></a><span class="in">```{julia}</span></span>
+<span id="cb39-66"><a href="#cb39-66" aria-hidden="true" tabindex="-1"></a>∑(x, y) = x + y</span>
+<span id="cb39-67"><a href="#cb39-67" aria-hidden="true" tabindex="-1"></a>∑(<span class="dv">1</span>, <span class="dv">2</span>)</span>
+<span id="cb39-68"><a href="#cb39-68" aria-hidden="true" tabindex="-1"></a><span class="ot">```</span></span>
+<span id="cb39-69"><a href="#cb39-69" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-70"><a href="#cb39-70" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-71"><a href="#cb39-71" aria-hidden="true" tabindex="-1"></a><span class="st">### 函数可以包含类型</span></span>
+<span id="cb39-74"><a href="#cb39-74" aria-hidden="true" tabindex="-1"></a><span class="in">```{julia}</span></span>
+<span id="cb39-75"><a href="#cb39-75" aria-hidden="true" tabindex="-1"></a>function ∑(<span class="fu">x::Integer</span>, <span class="fu">y::Integer</span>)::Integer</span>
+<span id="cb39-76"><a href="#cb39-76" aria-hidden="true" tabindex="-1"></a>    x + y</span>
+<span id="cb39-77"><a href="#cb39-77" aria-hidden="true" tabindex="-1"></a>end</span>
+<span id="cb39-78"><a href="#cb39-78" aria-hidden="true" tabindex="-1"></a>∑(<span class="dv">1</span>, <span class="dv">2</span>)</span>
+<span id="cb39-79"><a href="#cb39-79" aria-hidden="true" tabindex="-1"></a><span class="ot">```</span></span>
+<span id="cb39-80"><a href="#cb39-80" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-81"><a href="#cb39-81" aria-hidden="true" tabindex="-1"></a><span class="st">### 没有返回值 return noting</span></span>
+<span id="cb39-84"><a href="#cb39-84" aria-hidden="true" tabindex="-1"></a><span class="in">```{julia}</span></span>
+<span id="cb39-85"><a href="#cb39-85" aria-hidden="true" tabindex="-1"></a>function printx(x)</span>
+<span id="cb39-86"><a href="#cb39-86" aria-hidden="true" tabindex="-1"></a>    println(<span class="ot">"</span><span class="st">x = </span><span class="dt">$x</span><span class="ot">"</span>)</span>
+<span id="cb39-87"><a href="#cb39-87" aria-hidden="true" tabindex="-1"></a>    <span class="kw">return</span> nothing</span>
+<span id="cb39-88"><a href="#cb39-88" aria-hidden="true" tabindex="-1"></a>end</span>
+<span id="cb39-89"><a href="#cb39-89" aria-hidden="true" tabindex="-1"></a><span class="ot">```</span></span>
+<span id="cb39-90"><a href="#cb39-90" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-91"><a href="#cb39-91" aria-hidden="true" tabindex="-1"></a><span class="st">### 匿名函数</span></span>
+<span id="cb39-94"><a href="#cb39-94" aria-hidden="true" tabindex="-1"></a><span class="in">```{julia}</span></span>
+<span id="cb39-95"><a href="#cb39-95" aria-hidden="true" tabindex="-1"></a><span class="fu">map</span>(</span>
+<span id="cb39-96"><a href="#cb39-96" aria-hidden="true" tabindex="-1"></a>    x -&gt; x^<span class="dv">2</span> + <span class="dv">1</span>,</span>
+<span id="cb39-97"><a href="#cb39-97" aria-hidden="true" tabindex="-1"></a>    [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>]</span>
+<span id="cb39-98"><a href="#cb39-98" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb39-99"><a href="#cb39-99" aria-hidden="true" tabindex="-1"></a><span class="ot">```</span></span>
+<span id="cb39-100"><a href="#cb39-100" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-101"><a href="#cb39-101" aria-hidden="true" tabindex="-1"></a><span class="st">## 元组</span></span>
+<span id="cb39-104"><a href="#cb39-104" aria-hidden="true" tabindex="-1"></a><span class="in">```{julia}</span></span>
+<span id="cb39-105"><a href="#cb39-105" aria-hidden="true" tabindex="-1"></a>x = (a=<span class="dv">2</span>, b=<span class="dv">3</span>)</span>
+<span id="cb39-106"><a href="#cb39-106" aria-hidden="true" tabindex="-1"></a><span class="ot">```</span></span>
+<span id="cb39-107"><a href="#cb39-107" aria-hidden="true" tabindex="-1"></a><span class="st">### 使用下标访问元组</span></span>
+<span id="cb39-110"><a href="#cb39-110" aria-hidden="true" tabindex="-1"></a><span class="in">```{julia}</span></span>
+<span id="cb39-111"><a href="#cb39-111" aria-hidden="true" tabindex="-1"></a>x[<span class="dv">1</span>]</span>
+<span id="cb39-112"><a href="#cb39-112" aria-hidden="true" tabindex="-1"></a><span class="ot">```</span></span>
+<span id="cb39-113"><a href="#cb39-113" aria-hidden="true" tabindex="-1"></a><span class="st">### 使用key访问元组</span></span>
+<span id="cb39-116"><a href="#cb39-116" aria-hidden="true" tabindex="-1"></a><span class="in">```{julia}</span></span>
+<span id="cb39-117"><a href="#cb39-117" aria-hidden="true" tabindex="-1"></a>x.a</span>
+<span id="cb39-118"><a href="#cb39-118" aria-hidden="true" tabindex="-1"></a><span class="ot">```</span></span>
+<span id="cb39-119"><a href="#cb39-119" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-120"><a href="#cb39-120" aria-hidden="true" tabindex="-1"></a><span class="st">## do</span></span>
+<span id="cb39-121"><a href="#cb39-121" aria-hidden="true" tabindex="-1"></a><span class="st">do x 语法创建一个带有参数 x 的匿名函数，并将其作为第一个参数传递给 map。 类似地，do a,b 将创建一个有两个参数的匿名函数。 请注意，do (a,b) 将创建一个单参数匿名函数，其参数是一个要解构的元组。 一个简单的 do 会声明接下来是一个形式为 () -&gt; ... 的匿名函数。</span></span>
+<span id="cb39-122"><a href="#cb39-122" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-125"><a href="#cb39-125" aria-hidden="true" tabindex="-1"></a><span class="in">```{julia}</span></span>
+<span id="cb39-126"><a href="#cb39-126" aria-hidden="true" tabindex="-1"></a><span class="fu">map</span>([-<span class="dv">2</span>, <span class="dv">0</span>, <span class="dv">10</span>]) <span class="kw">do</span> x</span>
+<span id="cb39-127"><a href="#cb39-127" aria-hidden="true" tabindex="-1"></a>    <span class="kw">if</span> x &lt; <span class="dv">0</span> &amp;&amp; iseven(x)</span>
+<span id="cb39-128"><a href="#cb39-128" aria-hidden="true" tabindex="-1"></a>        <span class="kw">return</span> <span class="dv">0</span></span>
+<span id="cb39-129"><a href="#cb39-129" aria-hidden="true" tabindex="-1"></a>    elseif x == <span class="dv">0</span></span>
+<span id="cb39-130"><a href="#cb39-130" aria-hidden="true" tabindex="-1"></a>        <span class="kw">return</span> <span class="dv">1</span></span>
+<span id="cb39-131"><a href="#cb39-131" aria-hidden="true" tabindex="-1"></a>    <span class="kw">else</span></span>
+<span id="cb39-132"><a href="#cb39-132" aria-hidden="true" tabindex="-1"></a>        <span class="kw">return</span> x</span>
+<span id="cb39-133"><a href="#cb39-133" aria-hidden="true" tabindex="-1"></a>    end</span>
+<span id="cb39-134"><a href="#cb39-134" aria-hidden="true" tabindex="-1"></a>end</span>
+<span id="cb39-135"><a href="#cb39-135" aria-hidden="true" tabindex="-1"></a><span class="ot">```</span></span>
+<span id="cb39-136"><a href="#cb39-136" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-137"><a href="#cb39-137" aria-hidden="true" tabindex="-1"></a><span class="st">## 管道函数</span></span>
+<span id="cb39-140"><a href="#cb39-140" aria-hidden="true" tabindex="-1"></a><span class="in">```{julia}</span></span>
+<span id="cb39-141"><a href="#cb39-141" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span>:<span class="dv">10</span> |&gt; sum |&gt; <span class="fu">sqrt</span></span>
+<span id="cb39-142"><a href="#cb39-142" aria-hidden="true" tabindex="-1"></a><span class="ot">```</span></span>
+<span id="cb39-143"><a href="#cb39-143" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-144"><a href="#cb39-144" aria-hidden="true" tabindex="-1"></a><span class="st">### 管道函数配合广播</span></span>
+<span id="cb39-147"><a href="#cb39-147" aria-hidden="true" tabindex="-1"></a><span class="in">```{julia}</span></span>
+<span id="cb39-148"><a href="#cb39-148" aria-hidden="true" tabindex="-1"></a>[<span class="ot">"</span><span class="st">a</span><span class="ot">"</span>, <span class="ot">"</span><span class="st">list</span><span class="ot">"</span>, <span class="ot">"</span><span class="st">of</span><span class="ot">"</span>, <span class="ot">"</span><span class="st">strings</span><span class="ot">"</span>] .|&gt; [uppercase, <span class="fu">reverse</span>, titlecase, <span class="fu">length</span>]</span>
+<span id="cb39-149"><a href="#cb39-149" aria-hidden="true" tabindex="-1"></a><span class="ot">```</span></span>
+<span id="cb39-150"><a href="#cb39-150" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-151"><a href="#cb39-151" aria-hidden="true" tabindex="-1"></a><span class="st">## 函数的向量化操作</span></span>
+<span id="cb39-152"><a href="#cb39-152" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-153"><a href="#cb39-153" aria-hidden="true" tabindex="-1"></a><span class="st">### 常数和向量</span></span>
+<span id="cb39-156"><a href="#cb39-156" aria-hidden="true" tabindex="-1"></a><span class="in">```{julia}</span></span>
+<span id="cb39-157"><a href="#cb39-157" aria-hidden="true" tabindex="-1"></a>f(x, y) = <span class="dv">3</span>x+<span class="dv">4</span>y</span>
+<span id="cb39-158"><a href="#cb39-158" aria-hidden="true" tabindex="-1"></a>A = [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>]</span>
+<span id="cb39-159"><a href="#cb39-159" aria-hidden="true" tabindex="-1"></a>f.(pi, A)</span>
+<span id="cb39-160"><a href="#cb39-160" aria-hidden="true" tabindex="-1"></a><span class="ot">```</span></span>
+<span id="cb39-161"><a href="#cb39-161" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-162"><a href="#cb39-162" aria-hidden="true" tabindex="-1"></a><span class="st">### 向量和向量</span></span>
+<span id="cb39-165"><a href="#cb39-165" aria-hidden="true" tabindex="-1"></a><span class="in">```{julia}</span></span>
+<span id="cb39-166"><a href="#cb39-166" aria-hidden="true" tabindex="-1"></a>B = [<span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>]</span>
+<span id="cb39-167"><a href="#cb39-167" aria-hidden="true" tabindex="-1"></a>f.(A, B)</span>
+<span id="cb39-168"><a href="#cb39-168" aria-hidden="true" tabindex="-1"></a><span class="ot">```</span></span>
+<span id="cb39-169"><a href="#cb39-169" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-170"><a href="#cb39-170" aria-hidden="true" tabindex="-1"></a><span class="st">### </span><span class="dt">@宏</span></span>
+<span id="cb39-173"><a href="#cb39-173" aria-hidden="true" tabindex="-1"></a><span class="in">```{julia}</span></span>
+<span id="cb39-174"><a href="#cb39-174" aria-hidden="true" tabindex="-1"></a>Y = [<span class="dv">1</span>., <span class="dv">2</span>., <span class="dv">3</span>.]</span>
+<span id="cb39-175"><a href="#cb39-175" aria-hidden="true" tabindex="-1"></a>X = similar(Y)</span>
+<span id="cb39-176"><a href="#cb39-176" aria-hidden="true" tabindex="-1"></a><span class="dt">@</span>. X = <span class="fu">sin</span>(<span class="fu">cos</span>(Y)) <span class="co"># equivalent to X .= sin.(cos.(Y))</span></span>
+<span id="cb39-177"><a href="#cb39-177" aria-hidden="true" tabindex="-1"></a><span class="ot">```</span></span>
+<span id="cb39-178"><a href="#cb39-178" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-179"><a href="#cb39-179" aria-hidden="true" tabindex="-1"></a><span class="st">## DataFrame</span></span>
+<span id="cb39-182"><a href="#cb39-182" aria-hidden="true" tabindex="-1"></a><span class="in">```{julia}</span></span>
+<span id="cb39-183"><a href="#cb39-183" aria-hidden="true" tabindex="-1"></a>using DataFrames</span>
+<span id="cb39-184"><a href="#cb39-184" aria-hidden="true" tabindex="-1"></a>df = DataFrame(A=<span class="dv">1</span>:<span class="dv">4</span>, B=[<span class="ot">"</span><span class="st">M</span><span class="ot">"</span>, <span class="ot">"</span><span class="st">F</span><span class="ot">"</span>, <span class="ot">"</span><span class="st">F</span><span class="ot">"</span>, <span class="ot">"</span><span class="st">M</span><span class="ot">"</span>])</span>
+<span id="cb39-185"><a href="#cb39-185" aria-hidden="true" tabindex="-1"></a><span class="ot">```</span></span>
 </code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
