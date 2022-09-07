@@ -19,6 +19,7 @@ filtered_data = (
         "date >= '2020-12-25'"
     )
 )
+
 fig = px.box(
     filtered_data,
     x="date",

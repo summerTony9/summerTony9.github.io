@@ -2,4 +2,4 @@
 title: "Python"
 ---
 
-[abc](kaggle_plaground.qmd)
+[kaggle plaground](kaggle_plaground.qmd)
