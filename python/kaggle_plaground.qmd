@@ -1,0 +1,28 @@
+---
+title: "kaggle Plaground"
+---
+
+```{python}
+import pandas as pd
+pd.__version__
+train_df = pd.read_csv("tabular-playground-series-sep-2022/train.csv")
+train_df
+train_df.country.unique()
+import plotly.express as px
+filtered_data = (
+    train_df
+    .query(
+        "country == 'Belgium'"
+    )
+    .query(
+        "date >= '2020-12-25'"
+    )
+)
+fig = px.box(
+    filtered_data,
+    x="date",
+    y="num_sold",
+    color="product"
+)
+fig.show()
+```
