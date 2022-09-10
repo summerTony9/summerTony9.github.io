@@ -2,4 +2,4 @@
 title: "Python"
 ---
 
-[kaggle plaground](kaggle_plaground.ipynb)
+[kaggle plaground](test.qmd)
