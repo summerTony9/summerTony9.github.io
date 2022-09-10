@@ -1,13 +1,11 @@
----
-title: "kaggle Plaground"
----
-
 ```{python}
+
 import pandas as pd
+import numpy as np
 train_df = pd.read_csv("tabular-playground-series-sep-2022/train.csv")
 train_df.country.unique()
+train_df
 ```
-
 ```{python}
 import plotly.express as px
 filtered_data = (
