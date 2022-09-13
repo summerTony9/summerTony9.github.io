@@ -11,20 +11,36 @@ library(tidyverse)
 ## TASKS
 
 ### 导入数据 
+
 ```{r}
 data("mtcars", package = "datasets")
 mtcars %>% head() %>% knitr::kable()
 ```
 
 ### 建立TASK
+
 ```{r}
 library("mlr3")
 
 task_mtcars = as_task_regr(mtcars, target = "mpg", id = "cars")
 print(task_mtcars)
 ```
+### 快速绘图
 
+```{r}
+library("mlr3viz")
+autoplot(task_mtcars, type = "pairs")
+```
 
+### Task API
+
+#### 数据的基本信息
+
+TASK中数据的行数与列数
+```{r}
+task_mtcars$nrow
+task_mtcars$ncol
+```
 
 
 

@@ -138,5 +138,12 @@
     "title": "Tabset Group",
     "section": "",
     "text": "多语言实现可以以下代码实现\n\n\n::: {.panel-tabset group=\"language\"}\n### R\n\n```{.r}\n#| warning: false\n\n# 防止导入tidyverse时的warning影响输出的整洁\nlibrary(tidyverse)\nmap(\n  1:100000,\n  \\(x){\n    x^2\n  }\n) -> ans\n```\n\n### Python\n\nTab content\n:::\n\n\n\n\n\n\nNote\n\n\n\n使用 ```` markdown可以将```转化为md内容\n\n\n\n\n\n\n\n\nNote\n\n\n\n使用 {.r} 代码就不会运行，使用{r}才会\n\n\n\n\n\n\nRPython\n\n\n\nlibrary(tidyverse)\nmap_dbl(\n  1:100,\n  \\(x){\n    x^2\n  }\n) -> ans\nans[1]\n\n[1] 1\n\n\n\n\nTab content"
+  },
+  {
+    "objectID": "R/mlr3_learn.html#tasks",
+    "href": "R/mlr3_learn.html#tasks",
+    "title": "mlr3",
+    "section": "TASKS",
+    "text": "TASKS\n\n导入数据\n\ndata(\"mtcars\", package = \"datasets\")\nmtcars %>% head() %>% knitr::kable()\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nmpg\ncyl\ndisp\nhp\ndrat\nwt\nqsec\nvs\nam\ngear\ncarb\n\n\n\n\nMazda RX4\n21.0\n6\n160\n110\n3.90\n2.620\n16.46\n0\n1\n4\n4\n\n\nMazda RX4 Wag\n21.0\n6\n160\n110\n3.90\n2.875\n17.02\n0\n1\n4\n4\n\n\nDatsun 710\n22.8\n4\n108\n93\n3.85\n2.320\n18.61\n1\n1\n4\n1\n\n\nHornet 4 Drive\n21.4\n6\n258\n110\n3.08\n3.215\n19.44\n1\n0\n3\n1\n\n\nHornet Sportabout\n18.7\n8\n360\n175\n3.15\n3.440\n17.02\n0\n0\n3\n2\n\n\nValiant\n18.1\n6\n225\n105\n2.76\n3.460\n20.22\n1\n0\n3\n1\n\n\n\n\n\n\n\n建立TASK\n\nlibrary(\"mlr3\")\n\ntask_mtcars = as_task_regr(mtcars, target = \"mpg\", id = \"cars\")\nprint(task_mtcars)\n\n<TaskRegr:cars> (32 x 11)\n* Target: mpg\n* Properties: -\n* Features (10):\n  - dbl (10): am, carb, cyl, disp, drat, gear, hp, qsec, vs, wt\n\n\n\n\n快速绘图\n\nlibrary(\"mlr3viz\")\nautoplot(task_mtcars, type = \"pairs\")\n\nRegistered S3 method overwritten by 'GGally':\n  method from   \n  +.gg   ggplot2\n\n\n\n\n\n\n\nTask API\n\n数据的基本信息\nTASK中数据的行数与列数\n\ntask_mtcars$nrow\n\n[1] 32\n\ntask_mtcars$ncol\n\n[1] 11"
   }
 ]
