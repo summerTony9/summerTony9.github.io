@@ -1,3 +1,43 @@
 ---
 title: "R"
 ---
+
+```{r}
+#| warning: false
+#| echo: false
+library(tidyverse)
+library(lubridate)
+
+files = list.files()
+
+map(
+  files,
+  function(file_name){
+    if(grepl(".qmd", file_name, fixed=TRUE)){
+      return(
+        file.info(file_name) %>%
+          rownames_to_column(var = "file_name") %>%
+          as_tibble() %>%
+          select(file_name, mtime)
+        )
+    }else{
+      return(data.frame())
+    }
+  }
+) %>% 
+  bind_rows() %>%
+  mutate(
+    file_name = str_c("[", file_name,"]", "(", file_name, ")"),
+  ) %>%
+  arrange(desc(mtime)) %>%
+  mutate(
+    mtime = as_date(mtime)
+  ) %>%
+  rename(
+    `文件名` = file_name,
+    `修改日期` = mtime
+  ) -> file_info_df
+
+```
+
+`r knitr::kable(file_info_df, format = "markdown")`

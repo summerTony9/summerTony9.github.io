@@ -7,6 +7,20 @@
     "text": "kaggle plaground"
   },
   {
+    "objectID": "python/test.html",
+    "href": "python/test.html",
+    "title": "Luyueti-Web",
+    "section": "",
+    "text": "import plotly.express as px\nfiltered_data = (\n    train_df\n    .query(\n        \"country == 'Belgium'\"\n    )\n    .query(\n        \"date >= '2020-12-25'\"\n    )\n)\n\nfig = px.box(\n    filtered_data,\n    x=\"date\",\n    y=\"num_sold\",\n    color=\"product\"\n)\nfig.show()"
+  },
+  {
+    "objectID": "R/index.html",
+    "href": "R/index.html",
+    "title": "R",
+    "section": "",
+    "text": "文件名\n修改日期\n\n\n\n\nmlr3_learn.qmd\n2022-09-13\n\n\nindex.qmd\n2022-09-13"
+  },
+  {
     "objectID": "index.html",
     "href": "index.html",
     "title": "个人介绍",
@@ -124,12 +138,5 @@
     "title": "Tabset Group",
     "section": "",
     "text": "多语言实现可以以下代码实现\n\n\n::: {.panel-tabset group=\"language\"}\n### R\n\n```{.r}\n#| warning: false\n\n# 防止导入tidyverse时的warning影响输出的整洁\nlibrary(tidyverse)\nmap(\n  1:100000,\n  \\(x){\n    x^2\n  }\n) -> ans\n```\n\n### Python\n\nTab content\n:::\n\n\n\n\n\n\nNote\n\n\n\n使用 ```` markdown可以将```转化为md内容\n\n\n\n\n\n\n\n\nNote\n\n\n\n使用 {.r} 代码就不会运行，使用{r}才会\n\n\n\n\n\n\nRPython\n\n\n\nlibrary(tidyverse)\nmap_dbl(\n  1:100,\n  \\(x){\n    x^2\n  }\n) -> ans\nans[1]\n\n[1] 1\n\n\n\n\nTab content"
-  },
-  {
-    "objectID": "python/test.html",
-    "href": "python/test.html",
-    "title": "Luyueti-Web",
-    "section": "",
-    "text": "import plotly.express as px\nfiltered_data = (\n    train_df\n    .query(\n        \"country == 'Belgium'\"\n    )\n    .query(\n        \"date >= '2020-12-25'\"\n    )\n)\n\nfig = px.box(\n    filtered_data,\n    x=\"date\",\n    y=\"num_sold\",\n    color=\"product\"\n)\nfig.show()"
   }
 ]
