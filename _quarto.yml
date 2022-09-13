@@ -4,7 +4,6 @@ project:
 
 website:
   title: "Luyueti-Web"
-  background: primary
   page-navigation: true
   navbar:
     left:

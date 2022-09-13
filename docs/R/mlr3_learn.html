@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.0.37">
+<meta name="generator" content="quarto-1.1.189">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -11,10 +11,15 @@
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
-span.underline{text-decoration: underline;}
-div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
 pre > code.sourceCode { white-space: pre; position: relative; }
 pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
@@ -53,7 +58,7 @@ code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
 code span.at { color: #7d9029; } /* Attribute */
 code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
+code span.bu { color: #008000; } /* BuiltIn */
 code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
 code span.ch { color: #4070a0; } /* Char */
 code span.cn { color: #880000; } /* Constant */
@@ -66,7 +71,7 @@ code span.er { color: #ff0000; font-weight: bold; } /* Error */
 code span.ex { } /* Extension */
 code span.fl { color: #40a070; } /* Float */
 code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
+code span.im { color: #008000; font-weight: bold; } /* Import */
 code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
 code span.kw { color: #007020; font-weight: bold; } /* Keyword */
 code span.op { color: #666666; } /* Operator */
@@ -128,9 +133,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <header id="quarto-header" class="headroom fixed-top">
     <nav class="navbar navbar-expand-lg navbar-dark ">
       <div class="navbar-container container-fluid">
-      <a class="navbar-brand" href="../index.html">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">Luyueti-Web</span>
-  </a>
+    </a>
+  </div>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
 </button>
@@ -159,31 +166,45 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc">
+        <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#tasks" id="toc-tasks" class="nav-link active" data-scroll-target="#tasks"> <span class="header-section-number">1</span> TASKS</a>
-  <ul class="collapse">
-  <li><a href="#导入数据" id="toc-导入数据" class="nav-link" data-scroll-target="#导入数据"> <span class="header-section-number">1.1</span> 导入数据</a></li>
-  <li><a href="#建立task" id="toc-建立task" class="nav-link" data-scroll-target="#建立task"> <span class="header-section-number">1.2</span> 建立TASK</a></li>
-  <li><a href="#快速绘图" id="toc-快速绘图" class="nav-link" data-scroll-target="#快速绘图"> <span class="header-section-number">1.3</span> 快速绘图</a></li>
-  <li><a href="#task-api" id="toc-task-api" class="nav-link" data-scroll-target="#task-api"> <span class="header-section-number">1.4</span> Task API</a>
-  <ul class="collapse">
-  <li><a href="#数据的基本信息" id="toc-数据的基本信息" class="nav-link" data-scroll-target="#数据的基本信息"> <span class="header-section-number">1.4.1</span> 数据的基本信息</a></li>
-  <li><a href="#对task中数据的修改" id="toc-对task中数据的修改" class="nav-link" data-scroll-target="#对task中数据的修改"> <span class="header-section-number">1.4.2</span> 对TASK中数据的修改</a></li>
+  <li><a href="#tasks" id="toc-tasks" class="nav-link active" data-scroll-target="#tasks"><span class="toc-section-number">1</span>  TASKS</a>
+  <ul>
+  <li><a href="#导入数据" id="toc-导入数据" class="nav-link" data-scroll-target="#导入数据"><span class="toc-section-number">1.1</span>  导入数据</a></li>
+  <li><a href="#建立task" id="toc-建立task" class="nav-link" data-scroll-target="#建立task"><span class="toc-section-number">1.2</span>  建立TASK</a></li>
+  <li><a href="#快速绘图" id="toc-快速绘图" class="nav-link" data-scroll-target="#快速绘图"><span class="toc-section-number">1.3</span>  快速绘图</a></li>
+  <li><a href="#task-api" id="toc-task-api" class="nav-link" data-scroll-target="#task-api"><span class="toc-section-number">1.4</span>  Task API</a>
+  <ul>
+  <li><a href="#数据的基本信息" id="toc-数据的基本信息" class="nav-link" data-scroll-target="#数据的基本信息"><span class="toc-section-number">1.4.1</span>  数据的基本信息</a></li>
+  <li><a href="#对task中数据的修改" id="toc-对task中数据的修改" class="nav-link" data-scroll-target="#对task中数据的修改"><span class="toc-section-number">1.4.2</span>  对TASK中数据的修改</a></li>
   </ul></li>
   </ul></li>
-  <li><a href="#learner" id="toc-learner" class="nav-link" data-scroll-target="#learner"> <span class="header-section-number">2</span> Learner</a>
-  <ul class="collapse">
-  <li><a href="#learner参数" id="toc-learner参数" class="nav-link" data-scroll-target="#learner参数"> <span class="header-section-number">2.1</span> Learner参数</a></li>
+  <li><a href="#learner" id="toc-learner" class="nav-link" data-scroll-target="#learner"><span class="toc-section-number">2</span>  Learner</a>
+  <ul>
+  <li><a href="#learner参数" id="toc-learner参数" class="nav-link" data-scroll-target="#learner参数"><span class="toc-section-number">2.1</span>  Learner参数</a></li>
   </ul></li>
-  <li><a href="#训练和预测" id="toc-训练和预测" class="nav-link" data-scroll-target="#训练和预测"> <span class="header-section-number">3</span> 训练和预测</a>
-  <ul class="collapse">
-  <li><a href="#训练" id="toc-训练" class="nav-link" data-scroll-target="#训练"> <span class="header-section-number">3.1</span> 训练</a></li>
-  <li><a href="#预测" id="toc-预测" class="nav-link" data-scroll-target="#预测"> <span class="header-section-number">3.2</span> 预测</a></li>
-  <li><a href="#测试集训练集" id="toc-测试集训练集" class="nav-link" data-scroll-target="#测试集训练集"> <span class="header-section-number">3.3</span> 测试集训练集</a></li>
-  <li><a href="#训练效果评估" id="toc-训练效果评估" class="nav-link" data-scroll-target="#训练效果评估"> <span class="header-section-number">3.4</span> 训练效果评估</a></li>
+  <li><a href="#训练和预测" id="toc-训练和预测" class="nav-link" data-scroll-target="#训练和预测"><span class="toc-section-number">3</span>  训练和预测</a>
+  <ul>
+  <li><a href="#训练" id="toc-训练" class="nav-link" data-scroll-target="#训练"><span class="toc-section-number">3.1</span>  训练</a></li>
+  <li><a href="#预测" id="toc-预测" class="nav-link" data-scroll-target="#预测"><span class="toc-section-number">3.2</span>  预测</a></li>
+  <li><a href="#测试集训练集" id="toc-测试集训练集" class="nav-link" data-scroll-target="#测试集训练集"><span class="toc-section-number">3.3</span>  测试集训练集</a></li>
+  <li><a href="#训练效果评估" id="toc-训练效果评估" class="nav-link" data-scroll-target="#训练效果评估"><span class="toc-section-number">3.4</span>  训练效果评估</a></li>
+  </ul></li>
+  <li><a href="#调参" id="toc-调参" class="nav-link" data-scroll-target="#调参"><span class="toc-section-number">4</span>  调参</a>
+  <ul>
+  <li><a href="#roc曲线和阈值" id="toc-roc曲线和阈值" class="nav-link" data-scroll-target="#roc曲线和阈值"><span class="toc-section-number">4.1</span>  ROC曲线和阈值</a>
+  <ul>
+  <li><a href="#划分训练集测试集" id="toc-划分训练集测试集" class="nav-link" data-scroll-target="#划分训练集测试集"><span class="toc-section-number">4.1.1</span>  划分训练集测试集</a></li>
+  </ul></li>
+  <li><a href="#resampling" id="toc-resampling" class="nav-link" data-scroll-target="#resampling"><span class="toc-section-number">4.2</span>  Resampling</a>
+  <ul>
+  <li><a href="#初始化" id="toc-初始化" class="nav-link" data-scroll-target="#初始化"><span class="toc-section-number">4.2.1</span>  初始化</a></li>
+  <li><a href="#应用method" id="toc-应用method" class="nav-link" data-scroll-target="#应用method"><span class="toc-section-number">4.2.2</span>  应用method</a></li>
+  <li><a href="#执行" id="toc-执行" class="nav-link" data-scroll-target="#执行"><span class="toc-section-number">4.2.3</span>  执行</a></li>
+  </ul></li>
+  <li><a href="#benchmarking" id="toc-benchmarking" class="nav-link" data-scroll-target="#benchmarking"><span class="toc-section-number">4.3</span>  Benchmarking</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -828,6 +849,302 @@ Keys: aic, bic, classif.acc, classif.auc, classif.bacc, classif.bbrier,
   0.7244094 </code></pre>
 </div>
 </div>
+<p>设置多个评估标准</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>measures <span class="ot">=</span> <span class="fu">msrs</span>(<span class="fu">c</span>(<span class="st">"classif.tpr"</span>, <span class="st">"classif.tnr"</span>))</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>prediction<span class="sc">$</span><span class="fu">score</span>(measures)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>classif.tpr classif.tnr 
+  0.4639175   0.8853503 </code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="调参" class="level2" data-number="4">
+<h2 data-number="4" class="anchored" data-anchor-id="调参"><span class="header-section-number">4</span> 调参</h2>
+<section id="roc曲线和阈值" class="level3" data-number="4.1">
+<h3 data-number="4.1" class="anchored" data-anchor-id="roc曲线和阈值"><span class="header-section-number">4.1</span> ROC曲线和阈值</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>task <span class="ot">=</span> <span class="fu">tsk</span>(<span class="st">"sonar"</span>)</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>learner <span class="ot">=</span> <span class="fu">lrn</span>(<span class="st">"classif.rpart"</span>, <span class="at">predict_type =</span> <span class="st">"prob"</span>)</span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>task</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>&lt;TaskClassif:sonar&gt; (208 x 61): Sonar: Mines vs. Rocks
+* Target: Class
+* Properties: twoclass
+* Features (60):
+  - dbl (60): V1, V10, V11, V12, V13, V14, V15, V16, V17, V18, V19, V2,
+    V20, V21, V22, V23, V24, V25, V26, V27, V28, V29, V3, V30, V31,
+    V32, V33, V34, V35, V36, V37, V38, V39, V4, V40, V41, V42, V43,
+    V44, V45, V46, V47, V48, V49, V5, V50, V51, V52, V53, V54, V55,
+    V56, V57, V58, V59, V6, V60, V7, V8, V9</code></pre>
+</div>
+</div>
+<section id="划分训练集测试集" class="level4" data-number="4.1.1">
+<h4 data-number="4.1.1" class="anchored" data-anchor-id="划分训练集测试集"><span class="header-section-number">4.1.1</span> 划分训练集测试集</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co"># split into training and test</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>splits <span class="ot">=</span> <span class="fu">partition</span>(task, <span class="at">ratio =</span> <span class="fl">0.8</span>)</span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(splits)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>List of 2
+ $ train: int [1:167] 3 4 6 7 8 9 11 12 13 14 ...
+ $ test : int [1:41] 1 2 5 10 16 29 30 32 37 38 ...</code></pre>
+</div>
+</div>
+<p>链式训练</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>pred <span class="ot">=</span> learner<span class="sc">$</span><span class="fu">train</span>(task, splits<span class="sc">$</span>train)<span class="sc">$</span><span class="fu">predict</span>(task, splits<span class="sc">$</span>test)</span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>pred<span class="sc">$</span>confusion</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>        truth
+response  M  R
+       M 20  9
+       R  2 10</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="resampling" class="level3" data-number="4.2">
+<h3 data-number="4.2" class="anchored" data-anchor-id="resampling"><span class="header-section-number">4.2</span> Resampling</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>task <span class="ot">=</span> <span class="fu">tsk</span>(<span class="st">"penguins"</span>)</span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>learner <span class="ot">=</span> <span class="fu">lrn</span>(<span class="st">"classif.rpart"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Resample Method列表</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">as.data.table</span>(mlr_resamplings)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Key: &lt;key&gt;
+           key                         label        params iters
+        &lt;char&gt;                        &lt;char&gt;        &lt;list&gt; &lt;int&gt;
+1:   bootstrap                     Bootstrap ratio,repeats    30
+2:      custom                 Custom Splits                  NA
+3:   custom_cv Custom Split Cross-Validation                  NA
+4:          cv              Cross-Validation         folds    10
+5:     holdout                       Holdout         ratio     1
+6:    insample           Insample Resampling                   1
+7:         loo                 Leave-One-Out                  NA
+8: repeated_cv     Repeated Cross-Validation folds,repeats   100
+9: subsampling                   Subsampling ratio,repeats    30</code></pre>
+</div>
+</div>
+<section id="初始化" class="level4" data-number="4.2.1">
+<h4 data-number="4.2.1" class="anchored" data-anchor-id="初始化"><span class="header-section-number">4.2.1</span> 初始化</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>resampling <span class="ot">=</span> <span class="fu">rsmp</span>(<span class="st">"holdout"</span>)</span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(resampling)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>&lt;ResamplingHoldout&gt;: Holdout
+* Iterations: 1
+* Instantiated: FALSE
+* Parameters: ratio=0.6667</code></pre>
+</div>
+</div>
+<p>两种方法设置holdout比例</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>resampling<span class="sc">$</span>param_set<span class="sc">$</span>values <span class="ot">=</span> <span class="fu">list</span>(<span class="at">ratio =</span> <span class="fl">0.8</span>)</span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>resampling <span class="ot">=</span> <span class="fu">rsmp</span>(<span class="st">"holdout"</span>, <span class="at">ratio=</span><span class="fl">0.8</span>)</span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>resampling<span class="sc">$</span>param_set<span class="sc">$</span>values<span class="sc">$</span>ratio</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.8</code></pre>
+</div>
+</div>
+</section>
+<section id="应用method" class="level4" data-number="4.2.2">
+<h4 data-number="4.2.2" class="anchored" data-anchor-id="应用method"><span class="header-section-number">4.2.2</span> 应用method</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>resampling<span class="sc">$</span><span class="fu">instantiate</span>(task)</span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>train <span class="ot">=</span> resampling<span class="sc">$</span><span class="fu">train_set</span>(<span class="dv">1</span>)</span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>test <span class="ot">=</span> resampling<span class="sc">$</span><span class="fu">test_set</span>(<span class="dv">1</span>)</span>
+<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(train)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> int [1:275] 1 3 4 5 6 7 8 9 10 11 ...</code></pre>
+</div>
+</div>
+</section>
+<section id="执行" class="level4" data-number="4.2.3">
+<h4 data-number="4.2.3" class="anchored" data-anchor-id="执行"><span class="header-section-number">4.2.3</span> 执行</h4>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>task <span class="ot">=</span> <span class="fu">tsk</span>(<span class="st">"penguins"</span>)</span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>learner <span class="ot">=</span> <span class="fu">lrn</span>(<span class="st">"classif.rpart"</span>, <span class="at">maxdepth =</span> <span class="dv">3</span>, <span class="at">predict_type =</span> <span class="st">"prob"</span>)</span>
+<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a>resampling <span class="ot">=</span> <span class="fu">rsmp</span>(<span class="st">"cv"</span>, <span class="at">folds =</span> <span class="dv">3</span>)</span>
+<span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-5"><a href="#cb53-5" aria-hidden="true" tabindex="-1"></a>rr <span class="ot">=</span> <span class="fu">resample</span>(task, learner, resampling, <span class="at">store_models =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>INFO  [16:33:06.730] [mlr3] Applying learner 'classif.rpart' on task 'penguins' (iter 1/3)
+INFO  [16:33:06.755] [mlr3] Applying learner 'classif.rpart' on task 'penguins' (iter 2/3)
+INFO  [16:33:06.766] [mlr3] Applying learner 'classif.rpart' on task 'penguins' (iter 3/3)</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(rr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>&lt;ResampleResult&gt; of 3 iterations
+* Task: penguins
+* Learner: classif.rpart
+* Warnings: 0 in 0 iterations
+* Errors: 0 in 0 iterations</code></pre>
+</div>
+</div>
+<p>效果评估，所有fold中scroe的均值</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>rr<span class="sc">$</span><span class="fu">aggregate</span>(<span class="fu">msr</span>(<span class="st">"classif.ce"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>classif.ce 
+0.06399695 </code></pre>
+</div>
+</div>
+<p>获取每个模型训练的结果</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a>lrn <span class="ot">=</span> rr<span class="sc">$</span>learners[[<span class="dv">1</span>]]</span>
+<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a>lrn<span class="sc">$</span>model</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>n= 229 
+
+node), split, n, loss, yval, (yprob)
+      * denotes terminal node
+
+1) root 229 132 Adelie (0.423580786 0.196506550 0.379912664)  
+  2) flipper_length&lt; 206.5 138  43 Adelie (0.688405797 0.304347826 0.007246377)  
+    4) bill_length&lt; 42.35 89   0 Adelie (1.000000000 0.000000000 0.000000000) *
+    5) bill_length&gt;=42.35 49   7 Chinstrap (0.122448980 0.857142857 0.020408163) *
+  3) flipper_length&gt;=206.5 91   5 Gentoo (0.021978022 0.032967033 0.945054945) *</code></pre>
+</div>
+</div>
+<p>获取在验证集上训练的结果</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a>rr<span class="sc">$</span><span class="fu">prediction</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.data.table</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb61-3"><a href="#cb61-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(row_ids) <span class="sc">%&gt;%</span></span>
+<span id="cb61-4"><a href="#cb61-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb61-5"><a href="#cb61-5" aria-hidden="true" tabindex="-1"></a>  knitr<span class="sc">::</span><span class="fu">kable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="table table-sm table-striped">
+<thead>
+<tr class="header">
+<th style="text-align: right;">row_ids</th>
+<th style="text-align: left;">truth</th>
+<th style="text-align: left;">response</th>
+<th style="text-align: right;">prob.Adelie</th>
+<th style="text-align: right;">prob.Chinstrap</th>
+<th style="text-align: right;">prob.Gentoo</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">Adelie</td>
+<td style="text-align: left;">Adelie</td>
+<td style="text-align: right;">1.0000000</td>
+<td style="text-align: right;">0.0000000</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2</td>
+<td style="text-align: left;">Adelie</td>
+<td style="text-align: left;">Adelie</td>
+<td style="text-align: right;">0.9719626</td>
+<td style="text-align: right;">0.0280374</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">3</td>
+<td style="text-align: left;">Adelie</td>
+<td style="text-align: left;">Adelie</td>
+<td style="text-align: right;">0.9696970</td>
+<td style="text-align: right;">0.0303030</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">4</td>
+<td style="text-align: left;">Adelie</td>
+<td style="text-align: left;">Adelie</td>
+<td style="text-align: right;">0.9719626</td>
+<td style="text-align: right;">0.0280374</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">5</td>
+<td style="text-align: left;">Adelie</td>
+<td style="text-align: left;">Adelie</td>
+<td style="text-align: right;">0.9719626</td>
+<td style="text-align: right;">0.0280374</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">6</td>
+<td style="text-align: left;">Adelie</td>
+<td style="text-align: left;">Adelie</td>
+<td style="text-align: right;">0.9696970</td>
+<td style="text-align: right;">0.0303030</td>
+<td style="text-align: right;">0</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+</section>
+<section id="benchmarking" class="level3" data-number="4.3">
+<h3 data-number="4.3" class="anchored" data-anchor-id="benchmarking"><span class="header-section-number">4.3</span> Benchmarking</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"mlr3verse"</span>)</span>
+<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb62-3"><a href="#cb62-3" aria-hidden="true" tabindex="-1"></a>design <span class="ot">=</span> <span class="fu">benchmark_grid</span>(</span>
+<span id="cb62-4"><a href="#cb62-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">tasks =</span> <span class="fu">tsks</span>(<span class="fu">c</span>(<span class="st">"spam"</span>, <span class="st">"german_credit"</span>, <span class="st">"sonar"</span>)),</span>
+<span id="cb62-5"><a href="#cb62-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">learners =</span> <span class="fu">lrns</span>(<span class="fu">c</span>(<span class="st">"classif.ranger"</span>, <span class="st">"classif.rpart"</span>, <span class="st">"classif.featureless"</span>),</span>
+<span id="cb62-6"><a href="#cb62-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">predict_type =</span> <span class="st">"prob"</span>, <span class="at">predict_sets =</span> <span class="fu">c</span>(<span class="st">"train"</span>, <span class="st">"test"</span>)),</span>
+<span id="cb62-7"><a href="#cb62-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">resamplings =</span> <span class="fu">rsmps</span>(<span class="st">"cv"</span>, <span class="at">folds =</span> <span class="dv">3</span>)</span>
+<span id="cb62-8"><a href="#cb62-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb62-9"><a href="#cb62-9" aria-hidden="true" tabindex="-1"></a><span class="fu">as.data.table</span>(design) <span class="sc">%&gt;%</span> <span class="fu">head</span>() <span class="sc">%&gt;%</span> knitr<span class="sc">::</span><span class="fu">kable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="table table-sm table-striped">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">task</th>
+<th style="text-align: left;">learner</th>
+<th style="text-align: left;">resampling</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">&lt;environment: 0x109eebbd8&gt;</td>
+<td style="text-align: left;">&lt;environment: 0x12c5391b8&gt;</td>
+<td style="text-align: left;">&lt;environment: 0x109f218c8&gt;</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">&lt;environment: 0x109eebbd8&gt;</td>
+<td style="text-align: left;">&lt;environment: 0x10adbb2e0&gt;</td>
+<td style="text-align: left;">&lt;environment: 0x109f218c8&gt;</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">&lt;environment: 0x109eebbd8&gt;</td>
+<td style="text-align: left;">&lt;environment: 0x10a3c3418&gt;</td>
+<td style="text-align: left;">&lt;environment: 0x109f218c8&gt;</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">&lt;environment: 0x10dadfe08&gt;</td>
+<td style="text-align: left;">&lt;environment: 0x12c5391b8&gt;</td>
+<td style="text-align: left;">&lt;environment: 0x109eaec18&gt;</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">&lt;environment: 0x10dadfe08&gt;</td>
+<td style="text-align: left;">&lt;environment: 0x10adbb2e0&gt;</td>
+<td style="text-align: left;">&lt;environment: 0x109eaec18&gt;</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">&lt;environment: 0x10dadfe08&gt;</td>
+<td style="text-align: left;">&lt;environment: 0x10a3c3418&gt;</td>
+<td style="text-align: left;">&lt;environment: 0x109eaec18&gt;</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 
 
 <!-- -->
@@ -956,7 +1273,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   for (var i=0; i<noterefs.length; i++) {
     const ref = noterefs[i];
     tippyHover(ref, function() {
-      let href = ref.getAttribute('href');
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
@@ -984,154 +1302,276 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
 });
 </script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="sourceCode" id="cb36" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "mlr3"</span></span>
-<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span><span class="co"> </span></span>
-<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a><span class="co">  html:</span></span>
-<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a><span class="co">    number-sections: true</span></span>
-<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a><span class="co">    toc-depth: 5</span></span>
-<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-11"><a href="#cb36-11" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb36-12"><a href="#cb36-12" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
-<span id="cb36-13"><a href="#cb36-13" aria-hidden="true" tabindex="-1"></a><span class="co">#| warning: false</span></span>
-<span id="cb36-14"><a href="#cb36-14" aria-hidden="true" tabindex="-1"></a><span class="co">#| message: false</span></span>
-<span id="cb36-15"><a href="#cb36-15" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb36-16"><a href="#cb36-16" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb36-17"><a href="#cb36-17" aria-hidden="true" tabindex="-1"></a><span class="fu">## TASKS</span></span>
-<span id="cb36-18"><a href="#cb36-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-19"><a href="#cb36-19" aria-hidden="true" tabindex="-1"></a><span class="fu">### 导入数据 </span></span>
-<span id="cb36-20"><a href="#cb36-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-23"><a href="#cb36-23" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb36-24"><a href="#cb36-24" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"mtcars"</span>, <span class="at">package =</span> <span class="st">"datasets"</span>)</span>
-<span id="cb36-25"><a href="#cb36-25" aria-hidden="true" tabindex="-1"></a>mtcars <span class="sc">%&gt;%</span> <span class="fu">head</span>() <span class="sc">%&gt;%</span> knitr<span class="sc">::</span><span class="fu">kable</span>()</span>
-<span id="cb36-26"><a href="#cb36-26" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb36-27"><a href="#cb36-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-28"><a href="#cb36-28" aria-hidden="true" tabindex="-1"></a><span class="fu">### 建立TASK</span></span>
-<span id="cb36-29"><a href="#cb36-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-32"><a href="#cb36-32" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb36-33"><a href="#cb36-33" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"mlr3"</span>)</span>
-<span id="cb36-34"><a href="#cb36-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-35"><a href="#cb36-35" aria-hidden="true" tabindex="-1"></a>task_mtcars <span class="ot">=</span> <span class="fu">as_task_regr</span>(mtcars, <span class="at">target =</span> <span class="st">"mpg"</span>, <span class="at">id =</span> <span class="st">"cars"</span>)</span>
-<span id="cb36-36"><a href="#cb36-36" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(task_mtcars)</span>
-<span id="cb36-37"><a href="#cb36-37" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb36-38"><a href="#cb36-38" aria-hidden="true" tabindex="-1"></a><span class="fu">### 快速绘图</span></span>
-<span id="cb36-39"><a href="#cb36-39" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-42"><a href="#cb36-42" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb36-43"><a href="#cb36-43" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"mlr3viz"</span>)</span>
-<span id="cb36-44"><a href="#cb36-44" aria-hidden="true" tabindex="-1"></a><span class="fu">autoplot</span>(task_mtcars, <span class="at">type =</span> <span class="st">"pairs"</span>)</span>
-<span id="cb36-45"><a href="#cb36-45" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb36-46"><a href="#cb36-46" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-47"><a href="#cb36-47" aria-hidden="true" tabindex="-1"></a><span class="fu">### Task API</span></span>
-<span id="cb36-48"><a href="#cb36-48" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-49"><a href="#cb36-49" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 数据的基本信息</span></span>
-<span id="cb36-50"><a href="#cb36-50" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-51"><a href="#cb36-51" aria-hidden="true" tabindex="-1"></a>TASK中数据的行数与列数</span>
-<span id="cb36-54"><a href="#cb36-54" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb36-55"><a href="#cb36-55" aria-hidden="true" tabindex="-1"></a>task_mtcars<span class="sc">$</span>nrow</span>
-<span id="cb36-56"><a href="#cb36-56" aria-hidden="true" tabindex="-1"></a>task_mtcars<span class="sc">$</span>ncol</span>
-<span id="cb36-57"><a href="#cb36-57" aria-hidden="true" tabindex="-1"></a>task_mtcars<span class="sc">$</span>feature_names</span>
-<span id="cb36-58"><a href="#cb36-58" aria-hidden="true" tabindex="-1"></a>task_mtcars<span class="sc">$</span>target_names</span>
-<span id="cb36-59"><a href="#cb36-59" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb36-60"><a href="#cb36-60" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-61"><a href="#cb36-61" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 对TASK中数据的修改</span></span>
-<span id="cb36-62"><a href="#cb36-62" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-63"><a href="#cb36-63" aria-hidden="true" tabindex="-1"></a>数据规模缩小</span>
-<span id="cb36-66"><a href="#cb36-66" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb36-67"><a href="#cb36-67" aria-hidden="true" tabindex="-1"></a>task_mtcars<span class="sc">$</span><span class="fu">select</span>(<span class="fu">c</span>(<span class="st">"am"</span>, <span class="st">"carb"</span>, <span class="st">"wt"</span>)) <span class="co"># 只能选feature</span></span>
-<span id="cb36-68"><a href="#cb36-68" aria-hidden="true" tabindex="-1"></a>task_mtcars<span class="sc">$</span><span class="fu">filter</span>(<span class="dv">2</span><span class="sc">:</span><span class="dv">4</span>) <span class="co"># 仅支持输入row id</span></span>
-<span id="cb36-69"><a href="#cb36-69" aria-hidden="true" tabindex="-1"></a>task_mtcars<span class="sc">$</span><span class="fu">data</span>() <span class="sc">%&gt;%</span> knitr<span class="sc">::</span><span class="fu">kable</span>()</span>
-<span id="cb36-70"><a href="#cb36-70" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb36-71"><a href="#cb36-71" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-72"><a href="#cb36-72" aria-hidden="true" tabindex="-1"></a>数据规模扩大</span>
-<span id="cb36-75"><a href="#cb36-75" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb36-76"><a href="#cb36-76" aria-hidden="true" tabindex="-1"></a>task_mtcars<span class="sc">$</span><span class="fu">rbind</span>(</span>
-<span id="cb36-77"><a href="#cb36-77" aria-hidden="true" tabindex="-1"></a>  <span class="fu">data.frame</span>(<span class="at">mpg=</span><span class="dv">1</span>, <span class="at">am=</span><span class="dv">1</span>, <span class="at">carb=</span><span class="dv">1</span>, <span class="at">wt=</span><span class="dv">1</span>)</span>
-<span id="cb36-78"><a href="#cb36-78" aria-hidden="true" tabindex="-1"></a>  <span class="co"># df必须和原始数据格式一样， 必须有所有的变量</span></span>
-<span id="cb36-79"><a href="#cb36-79" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb36-80"><a href="#cb36-80" aria-hidden="true" tabindex="-1"></a>task_mtcars<span class="sc">$</span><span class="fu">data</span>() <span class="sc">%&gt;%</span> knitr<span class="sc">::</span><span class="fu">kable</span>()</span>
-<span id="cb36-81"><a href="#cb36-81" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb36-82"><a href="#cb36-82" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-83"><a href="#cb36-83" aria-hidden="true" tabindex="-1"></a><span class="fu">## Learner</span></span>
-<span id="cb36-84"><a href="#cb36-84" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-87"><a href="#cb36-87" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb36-88"><a href="#cb36-88" aria-hidden="true" tabindex="-1"></a>learner <span class="ot">=</span> <span class="fu">lrn</span>(<span class="st">"classif.rpart"</span>)</span>
-<span id="cb36-89"><a href="#cb36-89" aria-hidden="true" tabindex="-1"></a>learner</span>
-<span id="cb36-90"><a href="#cb36-90" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb36-91"><a href="#cb36-91" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-92"><a href="#cb36-92" aria-hidden="true" tabindex="-1"></a><span class="fu">### Learner参数</span></span>
-<span id="cb36-93"><a href="#cb36-93" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-96"><a href="#cb36-96" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb36-97"><a href="#cb36-97" aria-hidden="true" tabindex="-1"></a>learner<span class="sc">$</span>param_set</span>
-<span id="cb36-98"><a href="#cb36-98" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb36-99"><a href="#cb36-99" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-100"><a href="#cb36-100" aria-hidden="true" tabindex="-1"></a>直接在初始化时设定参数</span>
-<span id="cb36-103"><a href="#cb36-103" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb36-104"><a href="#cb36-104" aria-hidden="true" tabindex="-1"></a>learner <span class="ot">=</span> <span class="fu">lrn</span>(<span class="st">"classif.rpart"</span>, <span class="at">id =</span> <span class="st">"rp"</span>, <span class="at">cp =</span> <span class="fl">0.001</span>)</span>
-<span id="cb36-105"><a href="#cb36-105" aria-hidden="true" tabindex="-1"></a>learner<span class="sc">$</span>id</span>
-<span id="cb36-106"><a href="#cb36-106" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb36-107"><a href="#cb36-107" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-108"><a href="#cb36-108" aria-hidden="true" tabindex="-1"></a><span class="fu">## 训练和预测</span></span>
-<span id="cb36-109"><a href="#cb36-109" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-112"><a href="#cb36-112" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb36-113"><a href="#cb36-113" aria-hidden="true" tabindex="-1"></a>task <span class="ot">=</span> <span class="fu">tsk</span>(<span class="st">"pima"</span>)</span>
-<span id="cb36-114"><a href="#cb36-114" aria-hidden="true" tabindex="-1"></a>learner <span class="ot">=</span> <span class="fu">lrn</span>(<span class="st">"classif.rpart"</span>)</span>
-<span id="cb36-115"><a href="#cb36-115" aria-hidden="true" tabindex="-1"></a>task<span class="sc">$</span><span class="fu">data</span>() <span class="sc">%&gt;%</span> <span class="fu">head</span>() <span class="sc">%&gt;%</span> knitr<span class="sc">::</span><span class="fu">kable</span>()</span>
-<span id="cb36-116"><a href="#cb36-116" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb36-117"><a href="#cb36-117" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-118"><a href="#cb36-118" aria-hidden="true" tabindex="-1"></a><span class="fu">### 训练</span></span>
-<span id="cb36-119"><a href="#cb36-119" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-120"><a href="#cb36-120" aria-hidden="true" tabindex="-1"></a>训练的模型保存在<span class="in">`learner$model`</span>中</span>
-<span id="cb36-123"><a href="#cb36-123" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb36-124"><a href="#cb36-124" aria-hidden="true" tabindex="-1"></a>learner<span class="sc">$</span>model</span>
-<span id="cb36-125"><a href="#cb36-125" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb36-126"><a href="#cb36-126" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-127"><a href="#cb36-127" aria-hidden="true" tabindex="-1"></a>训练模型</span>
-<span id="cb36-130"><a href="#cb36-130" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb36-131"><a href="#cb36-131" aria-hidden="true" tabindex="-1"></a>learner<span class="sc">$</span><span class="fu">train</span>(task)</span>
-<span id="cb36-132"><a href="#cb36-132" aria-hidden="true" tabindex="-1"></a>learner<span class="sc">$</span>model</span>
-<span id="cb36-133"><a href="#cb36-133" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb36-134"><a href="#cb36-134" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-135"><a href="#cb36-135" aria-hidden="true" tabindex="-1"></a><span class="fu">### 预测</span></span>
-<span id="cb36-138"><a href="#cb36-138" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb36-139"><a href="#cb36-139" aria-hidden="true" tabindex="-1"></a>prediction <span class="ot">=</span> learner<span class="sc">$</span><span class="fu">predict_newdata</span>(task<span class="sc">$</span><span class="fu">data</span>())</span>
-<span id="cb36-140"><a href="#cb36-140" aria-hidden="true" tabindex="-1"></a><span class="fu">as.data.table</span>(prediction) <span class="sc">%&gt;%</span> <span class="fu">head</span>() <span class="sc">%&gt;%</span> knitr<span class="sc">::</span><span class="fu">kable</span>()</span>
-<span id="cb36-141"><a href="#cb36-141" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb36-142"><a href="#cb36-142" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-143"><a href="#cb36-143" aria-hidden="true" tabindex="-1"></a><span class="fu">### 测试集训练集</span></span>
-<span id="cb36-144"><a href="#cb36-144" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-147"><a href="#cb36-147" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb36-148"><a href="#cb36-148" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">7</span>)</span>
-<span id="cb36-149"><a href="#cb36-149" aria-hidden="true" tabindex="-1"></a>train_set <span class="ot">=</span> <span class="fu">sample</span>(task<span class="sc">$</span>row_ids, <span class="fl">0.67</span> <span class="sc">*</span> task<span class="sc">$</span>nrow)</span>
-<span id="cb36-150"><a href="#cb36-150" aria-hidden="true" tabindex="-1"></a>test_set <span class="ot">=</span> <span class="fu">setdiff</span>(task<span class="sc">$</span>row_ids, train_set)</span>
-<span id="cb36-151"><a href="#cb36-151" aria-hidden="true" tabindex="-1"></a><span class="co"># train on the training set</span></span>
-<span id="cb36-152"><a href="#cb36-152" aria-hidden="true" tabindex="-1"></a>learner<span class="sc">$</span><span class="fu">train</span>(task, <span class="at">row_ids =</span> train_set)</span>
-<span id="cb36-153"><a href="#cb36-153" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-154"><a href="#cb36-154" aria-hidden="true" tabindex="-1"></a><span class="co"># predict on the test set</span></span>
-<span id="cb36-155"><a href="#cb36-155" aria-hidden="true" tabindex="-1"></a>prediction <span class="ot">=</span> learner<span class="sc">$</span><span class="fu">predict</span>(task, <span class="at">row_ids =</span> test_set)</span>
-<span id="cb36-156"><a href="#cb36-156" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-157"><a href="#cb36-157" aria-hidden="true" tabindex="-1"></a><span class="co"># the prediction naturally knows about the "truth" from the task</span></span>
-<span id="cb36-158"><a href="#cb36-158" aria-hidden="true" tabindex="-1"></a>prediction</span>
-<span id="cb36-159"><a href="#cb36-159" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb36-160"><a href="#cb36-160" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-161"><a href="#cb36-161" aria-hidden="true" tabindex="-1"></a><span class="fu">### 训练效果评估</span></span>
-<span id="cb36-162"><a href="#cb36-162" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-163"><a href="#cb36-163" aria-hidden="true" tabindex="-1"></a>所有的评估方法</span>
-<span id="cb36-166"><a href="#cb36-166" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb36-167"><a href="#cb36-167" aria-hidden="true" tabindex="-1"></a>mlr_measures</span>
-<span id="cb36-168"><a href="#cb36-168" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb36-169"><a href="#cb36-169" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-170"><a href="#cb36-170" aria-hidden="true" tabindex="-1"></a>设定评估角度为acc</span>
-<span id="cb36-173"><a href="#cb36-173" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb36-174"><a href="#cb36-174" aria-hidden="true" tabindex="-1"></a>measure <span class="ot">=</span> <span class="fu">msr</span>(<span class="st">"classif.acc"</span>)</span>
-<span id="cb36-175"><a href="#cb36-175" aria-hidden="true" tabindex="-1"></a>measure</span>
-<span id="cb36-176"><a href="#cb36-176" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb36-177"><a href="#cb36-177" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-180"><a href="#cb36-180" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb36-181"><a href="#cb36-181" aria-hidden="true" tabindex="-1"></a>prediction<span class="sc">$</span><span class="fu">score</span>(measure)</span>
-<span id="cb36-182"><a href="#cb36-182" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb36-183"><a href="#cb36-183" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb36-184"><a href="#cb36-184" aria-hidden="true" tabindex="-1"></a></span>
+<div class="sourceCode" id="cb63" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "mlr3"</span></span>
+<span id="cb63-3"><a href="#cb63-3" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span><span class="co"> </span></span>
+<span id="cb63-4"><a href="#cb63-4" aria-hidden="true" tabindex="-1"></a><span class="co">  html:</span></span>
+<span id="cb63-5"><a href="#cb63-5" aria-hidden="true" tabindex="-1"></a><span class="co">    number-sections: true</span></span>
+<span id="cb63-6"><a href="#cb63-6" aria-hidden="true" tabindex="-1"></a><span class="co">    toc-depth: 5</span></span>
+<span id="cb63-7"><a href="#cb63-7" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb63-8"><a href="#cb63-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-11"><a href="#cb63-11" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb63-12"><a href="#cb63-12" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
+<span id="cb63-13"><a href="#cb63-13" aria-hidden="true" tabindex="-1"></a><span class="co">#| warning: false</span></span>
+<span id="cb63-14"><a href="#cb63-14" aria-hidden="true" tabindex="-1"></a><span class="co">#| message: false</span></span>
+<span id="cb63-15"><a href="#cb63-15" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb63-16"><a href="#cb63-16" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb63-17"><a href="#cb63-17" aria-hidden="true" tabindex="-1"></a><span class="fu">## TASKS</span></span>
+<span id="cb63-18"><a href="#cb63-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-19"><a href="#cb63-19" aria-hidden="true" tabindex="-1"></a><span class="fu">### 导入数据 </span></span>
+<span id="cb63-20"><a href="#cb63-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-23"><a href="#cb63-23" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb63-24"><a href="#cb63-24" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"mtcars"</span>, <span class="at">package =</span> <span class="st">"datasets"</span>)</span>
+<span id="cb63-25"><a href="#cb63-25" aria-hidden="true" tabindex="-1"></a>mtcars <span class="sc">%&gt;%</span> <span class="fu">head</span>() <span class="sc">%&gt;%</span> knitr<span class="sc">::</span><span class="fu">kable</span>()</span>
+<span id="cb63-26"><a href="#cb63-26" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb63-27"><a href="#cb63-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-28"><a href="#cb63-28" aria-hidden="true" tabindex="-1"></a><span class="fu">### 建立TASK</span></span>
+<span id="cb63-29"><a href="#cb63-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-32"><a href="#cb63-32" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb63-33"><a href="#cb63-33" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"mlr3"</span>)</span>
+<span id="cb63-34"><a href="#cb63-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-35"><a href="#cb63-35" aria-hidden="true" tabindex="-1"></a>task_mtcars <span class="ot">=</span> <span class="fu">as_task_regr</span>(mtcars, <span class="at">target =</span> <span class="st">"mpg"</span>, <span class="at">id =</span> <span class="st">"cars"</span>)</span>
+<span id="cb63-36"><a href="#cb63-36" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(task_mtcars)</span>
+<span id="cb63-37"><a href="#cb63-37" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb63-38"><a href="#cb63-38" aria-hidden="true" tabindex="-1"></a><span class="fu">### 快速绘图</span></span>
+<span id="cb63-39"><a href="#cb63-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-42"><a href="#cb63-42" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb63-43"><a href="#cb63-43" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"mlr3viz"</span>)</span>
+<span id="cb63-44"><a href="#cb63-44" aria-hidden="true" tabindex="-1"></a><span class="fu">autoplot</span>(task_mtcars, <span class="at">type =</span> <span class="st">"pairs"</span>)</span>
+<span id="cb63-45"><a href="#cb63-45" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb63-46"><a href="#cb63-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-47"><a href="#cb63-47" aria-hidden="true" tabindex="-1"></a><span class="fu">### Task API</span></span>
+<span id="cb63-48"><a href="#cb63-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-49"><a href="#cb63-49" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 数据的基本信息</span></span>
+<span id="cb63-50"><a href="#cb63-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-51"><a href="#cb63-51" aria-hidden="true" tabindex="-1"></a>TASK中数据的行数与列数</span>
+<span id="cb63-54"><a href="#cb63-54" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb63-55"><a href="#cb63-55" aria-hidden="true" tabindex="-1"></a>task_mtcars<span class="sc">$</span>nrow</span>
+<span id="cb63-56"><a href="#cb63-56" aria-hidden="true" tabindex="-1"></a>task_mtcars<span class="sc">$</span>ncol</span>
+<span id="cb63-57"><a href="#cb63-57" aria-hidden="true" tabindex="-1"></a>task_mtcars<span class="sc">$</span>feature_names</span>
+<span id="cb63-58"><a href="#cb63-58" aria-hidden="true" tabindex="-1"></a>task_mtcars<span class="sc">$</span>target_names</span>
+<span id="cb63-59"><a href="#cb63-59" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb63-60"><a href="#cb63-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-61"><a href="#cb63-61" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 对TASK中数据的修改</span></span>
+<span id="cb63-62"><a href="#cb63-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-63"><a href="#cb63-63" aria-hidden="true" tabindex="-1"></a>数据规模缩小</span>
+<span id="cb63-66"><a href="#cb63-66" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb63-67"><a href="#cb63-67" aria-hidden="true" tabindex="-1"></a>task_mtcars<span class="sc">$</span><span class="fu">select</span>(<span class="fu">c</span>(<span class="st">"am"</span>, <span class="st">"carb"</span>, <span class="st">"wt"</span>)) <span class="co"># 只能选feature</span></span>
+<span id="cb63-68"><a href="#cb63-68" aria-hidden="true" tabindex="-1"></a>task_mtcars<span class="sc">$</span><span class="fu">filter</span>(<span class="dv">2</span><span class="sc">:</span><span class="dv">4</span>) <span class="co"># 仅支持输入row id</span></span>
+<span id="cb63-69"><a href="#cb63-69" aria-hidden="true" tabindex="-1"></a>task_mtcars<span class="sc">$</span><span class="fu">data</span>() <span class="sc">%&gt;%</span> knitr<span class="sc">::</span><span class="fu">kable</span>()</span>
+<span id="cb63-70"><a href="#cb63-70" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb63-71"><a href="#cb63-71" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-72"><a href="#cb63-72" aria-hidden="true" tabindex="-1"></a>数据规模扩大</span>
+<span id="cb63-75"><a href="#cb63-75" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb63-76"><a href="#cb63-76" aria-hidden="true" tabindex="-1"></a>task_mtcars<span class="sc">$</span><span class="fu">rbind</span>(</span>
+<span id="cb63-77"><a href="#cb63-77" aria-hidden="true" tabindex="-1"></a>  <span class="fu">data.frame</span>(<span class="at">mpg=</span><span class="dv">1</span>, <span class="at">am=</span><span class="dv">1</span>, <span class="at">carb=</span><span class="dv">1</span>, <span class="at">wt=</span><span class="dv">1</span>)</span>
+<span id="cb63-78"><a href="#cb63-78" aria-hidden="true" tabindex="-1"></a>  <span class="co"># df必须和原始数据格式一样， 必须有所有的变量</span></span>
+<span id="cb63-79"><a href="#cb63-79" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb63-80"><a href="#cb63-80" aria-hidden="true" tabindex="-1"></a>task_mtcars<span class="sc">$</span><span class="fu">data</span>() <span class="sc">%&gt;%</span> knitr<span class="sc">::</span><span class="fu">kable</span>()</span>
+<span id="cb63-81"><a href="#cb63-81" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb63-82"><a href="#cb63-82" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-83"><a href="#cb63-83" aria-hidden="true" tabindex="-1"></a><span class="fu">## Learner</span></span>
+<span id="cb63-84"><a href="#cb63-84" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-87"><a href="#cb63-87" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb63-88"><a href="#cb63-88" aria-hidden="true" tabindex="-1"></a>learner <span class="ot">=</span> <span class="fu">lrn</span>(<span class="st">"classif.rpart"</span>)</span>
+<span id="cb63-89"><a href="#cb63-89" aria-hidden="true" tabindex="-1"></a>learner</span>
+<span id="cb63-90"><a href="#cb63-90" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb63-91"><a href="#cb63-91" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-92"><a href="#cb63-92" aria-hidden="true" tabindex="-1"></a><span class="fu">### Learner参数</span></span>
+<span id="cb63-93"><a href="#cb63-93" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-96"><a href="#cb63-96" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb63-97"><a href="#cb63-97" aria-hidden="true" tabindex="-1"></a>learner<span class="sc">$</span>param_set</span>
+<span id="cb63-98"><a href="#cb63-98" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb63-99"><a href="#cb63-99" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-100"><a href="#cb63-100" aria-hidden="true" tabindex="-1"></a>直接在初始化时设定参数</span>
+<span id="cb63-103"><a href="#cb63-103" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb63-104"><a href="#cb63-104" aria-hidden="true" tabindex="-1"></a>learner <span class="ot">=</span> <span class="fu">lrn</span>(<span class="st">"classif.rpart"</span>, <span class="at">id =</span> <span class="st">"rp"</span>, <span class="at">cp =</span> <span class="fl">0.001</span>)</span>
+<span id="cb63-105"><a href="#cb63-105" aria-hidden="true" tabindex="-1"></a>learner<span class="sc">$</span>id</span>
+<span id="cb63-106"><a href="#cb63-106" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb63-107"><a href="#cb63-107" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-108"><a href="#cb63-108" aria-hidden="true" tabindex="-1"></a><span class="fu">## 训练和预测</span></span>
+<span id="cb63-109"><a href="#cb63-109" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-112"><a href="#cb63-112" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb63-113"><a href="#cb63-113" aria-hidden="true" tabindex="-1"></a>task <span class="ot">=</span> <span class="fu">tsk</span>(<span class="st">"pima"</span>)</span>
+<span id="cb63-114"><a href="#cb63-114" aria-hidden="true" tabindex="-1"></a>learner <span class="ot">=</span> <span class="fu">lrn</span>(<span class="st">"classif.rpart"</span>)</span>
+<span id="cb63-115"><a href="#cb63-115" aria-hidden="true" tabindex="-1"></a>task<span class="sc">$</span><span class="fu">data</span>() <span class="sc">%&gt;%</span> <span class="fu">head</span>() <span class="sc">%&gt;%</span> knitr<span class="sc">::</span><span class="fu">kable</span>()</span>
+<span id="cb63-116"><a href="#cb63-116" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb63-117"><a href="#cb63-117" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-118"><a href="#cb63-118" aria-hidden="true" tabindex="-1"></a><span class="fu">### 训练</span></span>
+<span id="cb63-119"><a href="#cb63-119" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-120"><a href="#cb63-120" aria-hidden="true" tabindex="-1"></a>训练的模型保存在<span class="in">`learner$model`</span>中</span>
+<span id="cb63-123"><a href="#cb63-123" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb63-124"><a href="#cb63-124" aria-hidden="true" tabindex="-1"></a>learner<span class="sc">$</span>model</span>
+<span id="cb63-125"><a href="#cb63-125" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb63-126"><a href="#cb63-126" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-127"><a href="#cb63-127" aria-hidden="true" tabindex="-1"></a>训练模型</span>
+<span id="cb63-130"><a href="#cb63-130" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb63-131"><a href="#cb63-131" aria-hidden="true" tabindex="-1"></a>learner<span class="sc">$</span><span class="fu">train</span>(task)</span>
+<span id="cb63-132"><a href="#cb63-132" aria-hidden="true" tabindex="-1"></a>learner<span class="sc">$</span>model</span>
+<span id="cb63-133"><a href="#cb63-133" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb63-134"><a href="#cb63-134" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-135"><a href="#cb63-135" aria-hidden="true" tabindex="-1"></a><span class="fu">### 预测</span></span>
+<span id="cb63-138"><a href="#cb63-138" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb63-139"><a href="#cb63-139" aria-hidden="true" tabindex="-1"></a>prediction <span class="ot">=</span> learner<span class="sc">$</span><span class="fu">predict_newdata</span>(task<span class="sc">$</span><span class="fu">data</span>())</span>
+<span id="cb63-140"><a href="#cb63-140" aria-hidden="true" tabindex="-1"></a><span class="fu">as.data.table</span>(prediction) <span class="sc">%&gt;%</span> <span class="fu">head</span>() <span class="sc">%&gt;%</span> knitr<span class="sc">::</span><span class="fu">kable</span>()</span>
+<span id="cb63-141"><a href="#cb63-141" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb63-142"><a href="#cb63-142" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-143"><a href="#cb63-143" aria-hidden="true" tabindex="-1"></a><span class="fu">### 测试集训练集</span></span>
+<span id="cb63-144"><a href="#cb63-144" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-147"><a href="#cb63-147" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb63-148"><a href="#cb63-148" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">7</span>)</span>
+<span id="cb63-149"><a href="#cb63-149" aria-hidden="true" tabindex="-1"></a>train_set <span class="ot">=</span> <span class="fu">sample</span>(task<span class="sc">$</span>row_ids, <span class="fl">0.67</span> <span class="sc">*</span> task<span class="sc">$</span>nrow)</span>
+<span id="cb63-150"><a href="#cb63-150" aria-hidden="true" tabindex="-1"></a>test_set <span class="ot">=</span> <span class="fu">setdiff</span>(task<span class="sc">$</span>row_ids, train_set)</span>
+<span id="cb63-151"><a href="#cb63-151" aria-hidden="true" tabindex="-1"></a><span class="co"># train on the training set</span></span>
+<span id="cb63-152"><a href="#cb63-152" aria-hidden="true" tabindex="-1"></a>learner<span class="sc">$</span><span class="fu">train</span>(task, <span class="at">row_ids =</span> train_set)</span>
+<span id="cb63-153"><a href="#cb63-153" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-154"><a href="#cb63-154" aria-hidden="true" tabindex="-1"></a><span class="co"># predict on the test set</span></span>
+<span id="cb63-155"><a href="#cb63-155" aria-hidden="true" tabindex="-1"></a>prediction <span class="ot">=</span> learner<span class="sc">$</span><span class="fu">predict</span>(task, <span class="at">row_ids =</span> test_set)</span>
+<span id="cb63-156"><a href="#cb63-156" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-157"><a href="#cb63-157" aria-hidden="true" tabindex="-1"></a><span class="co"># the prediction naturally knows about the "truth" from the task</span></span>
+<span id="cb63-158"><a href="#cb63-158" aria-hidden="true" tabindex="-1"></a>prediction</span>
+<span id="cb63-159"><a href="#cb63-159" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb63-160"><a href="#cb63-160" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-161"><a href="#cb63-161" aria-hidden="true" tabindex="-1"></a><span class="fu">### 训练效果评估</span></span>
+<span id="cb63-162"><a href="#cb63-162" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-163"><a href="#cb63-163" aria-hidden="true" tabindex="-1"></a>所有的评估方法</span>
+<span id="cb63-166"><a href="#cb63-166" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb63-167"><a href="#cb63-167" aria-hidden="true" tabindex="-1"></a>mlr_measures</span>
+<span id="cb63-168"><a href="#cb63-168" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb63-169"><a href="#cb63-169" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-170"><a href="#cb63-170" aria-hidden="true" tabindex="-1"></a>设定评估角度为acc</span>
+<span id="cb63-173"><a href="#cb63-173" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb63-174"><a href="#cb63-174" aria-hidden="true" tabindex="-1"></a>measure <span class="ot">=</span> <span class="fu">msr</span>(<span class="st">"classif.acc"</span>)</span>
+<span id="cb63-175"><a href="#cb63-175" aria-hidden="true" tabindex="-1"></a>measure</span>
+<span id="cb63-176"><a href="#cb63-176" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb63-177"><a href="#cb63-177" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-180"><a href="#cb63-180" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb63-181"><a href="#cb63-181" aria-hidden="true" tabindex="-1"></a>prediction<span class="sc">$</span><span class="fu">score</span>(measure)</span>
+<span id="cb63-182"><a href="#cb63-182" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb63-183"><a href="#cb63-183" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-184"><a href="#cb63-184" aria-hidden="true" tabindex="-1"></a>设置多个评估标准</span>
+<span id="cb63-187"><a href="#cb63-187" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb63-188"><a href="#cb63-188" aria-hidden="true" tabindex="-1"></a>measures <span class="ot">=</span> <span class="fu">msrs</span>(<span class="fu">c</span>(<span class="st">"classif.tpr"</span>, <span class="st">"classif.tnr"</span>))</span>
+<span id="cb63-189"><a href="#cb63-189" aria-hidden="true" tabindex="-1"></a>prediction<span class="sc">$</span><span class="fu">score</span>(measures)</span>
+<span id="cb63-190"><a href="#cb63-190" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb63-191"><a href="#cb63-191" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-192"><a href="#cb63-192" aria-hidden="true" tabindex="-1"></a><span class="fu">## 调参</span></span>
+<span id="cb63-193"><a href="#cb63-193" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-194"><a href="#cb63-194" aria-hidden="true" tabindex="-1"></a><span class="fu">### ROC曲线和阈值</span></span>
+<span id="cb63-195"><a href="#cb63-195" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-198"><a href="#cb63-198" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb63-199"><a href="#cb63-199" aria-hidden="true" tabindex="-1"></a>task <span class="ot">=</span> <span class="fu">tsk</span>(<span class="st">"sonar"</span>)</span>
+<span id="cb63-200"><a href="#cb63-200" aria-hidden="true" tabindex="-1"></a>learner <span class="ot">=</span> <span class="fu">lrn</span>(<span class="st">"classif.rpart"</span>, <span class="at">predict_type =</span> <span class="st">"prob"</span>)</span>
+<span id="cb63-201"><a href="#cb63-201" aria-hidden="true" tabindex="-1"></a>task</span>
+<span id="cb63-202"><a href="#cb63-202" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb63-203"><a href="#cb63-203" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 划分训练集测试集</span></span>
+<span id="cb63-204"><a href="#cb63-204" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-207"><a href="#cb63-207" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb63-208"><a href="#cb63-208" aria-hidden="true" tabindex="-1"></a><span class="co"># split into training and test</span></span>
+<span id="cb63-209"><a href="#cb63-209" aria-hidden="true" tabindex="-1"></a>splits <span class="ot">=</span> <span class="fu">partition</span>(task, <span class="at">ratio =</span> <span class="fl">0.8</span>)</span>
+<span id="cb63-210"><a href="#cb63-210" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(splits)</span>
+<span id="cb63-211"><a href="#cb63-211" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb63-212"><a href="#cb63-212" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-213"><a href="#cb63-213" aria-hidden="true" tabindex="-1"></a>链式训练</span>
+<span id="cb63-216"><a href="#cb63-216" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb63-217"><a href="#cb63-217" aria-hidden="true" tabindex="-1"></a>pred <span class="ot">=</span> learner<span class="sc">$</span><span class="fu">train</span>(task, splits<span class="sc">$</span>train)<span class="sc">$</span><span class="fu">predict</span>(task, splits<span class="sc">$</span>test)</span>
+<span id="cb63-218"><a href="#cb63-218" aria-hidden="true" tabindex="-1"></a>pred<span class="sc">$</span>confusion</span>
+<span id="cb63-219"><a href="#cb63-219" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb63-220"><a href="#cb63-220" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-221"><a href="#cb63-221" aria-hidden="true" tabindex="-1"></a><span class="fu">### Resampling</span></span>
+<span id="cb63-222"><a href="#cb63-222" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-225"><a href="#cb63-225" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb63-226"><a href="#cb63-226" aria-hidden="true" tabindex="-1"></a>task <span class="ot">=</span> <span class="fu">tsk</span>(<span class="st">"penguins"</span>)</span>
+<span id="cb63-227"><a href="#cb63-227" aria-hidden="true" tabindex="-1"></a>learner <span class="ot">=</span> <span class="fu">lrn</span>(<span class="st">"classif.rpart"</span>)</span>
+<span id="cb63-228"><a href="#cb63-228" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb63-229"><a href="#cb63-229" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-230"><a href="#cb63-230" aria-hidden="true" tabindex="-1"></a>Resample Method列表</span>
+<span id="cb63-233"><a href="#cb63-233" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb63-234"><a href="#cb63-234" aria-hidden="true" tabindex="-1"></a><span class="fu">as.data.table</span>(mlr_resamplings)</span>
+<span id="cb63-235"><a href="#cb63-235" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb63-236"><a href="#cb63-236" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-237"><a href="#cb63-237" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 初始化</span></span>
+<span id="cb63-238"><a href="#cb63-238" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-241"><a href="#cb63-241" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb63-242"><a href="#cb63-242" aria-hidden="true" tabindex="-1"></a>resampling <span class="ot">=</span> <span class="fu">rsmp</span>(<span class="st">"holdout"</span>)</span>
+<span id="cb63-243"><a href="#cb63-243" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(resampling)</span>
+<span id="cb63-244"><a href="#cb63-244" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb63-245"><a href="#cb63-245" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-246"><a href="#cb63-246" aria-hidden="true" tabindex="-1"></a>两种方法设置holdout比例</span>
+<span id="cb63-249"><a href="#cb63-249" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb63-250"><a href="#cb63-250" aria-hidden="true" tabindex="-1"></a>resampling<span class="sc">$</span>param_set<span class="sc">$</span>values <span class="ot">=</span> <span class="fu">list</span>(<span class="at">ratio =</span> <span class="fl">0.8</span>)</span>
+<span id="cb63-251"><a href="#cb63-251" aria-hidden="true" tabindex="-1"></a>resampling <span class="ot">=</span> <span class="fu">rsmp</span>(<span class="st">"holdout"</span>, <span class="at">ratio=</span><span class="fl">0.8</span>)</span>
+<span id="cb63-252"><a href="#cb63-252" aria-hidden="true" tabindex="-1"></a>resampling<span class="sc">$</span>param_set<span class="sc">$</span>values<span class="sc">$</span>ratio</span>
+<span id="cb63-253"><a href="#cb63-253" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb63-254"><a href="#cb63-254" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-255"><a href="#cb63-255" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 应用method</span></span>
+<span id="cb63-256"><a href="#cb63-256" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-259"><a href="#cb63-259" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb63-260"><a href="#cb63-260" aria-hidden="true" tabindex="-1"></a>resampling<span class="sc">$</span><span class="fu">instantiate</span>(task)</span>
+<span id="cb63-261"><a href="#cb63-261" aria-hidden="true" tabindex="-1"></a>train <span class="ot">=</span> resampling<span class="sc">$</span><span class="fu">train_set</span>(<span class="dv">1</span>)</span>
+<span id="cb63-262"><a href="#cb63-262" aria-hidden="true" tabindex="-1"></a>test <span class="ot">=</span> resampling<span class="sc">$</span><span class="fu">test_set</span>(<span class="dv">1</span>)</span>
+<span id="cb63-263"><a href="#cb63-263" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(train)</span>
+<span id="cb63-264"><a href="#cb63-264" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb63-265"><a href="#cb63-265" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-266"><a href="#cb63-266" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 执行</span></span>
+<span id="cb63-269"><a href="#cb63-269" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb63-270"><a href="#cb63-270" aria-hidden="true" tabindex="-1"></a>task <span class="ot">=</span> <span class="fu">tsk</span>(<span class="st">"penguins"</span>)</span>
+<span id="cb63-271"><a href="#cb63-271" aria-hidden="true" tabindex="-1"></a>learner <span class="ot">=</span> <span class="fu">lrn</span>(<span class="st">"classif.rpart"</span>, <span class="at">maxdepth =</span> <span class="dv">3</span>, <span class="at">predict_type =</span> <span class="st">"prob"</span>)</span>
+<span id="cb63-272"><a href="#cb63-272" aria-hidden="true" tabindex="-1"></a>resampling <span class="ot">=</span> <span class="fu">rsmp</span>(<span class="st">"cv"</span>, <span class="at">folds =</span> <span class="dv">3</span>)</span>
+<span id="cb63-273"><a href="#cb63-273" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-274"><a href="#cb63-274" aria-hidden="true" tabindex="-1"></a>rr <span class="ot">=</span> <span class="fu">resample</span>(task, learner, resampling, <span class="at">store_models =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb63-275"><a href="#cb63-275" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(rr)</span>
+<span id="cb63-276"><a href="#cb63-276" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb63-277"><a href="#cb63-277" aria-hidden="true" tabindex="-1"></a>效果评估，所有fold中scroe的均值</span>
+<span id="cb63-280"><a href="#cb63-280" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb63-281"><a href="#cb63-281" aria-hidden="true" tabindex="-1"></a>rr<span class="sc">$</span><span class="fu">aggregate</span>(<span class="fu">msr</span>(<span class="st">"classif.ce"</span>))</span>
+<span id="cb63-282"><a href="#cb63-282" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb63-283"><a href="#cb63-283" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-284"><a href="#cb63-284" aria-hidden="true" tabindex="-1"></a>获取每个模型训练的结果</span>
+<span id="cb63-287"><a href="#cb63-287" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb63-288"><a href="#cb63-288" aria-hidden="true" tabindex="-1"></a>lrn <span class="ot">=</span> rr<span class="sc">$</span>learners[[<span class="dv">1</span>]]</span>
+<span id="cb63-289"><a href="#cb63-289" aria-hidden="true" tabindex="-1"></a>lrn<span class="sc">$</span>model</span>
+<span id="cb63-290"><a href="#cb63-290" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb63-291"><a href="#cb63-291" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-292"><a href="#cb63-292" aria-hidden="true" tabindex="-1"></a>获取在验证集上训练的结果</span>
+<span id="cb63-295"><a href="#cb63-295" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb63-296"><a href="#cb63-296" aria-hidden="true" tabindex="-1"></a>rr<span class="sc">$</span><span class="fu">prediction</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb63-297"><a href="#cb63-297" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.data.table</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb63-298"><a href="#cb63-298" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(row_ids) <span class="sc">%&gt;%</span></span>
+<span id="cb63-299"><a href="#cb63-299" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb63-300"><a href="#cb63-300" aria-hidden="true" tabindex="-1"></a>  knitr<span class="sc">::</span><span class="fu">kable</span>()</span>
+<span id="cb63-301"><a href="#cb63-301" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb63-302"><a href="#cb63-302" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-303"><a href="#cb63-303" aria-hidden="true" tabindex="-1"></a><span class="fu">### Benchmarking</span></span>
+<span id="cb63-304"><a href="#cb63-304" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-307"><a href="#cb63-307" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb63-308"><a href="#cb63-308" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">"mlr3verse"</span>)</span>
+<span id="cb63-309"><a href="#cb63-309" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-310"><a href="#cb63-310" aria-hidden="true" tabindex="-1"></a>design <span class="ot">=</span> <span class="fu">benchmark_grid</span>(</span>
+<span id="cb63-311"><a href="#cb63-311" aria-hidden="true" tabindex="-1"></a>  <span class="at">tasks =</span> <span class="fu">tsks</span>(<span class="fu">c</span>(<span class="st">"spam"</span>, <span class="st">"german_credit"</span>, <span class="st">"sonar"</span>)),</span>
+<span id="cb63-312"><a href="#cb63-312" aria-hidden="true" tabindex="-1"></a>  <span class="at">learners =</span> <span class="fu">lrns</span>(<span class="fu">c</span>(<span class="st">"classif.ranger"</span>, <span class="st">"classif.rpart"</span>, <span class="st">"classif.featureless"</span>),</span>
+<span id="cb63-313"><a href="#cb63-313" aria-hidden="true" tabindex="-1"></a>    <span class="at">predict_type =</span> <span class="st">"prob"</span>, <span class="at">predict_sets =</span> <span class="fu">c</span>(<span class="st">"train"</span>, <span class="st">"test"</span>)),</span>
+<span id="cb63-314"><a href="#cb63-314" aria-hidden="true" tabindex="-1"></a>  <span class="at">resamplings =</span> <span class="fu">rsmps</span>(<span class="st">"cv"</span>, <span class="at">folds =</span> <span class="dv">3</span>)</span>
+<span id="cb63-315"><a href="#cb63-315" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb63-316"><a href="#cb63-316" aria-hidden="true" tabindex="-1"></a><span class="fu">as.data.table</span>(design) <span class="sc">%&gt;%</span> <span class="fu">head</span>() <span class="sc">%&gt;%</span> knitr<span class="sc">::</span><span class="fu">kable</span>()</span>
+<span id="cb63-317"><a href="#cb63-317" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb63-318"><a href="#cb63-318" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-319"><a href="#cb63-319" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-320"><a href="#cb63-320" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-321"><a href="#cb63-321" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-322"><a href="#cb63-322" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-323"><a href="#cb63-323" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-324"><a href="#cb63-324" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-325"><a href="#cb63-325" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-326"><a href="#cb63-326" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-327"><a href="#cb63-327" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-328"><a href="#cb63-328" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-329"><a href="#cb63-329" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-330"><a href="#cb63-330" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-331"><a href="#cb63-331" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-332"><a href="#cb63-332" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-333"><a href="#cb63-333" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-334"><a href="#cb63-334" aria-hidden="true" tabindex="-1"></a></span>
 </code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
