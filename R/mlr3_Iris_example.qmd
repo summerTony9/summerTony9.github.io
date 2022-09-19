@@ -1,0 +1,245 @@
+---
+title: "mlr3_Iris_example"
+format: 
+  html:
+    number-sections: true
+    toc-depth: 5
+---
+
+```{r}
+library(data.table)
+library(tidyverse)
+library(data.table)
+library(mlr3)
+library(mlr3learners)
+library(mlr3extralearners) 
+library(mlr3verse)
+library(mlr3tuning)
+library(fastDummies)
+data = read_csv("ttnk/train.csv", show_col_types = FALSE)
+test_data = read_csv("ttnk/test.csv", show_col_types = FALSE)
+
+tidy_data = function(dt){
+  colnames(dt) = make.names(colnames(dt), unique = T)
+
+  dt = as.data.table(dt)
+  dt %>%
+    select_if(is.numeric) %>%
+    setnafill("locf") -> data_with_numeric
+
+  dt %>%
+    select_if(
+      \(x) !is.numeric(x)
+    ) -> data_with_fac
+
+  data_with_fac[is.na(data_with_fac)]="unknow"
+  dt = cbind(data_with_numeric, data_with_fac)
+  
+  dt= dt %>%
+    mutate_if(
+      \(x){
+        (class(x) == "character" || class(x)  == "logical") && n_distinct(x) <= 5
+      },
+      as.factor
+    ) %>%
+    select_if(
+      \(x) !is_character(x)
+    ) %>%
+    dummy_columns(
+      remove_most_frequent_dummy=TRUE, 
+      remove_selected_columns=TRUE
+    ) %>%
+    mutate_if(
+      is.numeric,
+      as.double
+    )
+  colnames(dt) = make.names(colnames(dt), unique = T)
+  return(dt)
+}
+data = tidy_data(data)
+test_data = tidy_data(test_data)
+```
+
+```{r}
+task = as_task_classif(data, target = "Transported_FALSE", id="ttnk_task")
+learner = lrn("classif.randomForest", id="ttnk_learner")
+learner$param_set
+```
+
+```{r}
+resampling = rsmp("cv", folds = 5)
+# resampling$instantiate(task)
+# rr = resample(task, learner, resampling, store_models = TRUE)
+# rr$aggregate(msr("classif.acc"))
+```
+
+```{r}
+# rr$prediction()$confusion
+```
+
+```{r}
+design = benchmark_grid(
+  tasks = task,
+  learners = lrns(c(
+      "classif.ranger", 
+      "classif.rpart", 
+      "classif.randomForest",
+      "classif.AdaBoostM1",
+      "classif.svm",
+      "classif.xgboost"
+    ),
+    predict_type = "prob", predict_sets = c("train", "test")
+  ),
+  resamplings = resampling
+)
+bmr = benchmark(design)
+
+measures = list(
+  msr("classif.acc", predict_sets = "train", id = "auc_train"),
+  msr("classif.acc", id = "auc_test")
+)
+
+tab = bmr$aggregate(measures)
+```
+
+```{r}
+tab
+```
+
+```{r}
+temp = tab$resample_result[[1]]
+map_dfc(
+  tab$resample_result,
+  ~{
+    colname = str_c("prob.0_", .x$learner$id)
+    .x$prediction() %>% 
+      as.data.table() %>%
+      select(prob.0) %>%
+      rename(
+        {{colname}} := prob.0
+      )
+  }
+) -> k_fold_on_train_set
+
+tab$resample_result %>%
+  map_dfc(\(temp){
+    lr = temp$learner
+    rr = resample(task, lr, resampling, store_models = TRUE)
+    iid = str_c("prob.0_", lr$id)
+    rr$learners %>%
+      map_dfc(
+        ~{
+          colname = str_c("prob.0_", .x$id)
+          .x$predict_newdata(test_data, task) %>%
+            as.data.table() %>%
+            select(prob.0) %>%
+            rename(
+              {{colname}} := prob.0
+            )
+        }
+      ) %>%
+      rowMeans() %>%
+      as.data.table() %>%
+      rename(
+        {{iid}} := .
+      )
+  }) -> k_fold_on_test_set
+```
+
+```{r}
+row_id = temp$prediction() %>%
+  as.data.table() %>%
+  select(row_ids)
+
+train_second = cbind(row_id, k_fold_on_train_set) %>%
+  arrange(row_id) %>%
+  mutate(Transported_FALSE = data$Transported_FALSE) %>%
+  select(-row_ids)
+
+second_task = as_task_classif(train_second, target = "Transported_FALSE", id="second")
+second_lnr = lrn("classif.log_reg", id="second")
+second_lnr$train(second_task)
+second_lnr$predict_newdata(k_fold_on_test_set) -> final_ans
+final_ans %>%
+  as.data.table() %>%
+  mutate(
+    Transported = if_else(
+      response == 1,
+      "False",
+      "True"
+    ),
+    PassengerId = read_csv("ttnk/test.csv", show_col_types = FALSE) %>% select(PassengerId) %>% pull()
+  ) %>%
+  select(PassengerId, Transported) %>%
+  fwrite("ans.csv")
+```
+
+
+```{r}
+task = as_task_classif(data, target = "Transported_FALSE", id="ttnk_task")
+learner = lrn("classif.lightgbm")
+learner$param_set %>% as.data.table() %>% view()
+```
+
+```{r}
+search_space = ps(
+  num_iterations = p_int(lower=1, upper = 1000),
+  learning_rate = p_dbl(lower=0.01, upper = 0.99)
+)
+terminator = trm("evals", n_evals = 100)
+tuner = tnr("random_search")
+at = AutoTuner$new(
+  learner = learner,
+  resampling = rsmp("holdout"),
+  measure = msr("classif.acc"),
+  search_space = search_space,
+  terminator = terminator,
+  tuner = tuner
+)
+
+at$train(task)
+```
+
+```{r}
+at$predict(task)$score(msr("classif.acc"))
+```
+
+
+```{r}
+at$predict_newdata(test_data) %>%
+  as.data.table() %>%
+  mutate(
+    Transported = if_else(
+      response == 1,
+      "False",
+      "True"
+    ),
+    PassengerId = read_csv("ttnk/test.csv", show_col_types = FALSE) %>% select(PassengerId) %>% pull()
+  ) %>%
+  select(PassengerId, Transported) %>%
+  fwrite("ans_lgm.csv")
+```
+
+```{r}
+filter = flt("jmim")
+filter$calculate(task)
+
+as.data.table(filter)
+```
+
+
+```{r}
+instance = FSelectInstanceSingleCrit$new(
+  task = task,
+  learner = at,
+  resampling = rsmp("cv", folds=5),
+  measure = msr("classif.acc"),
+  terminator = trm("evals", n_evals = 100)
+)
+instance
+```
+```{r}
+fselector = fs("random_search")
+fselector$optimize(instance)
+```
+

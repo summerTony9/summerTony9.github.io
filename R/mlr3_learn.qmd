@@ -12,9 +12,10 @@ format:
 #| message: false
 library(tidyverse)
 ```
+
 ## TASKS
 
-### 导入数据 
+### 导入数据
 
 ```{r}
 data("mtcars", package = "datasets")
@@ -29,6 +30,7 @@ library("mlr3")
 task_mtcars = as_task_regr(mtcars, target = "mpg", id = "cars")
 print(task_mtcars)
 ```
+
 ### 快速绘图
 
 ```{r}
@@ -41,6 +43,7 @@ autoplot(task_mtcars, type = "pairs")
 #### 数据的基本信息
 
 TASK中数据的行数与列数
+
 ```{r}
 task_mtcars$nrow
 task_mtcars$ncol
@@ -51,6 +54,7 @@ task_mtcars$target_names
 #### 对TASK中数据的修改
 
 数据规模缩小
+
 ```{r}
 task_mtcars$select(c("am", "carb", "wt")) # 只能选feature
 task_mtcars$filter(2:4) # 仅支持输入row id
@@ -58,6 +62,7 @@ task_mtcars$data() %>% knitr::kable()
 ```
 
 数据规模扩大
+
 ```{r}
 task_mtcars$rbind(
   data.frame(mpg=1, am=1, carb=1, wt=1)
@@ -80,6 +85,7 @@ learner$param_set
 ```
 
 直接在初始化时设定参数
+
 ```{r}
 learner = lrn("classif.rpart", id = "rp", cp = 0.001)
 learner$id
@@ -96,17 +102,20 @@ task$data() %>% head() %>% knitr::kable()
 ### 训练
 
 训练的模型保存在`learner$model`中
+
 ```{r}
 learner$model
 ```
 
 训练模型
+
 ```{r}
 learner$train(task)
 learner$model
 ```
 
 ### 预测
+
 ```{r}
 prediction = learner$predict_newdata(task$data())
 as.data.table(prediction) %>% head() %>% knitr::kable()
@@ -131,11 +140,13 @@ prediction
 ### 训练效果评估
 
 所有的评估方法
+
 ```{r}
 mlr_measures
 ```
 
 设定评估角度为acc
+
 ```{r}
 measure = msr("classif.acc")
 measure
@@ -146,12 +157,13 @@ prediction$score(measure)
 ```
 
 设置多个评估标准
+
 ```{r}
 measures = msrs(c("classif.tpr", "classif.tnr"))
 prediction$score(measures)
 ```
 
-## 调参
+## 模型表现与评估
 
 ### ROC曲线和阈值
 
@@ -160,6 +172,7 @@ task = tsk("sonar")
 learner = lrn("classif.rpart", predict_type = "prob")
 task
 ```
+
 #### 划分训练集测试集
 
 ```{r}
@@ -169,6 +182,7 @@ str(splits)
 ```
 
 链式训练
+
 ```{r}
 pred = learner$train(task, splits$train)$predict(task, splits$test)
 pred$confusion
@@ -182,6 +196,7 @@ learner = lrn("classif.rpart")
 ```
 
 Resample Method列表
+
 ```{r}
 as.data.table(mlr_resamplings)
 ```
@@ -194,6 +209,7 @@ print(resampling)
 ```
 
 两种方法设置holdout比例
+
 ```{r}
 resampling$param_set$values = list(ratio = 0.8)
 resampling = rsmp("holdout", ratio=0.8)
@@ -210,6 +226,7 @@ str(train)
 ```
 
 #### 执行
+
 ```{r}
 task = tsk("penguins")
 learner = lrn("classif.rpart", maxdepth = 3, predict_type = "prob")
@@ -218,18 +235,22 @@ resampling = rsmp("cv", folds = 3)
 rr = resample(task, learner, resampling, store_models = TRUE)
 print(rr)
 ```
+
 效果评估，所有fold中scroe的均值
+
 ```{r}
 rr$aggregate(msr("classif.ce"))
 ```
 
 获取每个模型训练的结果
+
 ```{r}
 lrn = rr$learners[[1]]
 lrn$model
 ```
 
 获取在验证集上训练的结果
+
 ```{r}
 rr$prediction() %>% 
   as.data.table() %>% 
@@ -239,6 +260,8 @@ rr$prediction() %>%
 ```
 
 ### Benchmarking
+
+#### 初始化
 
 ```{r}
 library("mlr3verse")
@@ -252,20 +275,99 @@ design = benchmark_grid(
 as.data.table(design) %>% head() %>% knitr::kable()
 ```
 
+#### 执行
 
+```{r}
+#| message: false
+bmr = benchmark(design)
+```
 
+### 评估模型好坏
 
+```{r}
+measures = list(
+  msr("classif.auc", predict_sets = "train", id = "auc_train"),
+  # predict_sets默认为test
+  msr("classif.auc", id = "auc_test")
+)
 
+tab = bmr$aggregate(measures)
+tab[, .(task_id, learner_id, auc_train, auc_test)] %>% knitr::kable()
+```
 
+## 调参
 
+### 超参数调参
 
+```{r}
+library("mlr3verse")
+task = tsk("pima")
+print(task)
+learner = lrn("classif.rpart")
+learner$param_set %>% as.data.table() %>% head() %>% knitr::kable()
+```
 
+#### 设置搜索区域
 
+考虑调节参数cp和minsplit
 
+```{r}
+search_space = ps(
+  cp = p_dbl(lower = 0.001, upper = 0.1),
+  minsplit = p_int(lower = 1, upper = 10)
+)
+search_space %>% as.data.table() %>% head() %>% knitr::kable()
+```
 
+设置其他参数
 
+```{r}
+hout = rsmp("holdout")
+measure = msr("classif.ce")
+```
 
+```{r}
+# 设置终止条件，这里是迭代20次即终止
+evals20 = trm("evals", n_evals = 20)
 
+instance = TuningInstanceSingleCrit$new(
+  task = task,
+  learner = learner,
+  resampling = hout,
+  measure = measure,
+  search_space = search_space,
+  terminator = evals20
+)
+instance
+```
+
+#### 设置搜索方法
+
+这里选择分辨率为5的网格搜索
+
+```{r}
+tuner = tnr("grid_search", resolution = 5)
+```
+
+#### 正式开始搜索
+
+```{r}
+#| message: false
+#| results: hide
+ans = tuner$optimize(instance)
+```
+
+```{r}
+ans
+```
+查看最优的参数
+```{r}
+instance$result_learner_param_vals
+```
+查看参数的搜索过程
+```{r}
+as.data.table(instance$archive) %>% head() %>% knitr::kable()
+```
 
 
 
