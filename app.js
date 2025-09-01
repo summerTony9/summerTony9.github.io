@@ -105,6 +105,13 @@ function daysSinceYearStartExclusive(d) {
   return Math.max(0, dayOfYear(d) - 1);
 }
 
+function formatDateLocal(d) {
+  const y = d.getFullYear();
+  const m = String(d.getMonth() + 1).padStart(2, '0');
+  const day = String(d.getDate()).padStart(2, '0');
+  return `${y}-${m}-${day}`;
+}
+
 function getThresholdByLevel(level) { return level === 'mid' ? 500000 : 10000; }
 
 function computeSingle() {
@@ -135,9 +142,9 @@ function computeSingle() {
   const avgT = targetDays > 0 ? (avgToDate * elapsedDays + currentBalance * Math.max(0, targetDays - elapsedDays)) / targetDays : NaN;
 
   writeHtml('kpi-status', hit ? `<span class="ok">已达标</span>` : `<span class="not-ok">未达标</span>`);
-  writeText('kpi-avg', `${targetDate.toISOString().slice(0, 10)} 日均：${fmtNumber(avgT)}`);
+  writeText('kpi-avg', `${formatDateLocal(targetDate)} 日均：${fmtNumber(avgT)}`);
   writeText('kpi-needed', needM <= 0 ? '0（无需增加）' : (needM === Infinity ? '不可达' : fmtMoney(needM)));
-  writeText('kpi-days', holdDaysYear === Infinity ? '不可达（需提高M）' : `${fmtNumber(Math.ceil(holdDaysYear), 0)} 天（至${yearEnd.toISOString().slice(0, 10)}）`);
+  writeText('kpi-days', holdDaysYear === Infinity ? '不可达（需提高M）' : `${fmtNumber(Math.ceil(holdDaysYear), 0)} 天（至${formatDateLocal(yearEnd)}）`);
 }
 
 function setupEvents() {
@@ -168,7 +175,7 @@ function setQuickTarget(type) {
     target = new Date(baseYear, 11, 31); // Dec 31
   }
   const input = document.getElementById('target-date');
-  if (input) input.value = target.toISOString().slice(0, 10);
+  if (input) input.value = formatDateLocal(target);
 }
 
 function handleBatch() {
@@ -216,8 +223,8 @@ function handleBatch() {
           <td>${escapeHtml(r.id)}</td>
           <td>${fmtNumber(r.avgToDate)}</td>
           <td>${fmtMoney(r.currentBalance)}</td>
-          <td>${r.statsDate ? r.statsDate.toISOString().slice(0, 10) : '—'}</td>
-          <td>${r.targetDate ? r.targetDate.toISOString().slice(0, 10) : '—'}</td>
+          <td>${r.statsDate ? formatDateLocal(r.statsDate) : '—'}</td>
+          <td>${r.targetDate ? formatDateLocal(r.targetDate) : '—'}</td>
           <td>${r.level === 'mid' ? '中型' : '达标'}</td>
           <td class="${cells.hitClass || ''}">${cells.hitText}</td>
           <td>${cells.needMText}</td>
