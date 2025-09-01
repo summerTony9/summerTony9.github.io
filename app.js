@@ -111,12 +111,11 @@ function computeSingle() {
   const levelEl = document.getElementById('level-select');
   const level = levelEl && levelEl.value ? levelEl.value : 'basic';
 
-  if (!isFinite(avgToDate) || !isFinite(currentBalance) || !statsDate || !targetDate) {
-    alert('请完善：截至日日均、当前时点存款、统计数据日期、期望达标日期');
-    return;
-  }
-  if (targetDate.getTime() < statsDate.getTime()) {
-    alert('期望达标日期需不早于统计数据日期');
+  if (!isFinite(avgToDate) || !isFinite(currentBalance) || !statsDate || !targetDate || targetDate.getTime() < statsDate.getTime()) {
+    writeHtml('kpi-status', '—');
+    writeText('kpi-avg', '—');
+    writeText('kpi-needed', '—');
+    writeText('kpi-days', '—');
     return;
   }
 
@@ -126,26 +125,33 @@ function computeSingle() {
 
   const hit = isMeetingAtT(avgToDate, elapsedDays, currentBalance, targetDays, threshold);
   const needM = requiredBalanceForT(avgToDate, elapsedDays, targetDays, threshold);
-  const needDays = daysNeededWithM(avgToDate, elapsedDays, currentBalance, threshold);
+  // For year-end holding days: compute relative to Dec 31 of the same year
+  const yearEnd = new Date(statsDate.getFullYear(), 11, 31);
+  const daysToYearEnd = dayOfYear(yearEnd);
+  const holdDaysYear = daysNeededWithM(avgToDate, elapsedDays, currentBalance, threshold);
   const avgT = (avgToDate * elapsedDays + currentBalance * Math.max(0, targetDays - elapsedDays)) / (targetDays || 1);
 
   writeHtml('kpi-status', hit ? `<span class="ok">已达标</span>` : `<span class="not-ok">未达标</span>`);
-  writeText('kpi-avg', `T时点日均：${fmtNumber(avgT)}`);
+  writeText('kpi-avg', `${targetDate.toISOString().slice(0,10)} 日均：${fmtNumber(avgT)}`);
   writeText('kpi-needed', needM <= 0 ? '0（无需增加）' : (needM === Infinity ? '不可达' : fmtMoney(needM)));
-  writeText('kpi-days', needDays === Infinity ? '不可达（需提高M）' : `${fmtNumber(Math.ceil(needDays), 0)} 天`);
+  writeText('kpi-days', holdDaysYear === Infinity ? '不可达（需提高M）' : `${fmtNumber(Math.ceil(holdDaysYear), 0)} 天（至${yearEnd.toISOString().slice(0,10)}）`);
 }
 
 function setupEvents() {
-  const btnSingle = document.getElementById('btn-run-single');
-  if (btnSingle) btnSingle.addEventListener('click', computeSingle);
+  const inputs = ['avg-to-date', 'current-balance', 'stats-date', 'target-date', 'level-select'];
+  inputs.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.addEventListener('input', computeSingle);
+    if (el) el.addEventListener('change', computeSingle);
+  });
 
   const btnBatch = document.getElementById('btn-run-batch');
   if (btnBatch) btnBatch.addEventListener('click', handleBatch);
 
   const btnQ3 = document.getElementById('btn-q3-end');
-  if (btnQ3) btnQ3.addEventListener('click', () => setQuickTarget('q3'));
+  if (btnQ3) btnQ3.addEventListener('click', () => { setQuickTarget('q3'); computeSingle(); });
   const btnYear = document.getElementById('btn-year-end');
-  if (btnYear) btnYear.addEventListener('click', () => setQuickTarget('year'));
+  if (btnYear) btnYear.addEventListener('click', () => { setQuickTarget('year'); computeSingle(); });
 }
 
 function setQuickTarget(type) {
