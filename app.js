@@ -114,6 +114,17 @@ function formatDateLocal(d) {
 
 function getThresholdByLevel(level) { return level === 'mid' ? 500000 : 10000; }
 
+function isHitByMode(avgToDate, elapsedDays, threshold, mode) {
+  const D = Math.max(0, elapsedDays);
+  if (!isFiniteValues(avgToDate, D, threshold)) return false;
+  if (mode === 'year') {
+    return avgToDate * D >= threshold * 365;
+  }
+  // point mode: reduces to avgToDate >= threshold (when D>0), treat D=0 as not hit
+  if (D === 0) return false;
+  return avgToDate >= threshold - 1e-9;
+}
+
 function computeSingle() {
   const avgToDate = readNumber('avg-to-date');
   const currentBalance = readNumber('current-balance');
@@ -121,6 +132,8 @@ function computeSingle() {
   const targetDate = parseDateValue('target-date');
   const levelEl = document.getElementById('level-select');
   const level = levelEl && levelEl.value ? levelEl.value : 'basic';
+  const modeEl = document.getElementById('mode-select');
+  const mode = modeEl && modeEl.value ? modeEl.value : 'point';
 
   if (!isFinite(avgToDate) || !isFinite(currentBalance) || !statsDate || !targetDate || targetDate.getTime() < statsDate.getTime()) {
     writeHtml('kpi-status', '—');
@@ -134,7 +147,7 @@ function computeSingle() {
   const targetDays = daysSinceYearStartExclusive(targetDate);
   const threshold = getThresholdByLevel(level);
 
-  const hit = isMeetingAtT(avgToDate, elapsedDays, currentBalance, targetDays, threshold);
+  const hit = isHitByMode(avgToDate, elapsedDays, threshold, mode);
   // Year-end required balance (for the KPI "年末达标需时点存款")
   const yearEnd = new Date(statsDate.getFullYear(), 11, 31);
   const yearEndDays = daysSinceYearStartExclusive(yearEnd);
@@ -159,7 +172,7 @@ function computeSingle() {
 }
 
 function setupEvents() {
-  const inputs = ['avg-to-date', 'current-balance', 'stats-date', 'target-date', 'level-select'];
+  const inputs = ['avg-to-date', 'current-balance', 'stats-date', 'target-date', 'level-select', 'mode-select'];
   inputs.forEach(id => {
     const el = document.getElementById(id);
     if (el) el.addEventListener('input', computeSingle);
@@ -219,7 +232,9 @@ function handleBatch() {
           const elapsedDays = daysSinceYearStartExclusive(r.statsDate);
           const targetDays = daysSinceYearStartExclusive(r.targetDate);
           const threshold = getThresholdByLevel(r.level === 'mid' ? 'mid' : 'basic');
-          const hit = isMeetingAtT(r.avgToDate, elapsedDays, r.currentBalance, targetDays, threshold);
+          const modeEl = document.getElementById('mode-select');
+          const mode = modeEl && modeEl.value ? modeEl.value : 'point';
+          const hit = isHitByMode(r.avgToDate, elapsedDays, threshold, mode);
           const yearEnd = new Date(r.statsDate.getFullYear(), 11, 31);
           const yearEndDays = daysSinceYearStartExclusive(yearEnd);
           const needM = requiredBalanceForT(r.avgToDate, elapsedDays, yearEndDays, threshold);
