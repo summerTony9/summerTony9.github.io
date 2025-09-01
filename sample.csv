@@ -1,0 +1,5 @@
+name,id,avg_to_date,elapsed_days,current_balance,total_days
+张三,10001,8000,10,12000,30
+李四,10002,12000,12,9000,30
+王五,10003,400000,15,550000,30
+
