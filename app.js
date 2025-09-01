@@ -94,11 +94,12 @@ function parseDateValue(id) {
   return isNaN(d.getTime()) ? null : d;
 }
 
-function isSameMonth(d1, d2) {
-  return d1 && d2 && d1.getFullYear() === d2.getFullYear() && d1.getMonth() === d2.getMonth();
+function dayOfYear(d) {
+  const start = new Date(d.getFullYear(), 0, 1);
+  const diff = d - start;
+  const oneDay = 24 * 60 * 60 * 1000;
+  return Math.floor(diff / oneDay) + 1;
 }
-
-function dayOfMonth(d) { return d.getDate(); }
 
 function getThresholdByLevel(level) { return level === 'mid' ? 500000 : 10000; }
 
@@ -114,17 +115,13 @@ function computeSingle() {
     alert('请完善：截至日日均、当前时点存款、统计数据日期、期望达标日期');
     return;
   }
-  if (!isSameMonth(statsDate, targetDate)) {
-    alert('统计数据日期与期望达标日期需在同一月份');
-    return;
-  }
   if (targetDate.getTime() < statsDate.getTime()) {
     alert('期望达标日期需不早于统计数据日期');
     return;
   }
 
-  const elapsedDays = dayOfMonth(statsDate);
-  const targetDays = dayOfMonth(targetDate);
+  const elapsedDays = dayOfYear(statsDate);
+  const targetDays = dayOfYear(targetDate);
   const threshold = getThresholdByLevel(level);
 
   const hit = isMeetingAtT(avgToDate, elapsedDays, currentBalance, targetDays, threshold);
@@ -144,6 +141,25 @@ function setupEvents() {
 
   const btnBatch = document.getElementById('btn-run-batch');
   if (btnBatch) btnBatch.addEventListener('click', handleBatch);
+
+  const btnQ3 = document.getElementById('btn-q3-end');
+  if (btnQ3) btnQ3.addEventListener('click', () => setQuickTarget('q3'));
+  const btnYear = document.getElementById('btn-year-end');
+  if (btnYear) btnYear.addEventListener('click', () => setQuickTarget('year'));
+}
+
+function setQuickTarget(type) {
+  const statsDate = parseDateValue('stats-date');
+  const today = new Date();
+  const baseYear = statsDate ? statsDate.getFullYear() : today.getFullYear();
+  let target;
+  if (type === 'q3') {
+    target = new Date(baseYear, 8, 30); // Sep 30
+  } else {
+    target = new Date(baseYear, 11, 31); // Dec 31
+  }
+  const input = document.getElementById('target-date');
+  if (input) input.value = target.toISOString().slice(0, 10);
 }
 
 function handleBatch() {
@@ -170,13 +186,11 @@ function handleBatch() {
         let cells = {};
         if (!r.statsDate || !r.targetDate || !isFinite(r.avgToDate) || !isFinite(r.currentBalance)) {
           cells = { hitText: '数据不完整', needMText: '—', needDaysText: '—' };
-        } else if (!isSameMonth(r.statsDate, r.targetDate)) {
-          cells = { hitText: '需同月', needMText: '—', needDaysText: '—' };
         } else if (r.targetDate.getTime() < r.statsDate.getTime()) {
           cells = { hitText: '目标早于统计日', needMText: '—', needDaysText: '—' };
         } else {
-          const elapsedDays = dayOfMonth(r.statsDate);
-          const targetDays = dayOfMonth(r.targetDate);
+          const elapsedDays = dayOfYear(r.statsDate);
+          const targetDays = dayOfYear(r.targetDate);
           const threshold = getThresholdByLevel(r.level === 'mid' ? 'mid' : 'basic');
           const hit = isMeetingAtT(r.avgToDate, elapsedDays, r.currentBalance, targetDays, threshold);
           const needM = requiredBalanceForT(r.avgToDate, elapsedDays, targetDays, threshold);
@@ -193,8 +207,8 @@ function handleBatch() {
           <td>${escapeHtml(r.id)}</td>
           <td>${fmtNumber(r.avgToDate)}</td>
           <td>${fmtMoney(r.currentBalance)}</td>
-          <td>${r.statsDate ? r.statsDate.toISOString().slice(0,10) : '—'}</td>
-          <td>${r.targetDate ? r.targetDate.toISOString().slice(0,10) : '—'}</td>
+          <td>${r.statsDate ? r.statsDate.toISOString().slice(0, 10) : '—'}</td>
+          <td>${r.targetDate ? r.targetDate.toISOString().slice(0, 10) : '—'}</td>
           <td>${r.level === 'mid' ? '中型' : '达标'}</td>
           <td class="${cells.hitClass || ''}">${cells.hitText}</td>
           <td>${cells.needMText}</td>

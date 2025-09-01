@@ -1,123 +1,134 @@
 <!doctype html>
 <html lang="zh-CN">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <title>日均存款达标助手</title>
-    <meta name="description" content="快速判断客户在目标时间是否达标、达标所需时点存款、以及时点存款放多久可达标。" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="./styles.css" />
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>💰</text></svg>">
-  </head>
-  <body>
-    <header class="app-header">
-      <div class="container">
-        <h1>日均存款达标助手</h1>
-        <p class="subtitle">按当前时点存款与已统计日均，快速预估是否达标、需要多少钱、要放多久</p>
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>日均存款达标助手</title>
+  <meta name="description" content="快速判断客户在目标时间是否达标、达标所需时点存款、以及时点存款放多久可达标。" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./styles.css" />
+  <link rel="icon"
+    href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>💰</text></svg>">
+</head>
+
+<body>
+  <header class="app-header">
+    <div class="container">
+      <h1>日均存款达标助手</h1>
+      <p class="subtitle">按当前时点存款与已统计日均，快速预估是否达标、需要多少钱、要放多久</p>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="card calc-card">
+      <h2>单户试算</h2>
+      <div class="grid grid-3">
+        <label class="field">
+          <span>截至日的日均（元）</span>
+          <input id="avg-to-date" type="number" inputmode="decimal" placeholder="例如：3560.50" />
+        </label>
+        <label class="field">
+          <span>当前时点存款（元）</span>
+          <input id="current-balance" type="number" inputmode="decimal" placeholder="例如：20000" />
+        </label>
+        <label class="field">
+          <span>统计数据日期</span>
+          <input id="stats-date" type="date" />
+        </label>
       </div>
-    </header>
-
-    <main class="container">
-      <section class="card calc-card">
-        <h2>单户试算</h2>
-        <div class="grid grid-3">
-          <label class="field">
-            <span>截至日的日均（元）</span>
-            <input id="avg-to-date" type="number" inputmode="decimal" placeholder="例如：3560.50" />
-          </label>
-          <label class="field">
-            <span>当前时点存款（元）</span>
-            <input id="current-balance" type="number" inputmode="decimal" placeholder="例如：20000" />
-          </label>
-          <label class="field">
-            <span>统计数据日期</span>
-            <input id="stats-date" type="date" />
-          </label>
+      <div class="grid grid-3">
+        <label class="field">
+          <span>期望达标日期</span>
+          <input id="target-date" type="date" />
+        </label>
+        <label class="field">
+          <span>快捷日期</span>
+          <div class="btn-row">
+            <button id="btn-q3-end" class="btn secondary" type="button">三季度末</button>
+            <button id="btn-year-end" class="btn secondary" type="button">年末</button>
+          </div>
+        </label>
+        <label class="field">
+          <span>目标档位</span>
+          <select id="level-select">
+            <option value="basic">达标户（¥10,000）</option>
+            <option value="mid">中型客户（¥500,000）</option>
+          </select>
+        </label>
+        <div class="field align-end">
+          <button id="btn-run-single" class="btn primary" type="button">开始计算</button>
         </div>
-        <div class="grid grid-3">
-          <label class="field">
-            <span>期望达标日期</span>
-            <input id="target-date" type="date" />
-          </label>
-          <label class="field">
-            <span>目标档位</span>
-            <select id="level-select">
-              <option value="basic">达标户（¥10,000）</option>
-              <option value="mid">中型客户（¥500,000）</option>
-            </select>
-          </label>
-          <div class="field align-end">
-            <button id="btn-run-single" class="btn primary" type="button">开始计算</button>
-          </div>
-        </div>
-
-        <div id="single-results" class="results">
-          <div class="result-block">
-            <h3>目标日是否达标</h3>
-            <div class="kpi" id="kpi-status">—</div>
-            <div class="kpi-sub" id="kpi-avg">—</div>
-          </div>
-
-          <div class="result-block">
-            <h3>在 T 达标需要的时点存款</h3>
-            <div class="kpi" id="kpi-needed">—</div>
-          </div>
-
-          <div class="result-block">
-            <h3>以当前时点存款，需要放多久才能达标</h3>
-            <div class="kpi" id="kpi-days">—</div>
-          </div>
-        </div>
-      </section>
-
-      <section class="card">
-        <h2>批量导入（CSV）</h2>
-        <div class="grid grid-3">
-          <div class="field">
-            <span>上传 CSV 文件</span>
-            <input id="csv-file" type="file" accept=".csv" />
-          </div>
-          <div class="field align-end">
-            <a class="btn secondary" href="./sample.csv" download>下载模板</a>
-          </div>
-          <div class="field align-end">
-            <button id="btn-run-batch" class="btn primary" type="button">批量计算</button>
-          </div>
-        </div>
-        <p class="hint">CSV 字段：name,id,avg_to_date,current_balance,stats_date(YYYY-MM-DD),target_date(YYYY-MM-DD),level(basic|mid,可选)</p>
-        <div class="table-wrap">
-          <table id="batch-table">
-            <thead>
-              <tr>
-                <th>客户</th>
-                <th>编号</th>
-                <th>截至日日均</th>
-                <th>当前时点存款</th>
-                <th>统计数据日期</th>
-                <th>期望达标日期</th>
-                <th>档位</th>
-                <th>目标日是否达标</th>
-                <th>T 达标所需时点</th>
-                <th>当前M需天数</th>
-              </tr>
-            </thead>
-            <tbody></tbody>
-          </table>
-        </div>
-      </section>
-    </main>
-
-    <footer class="app-footer">
-      <div class="container">
-        <span>©2025 日均存款达标助手</span>
       </div>
-    </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js" integrity="sha256-5mK6z0uXrH9qfOYS6q9I0TkeLjtTby8Dq4m03nKcMqo=" crossorigin="anonymous"></script>
-    <script src="./app.js"></script>
-  </body>
-  </html>
+      <div id="single-results" class="results">
+        <div class="result-block">
+          <h3>目标日是否达标</h3>
+          <div class="kpi" id="kpi-status">—</div>
+          <div class="kpi-sub" id="kpi-avg">—</div>
+        </div>
 
+        <div class="result-block">
+          <h3>在 T 达标需要的时点存款</h3>
+          <div class="kpi" id="kpi-needed">—</div>
+        </div>
 
+        <div class="result-block">
+          <h3>以当前时点存款，需要放多久才能达标</h3>
+          <div class="kpi" id="kpi-days">—</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>批量导入（CSV）</h2>
+      <div class="grid grid-3">
+        <div class="field">
+          <span>上传 CSV 文件</span>
+          <input id="csv-file" type="file" accept=".csv" />
+        </div>
+        <div class="field align-end">
+          <a class="btn secondary" href="./sample.csv" download>下载模板</a>
+        </div>
+        <div class="field align-end">
+          <button id="btn-run-batch" class="btn primary" type="button">批量计算</button>
+        </div>
+      </div>
+      <p class="hint">CSV
+        字段：name,id,avg_to_date,current_balance,stats_date(YYYY-MM-DD),target_date(YYYY-MM-DD),level(basic|mid,可选)</p>
+      <div class="table-wrap">
+        <table id="batch-table">
+          <thead>
+            <tr>
+              <th>客户</th>
+              <th>编号</th>
+              <th>截至日日均</th>
+              <th>当前时点存款</th>
+              <th>统计数据日期</th>
+              <th>期望达标日期</th>
+              <th>档位</th>
+              <th>目标日是否达标</th>
+              <th>T 达标所需时点</th>
+              <th>当前M需天数</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <footer class="app-footer">
+    <div class="container">
+      <span>©2025 日均存款达标助手</span>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"
+    integrity="sha256-5mK6z0uXrH9qfOYS6q9I0TkeLjtTby8Dq4m03nKcMqo=" crossorigin="anonymous"></script>
+  <script src="./app.js"></script>
+</body>
+
+</html>
