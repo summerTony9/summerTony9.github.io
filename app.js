@@ -135,9 +135,11 @@ function computeSingle() {
   const threshold = getThresholdByLevel(level);
 
   const hit = isMeetingAtT(avgToDate, elapsedDays, currentBalance, targetDays, threshold);
-  const needM = requiredBalanceForT(avgToDate, elapsedDays, targetDays, threshold);
-  // Year-end requirement: minimal holding days N with currentBalance to reach threshold by 12/31
+  // Year-end required balance (for the KPI "年末达标需时点存款")
   const yearEnd = new Date(statsDate.getFullYear(), 11, 31);
+  const yearEndDays = daysSinceYearStartExclusive(yearEnd);
+  const needM = requiredBalanceForT(avgToDate, elapsedDays, yearEndDays, threshold);
+  // Year-end requirement: minimal holding days N with currentBalance to reach threshold by 12/31
   const remainingDays = Math.max(0, daysSinceYearStartExclusive(yearEnd) - elapsedDays);
   const needDaysYear = daysNeededWithM(avgToDate, elapsedDays, currentBalance, threshold);
   const avgT = targetDays > 0 ? (avgToDate * elapsedDays + currentBalance * Math.max(0, targetDays - elapsedDays)) / targetDays : NaN;
@@ -216,8 +218,9 @@ function handleBatch() {
           const targetDays = daysSinceYearStartExclusive(r.targetDate);
           const threshold = getThresholdByLevel(r.level === 'mid' ? 'mid' : 'basic');
           const hit = isMeetingAtT(r.avgToDate, elapsedDays, r.currentBalance, targetDays, threshold);
-          const needM = requiredBalanceForT(r.avgToDate, elapsedDays, targetDays, threshold);
           const yearEnd = new Date(r.statsDate.getFullYear(), 11, 31);
+          const yearEndDays = daysSinceYearStartExclusive(yearEnd);
+          const needM = requiredBalanceForT(r.avgToDate, elapsedDays, yearEndDays, threshold);
           const remainingDays = Math.max(0, daysSinceYearStartExclusive(yearEnd) - elapsedDays);
           const needDaysYear = daysNeededWithM(r.avgToDate, elapsedDays, r.currentBalance, threshold);
           cells.hitText = hit ? '达标' : '未达标';
