@@ -150,9 +150,11 @@ function computeSingle() {
   if (needDaysYear === Infinity) {
     writeText('kpi-days', '不可达（需提高M）');
   } else if (needDaysYear > remainingDays) {
-    writeText('kpi-days', `不可达（需≥${fmtNumber(Math.ceil(needDaysYear), 0)}天，年内仅剩${fmtNumber(remainingDays, 0)}天）`);
+    writeText('kpi-days', `不可达（至少需要${fmtNumber(Math.ceil(needDaysYear), 0)}天）`);
   } else {
-    writeText('kpi-days', `${fmtNumber(Math.ceil(needDaysYear), 0)} 天（至${formatDateLocal(yearEnd)}）`);
+    const attain = new Date(statsDate);
+    attain.setDate(attain.getDate() + Math.ceil(needDaysYear));
+    writeText('kpi-days', `${formatDateLocal(attain)}`);
   }
 }
 
@@ -226,9 +228,15 @@ function handleBatch() {
           cells.hitText = hit ? '达标' : '未达标';
           cells.hitClass = hit ? 'ok' : 'not-ok';
           cells.needMText = needM <= 0 ? '0' : (needM === Infinity ? '不可达' : fmtMoney(needM));
-          cells.needDaysText = (needDaysYear === Infinity)
-            ? '不可达'
-            : (needDaysYear > remainingDays ? `不可达(需≥${fmtNumber(Math.ceil(needDaysYear), 0)}天，剩${fmtNumber(remainingDays, 0)}天)` : `${fmtNumber(Math.ceil(needDaysYear), 0)} 天`);
+          if (needDaysYear === Infinity) {
+            cells.needDaysText = '不可达';
+          } else if (needDaysYear > remainingDays) {
+            cells.needDaysText = `不可达(需≥${fmtNumber(Math.ceil(needDaysYear), 0)}天)`;
+          } else {
+            const attain = new Date(r.statsDate);
+            attain.setDate(attain.getDate() + Math.ceil(needDaysYear));
+            cells.needDaysText = formatDateLocal(attain);
+          }
         }
 
         const tr = document.createElement('tr');
