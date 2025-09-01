@@ -101,6 +101,10 @@ function dayOfYear(d) {
   return Math.floor(diff / oneDay) + 1;
 }
 
+function daysSinceYearStartExclusive(d) {
+  return Math.max(0, dayOfYear(d) - 1);
+}
+
 function getThresholdByLevel(level) { return level === 'mid' ? 500000 : 10000; }
 
 function computeSingle() {
@@ -119,22 +123,21 @@ function computeSingle() {
     return;
   }
 
-  const elapsedDays = dayOfYear(statsDate);
-  const targetDays = dayOfYear(targetDate);
+  const elapsedDays = daysSinceYearStartExclusive(statsDate);
+  const targetDays = daysSinceYearStartExclusive(targetDate);
   const threshold = getThresholdByLevel(level);
 
   const hit = isMeetingAtT(avgToDate, elapsedDays, currentBalance, targetDays, threshold);
   const needM = requiredBalanceForT(avgToDate, elapsedDays, targetDays, threshold);
   // For year-end holding days: compute relative to Dec 31 of the same year
   const yearEnd = new Date(statsDate.getFullYear(), 11, 31);
-  const daysToYearEnd = dayOfYear(yearEnd);
   const holdDaysYear = daysNeededWithM(avgToDate, elapsedDays, currentBalance, threshold);
-  const avgT = (avgToDate * elapsedDays + currentBalance * Math.max(0, targetDays - elapsedDays)) / (targetDays || 1);
+  const avgT = targetDays > 0 ? (avgToDate * elapsedDays + currentBalance * Math.max(0, targetDays - elapsedDays)) / targetDays : NaN;
 
   writeHtml('kpi-status', hit ? `<span class="ok">已达标</span>` : `<span class="not-ok">未达标</span>`);
-  writeText('kpi-avg', `${targetDate.toISOString().slice(0,10)} 日均：${fmtNumber(avgT)}`);
+  writeText('kpi-avg', `${targetDate.toISOString().slice(0, 10)} 日均：${fmtNumber(avgT)}`);
   writeText('kpi-needed', needM <= 0 ? '0（无需增加）' : (needM === Infinity ? '不可达' : fmtMoney(needM)));
-  writeText('kpi-days', holdDaysYear === Infinity ? '不可达（需提高M）' : `${fmtNumber(Math.ceil(holdDaysYear), 0)} 天（至${yearEnd.toISOString().slice(0,10)}）`);
+  writeText('kpi-days', holdDaysYear === Infinity ? '不可达（需提高M）' : `${fmtNumber(Math.ceil(holdDaysYear), 0)} 天（至${yearEnd.toISOString().slice(0, 10)}）`);
 }
 
 function setupEvents() {
@@ -195,8 +198,8 @@ function handleBatch() {
         } else if (r.targetDate.getTime() < r.statsDate.getTime()) {
           cells = { hitText: '目标早于统计日', needMText: '—', needDaysText: '—' };
         } else {
-          const elapsedDays = dayOfYear(r.statsDate);
-          const targetDays = dayOfYear(r.targetDate);
+          const elapsedDays = daysSinceYearStartExclusive(r.statsDate);
+          const targetDays = daysSinceYearStartExclusive(r.targetDate);
           const threshold = getThresholdByLevel(r.level === 'mid' ? 'mid' : 'basic');
           const hit = isMeetingAtT(r.avgToDate, elapsedDays, r.currentBalance, targetDays, threshold);
           const needM = requiredBalanceForT(r.avgToDate, elapsedDays, targetDays, threshold);
