@@ -87,50 +87,69 @@ function readNumber(id) {
 function writeText(id, text) { const el = document.getElementById(id); if (el) el.textContent = text; }
 function writeHtml(id, html) { const el = document.getElementById(id); if (el) el.innerHTML = html; }
 
+function parseDateValue(id) {
+  const el = document.getElementById(id);
+  if (!el || !el.value) return null;
+  const d = new Date(el.value + 'T00:00:00');
+  return isNaN(d.getTime()) ? null : d;
+}
+
+function isSameMonth(d1, d2) {
+  return d1 && d2 && d1.getFullYear() === d2.getFullYear() && d1.getMonth() === d2.getMonth();
+}
+
+function dayOfMonth(d) { return d.getDate(); }
+
+function getThresholdByLevel(level) { return level === 'mid' ? 500000 : 10000; }
+
 function computeSingle() {
-  const basic = readNumber('threshold-basic') || 10000;
-  const mid = readNumber('threshold-mid') || 500000;
-  const totalDays = readNumber('total-days');
   const avgToDate = readNumber('avg-to-date');
-  const elapsedDays = readNumber('elapsed-days');
   const currentBalance = readNumber('current-balance');
-  let targetDays = readNumber('target-days');
-  if (!isFinite(targetDays) || targetDays <= 0) targetDays = totalDays;
+  const statsDate = parseDateValue('stats-date');
+  const targetDate = parseDateValue('target-date');
+  const levelEl = document.getElementById('level-select');
+  const level = levelEl && levelEl.value ? levelEl.value : 'basic';
 
-  const dataSets = [
-    { name: 'basic', threshold: basic },
-    { name: 'mid', threshold: mid },
-  ];
+  if (!isFinite(avgToDate) || !isFinite(currentBalance) || !statsDate || !targetDate) {
+    alert('请完善：截至日日均、当前时点存款、统计数据日期、期望达标日期');
+    return;
+  }
+  if (!isSameMonth(statsDate, targetDate)) {
+    alert('统计数据日期与期望达标日期需在同一月份');
+    return;
+  }
+  if (targetDate.getTime() < statsDate.getTime()) {
+    alert('期望达标日期需不早于统计数据日期');
+    return;
+  }
 
-  dataSets.forEach(ds => {
-    const hit = isMeetingAtT(avgToDate, elapsedDays, currentBalance, targetDays, ds.threshold);
-    const needM = requiredBalanceForT(avgToDate, elapsedDays, targetDays, ds.threshold);
-    const needDays = daysNeededWithM(avgToDate, elapsedDays, currentBalance, ds.threshold);
+  const elapsedDays = dayOfMonth(statsDate);
+  const targetDays = dayOfMonth(targetDate);
+  const threshold = getThresholdByLevel(level);
 
-    writeHtml(`kpi-${ds.name}-status`, hit ? `<span class="ok">已达标</span>` : `<span class="not-ok">未达标</span>`);
-    const avgT = (avgToDate * elapsedDays + currentBalance * Math.max(0, targetDays - elapsedDays)) / (targetDays || 1);
-    writeText(`kpi-${ds.name}-avg`, `T时点日均：${fmtNumber(avgT)}`);
-    writeText(`kpi-${ds.name}-needed`, needM <= 0 ? '0（无需增加）' : fmtMoney(needM));
-    writeText(`kpi-${ds.name}-days`, needDays === Infinity ? '不可达（需提高M）' : `${fmtNumber(Math.ceil(needDays), 0)} 天`);
-  });
+  const hit = isMeetingAtT(avgToDate, elapsedDays, currentBalance, targetDays, threshold);
+  const needM = requiredBalanceForT(avgToDate, elapsedDays, targetDays, threshold);
+  const needDays = daysNeededWithM(avgToDate, elapsedDays, currentBalance, threshold);
+  const avgT = (avgToDate * elapsedDays + currentBalance * Math.max(0, targetDays - elapsedDays)) / (targetDays || 1);
+
+  writeHtml('kpi-status', hit ? `<span class="ok">已达标</span>` : `<span class="not-ok">未达标</span>`);
+  writeText('kpi-avg', `T时点日均：${fmtNumber(avgT)}`);
+  writeText('kpi-needed', needM <= 0 ? '0（无需增加）' : (needM === Infinity ? '不可达' : fmtMoney(needM)));
+  writeText('kpi-days', needDays === Infinity ? '不可达（需提高M）' : `${fmtNumber(Math.ceil(needDays), 0)} 天`);
 }
 
 function setupEvents() {
-  document.getElementById('btn-fill-target').addEventListener('click', () => {
-    const t = readNumber('total-days');
-    if (isFinite(t)) document.getElementById('target-days').value = String(Math.max(0, Math.floor(t)));
-  });
-  document.getElementById('btn-run-single').addEventListener('click', computeSingle);
+  const btnSingle = document.getElementById('btn-run-single');
+  if (btnSingle) btnSingle.addEventListener('click', computeSingle);
 
-  document.getElementById('btn-run-batch').addEventListener('click', handleBatch);
+  const btnBatch = document.getElementById('btn-run-batch');
+  if (btnBatch) btnBatch.addEventListener('click', handleBatch);
 }
 
 function handleBatch() {
   const fileInput = document.getElementById('csv-file');
   const file = fileInput.files && fileInput.files[0];
   if (!file) { alert('请先选择 CSV 文件'); return; }
-  const basic = readNumber('threshold-basic') || 10000;
-  const mid = readNumber('threshold-mid') || 500000;
 
   Papa.parse(file, {
     header: true,
@@ -140,37 +159,46 @@ function handleBatch() {
         name: r.name || '',
         id: r.id || '',
         avgToDate: parseFloat(r.avg_to_date),
-        elapsedDays: parseFloat(r.elapsed_days),
         currentBalance: parseFloat(r.current_balance),
-        totalDays: parseFloat(r.total_days),
+        statsDate: r.stats_date ? new Date(r.stats_date + 'T00:00:00') : null,
+        targetDate: r.target_date ? new Date(r.target_date + 'T00:00:00') : null,
+        level: (r.level || 'basic').trim(),
       }));
       const tbody = document.querySelector('#batch-table tbody');
       tbody.innerHTML = '';
       rows.forEach(r => {
-        const T = isFinite(r.totalDays) ? r.totalDays : (readNumber('total-days') || readNumber('target-days'));
-        const results = [
-          { name: 'basic', threshold: basic },
-          { name: 'mid', threshold: mid },
-        ].map(ds => ({
-          hit: isMeetingAtT(r.avgToDate, r.elapsedDays, r.currentBalance, T, ds.threshold),
-          needM: requiredBalanceForT(r.avgToDate, r.elapsedDays, T, ds.threshold),
-          needDays: daysNeededWithM(r.avgToDate, r.elapsedDays, r.currentBalance, ds.threshold),
-        }));
+        let cells = {};
+        if (!r.statsDate || !r.targetDate || !isFinite(r.avgToDate) || !isFinite(r.currentBalance)) {
+          cells = { hitText: '数据不完整', needMText: '—', needDaysText: '—' };
+        } else if (!isSameMonth(r.statsDate, r.targetDate)) {
+          cells = { hitText: '需同月', needMText: '—', needDaysText: '—' };
+        } else if (r.targetDate.getTime() < r.statsDate.getTime()) {
+          cells = { hitText: '目标早于统计日', needMText: '—', needDaysText: '—' };
+        } else {
+          const elapsedDays = dayOfMonth(r.statsDate);
+          const targetDays = dayOfMonth(r.targetDate);
+          const threshold = getThresholdByLevel(r.level === 'mid' ? 'mid' : 'basic');
+          const hit = isMeetingAtT(r.avgToDate, elapsedDays, r.currentBalance, targetDays, threshold);
+          const needM = requiredBalanceForT(r.avgToDate, elapsedDays, targetDays, threshold);
+          const needDays = daysNeededWithM(r.avgToDate, elapsedDays, r.currentBalance, threshold);
+          cells.hitText = hit ? '达标' : '未达标';
+          cells.hitClass = hit ? 'ok' : 'not-ok';
+          cells.needMText = needM <= 0 ? '0' : (needM === Infinity ? '不可达' : fmtMoney(needM));
+          cells.needDaysText = needDays === Infinity ? '不可达' : `${fmtNumber(Math.ceil(needDays), 0)} 天`;
+        }
 
         const tr = document.createElement('tr');
         tr.innerHTML = `
           <td>${escapeHtml(r.name)}</td>
           <td>${escapeHtml(r.id)}</td>
           <td>${fmtNumber(r.avgToDate)}</td>
-          <td>${fmtNumber(r.elapsedDays, 0)}</td>
           <td>${fmtMoney(r.currentBalance)}</td>
-          <td>${fmtNumber(T, 0)}</td>
-          <td class="${results[0].hit ? 'ok' : 'not-ok'}">${results[0].hit ? '达标' : '未达标'}</td>
-          <td class="${results[1].hit ? 'ok' : 'not-ok'}">${results[1].hit ? '达标' : '未达标'}</td>
-          <td>${results[0].needM <= 0 ? '0' : fmtMoney(results[0].needM)}</td>
-          <td>${results[1].needM <= 0 ? '0' : fmtMoney(results[1].needM)}</td>
-          <td>${results[0].needDays === Infinity ? '不可达' : fmtNumber(Math.ceil(results[0].needDays), 0) + ' 天'}</td>
-          <td>${results[1].needDays === Infinity ? '不可达' : fmtNumber(Math.ceil(results[1].needDays), 0) + ' 天'}</td>
+          <td>${r.statsDate ? r.statsDate.toISOString().slice(0,10) : '—'}</td>
+          <td>${r.targetDate ? r.targetDate.toISOString().slice(0,10) : '—'}</td>
+          <td>${r.level === 'mid' ? '中型' : '达标'}</td>
+          <td class="${cells.hitClass || ''}">${cells.hitText}</td>
+          <td>${cells.needMText}</td>
+          <td>${cells.needDaysText}</td>
         `;
         tbody.appendChild(tr);
       });
@@ -178,7 +206,7 @@ function handleBatch() {
   });
 }
 
-function escapeHtml(s) { return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+function escapeHtml(s) { return String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c])); }
 
 document.addEventListener('DOMContentLoaded', setupEvents);
 

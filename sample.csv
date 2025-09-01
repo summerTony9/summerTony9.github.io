@@ -1,5 +1,5 @@
-name,id,avg_to_date,elapsed_days,current_balance,total_days
-张三,10001,8000,10,12000,30
-李四,10002,12000,12,9000,30
-王五,10003,400000,15,550000,30
+name,id,avg_to_date,current_balance,stats_date,target_date,level
+张三,10001,8000,12000,2025-01-10,2025-01-31,basic
+李四,10002,12000,9000,2025-01-12,2025-01-31,basic
+王五,10003,400000,550000,2025-01-15,2025-02-28,mid
 

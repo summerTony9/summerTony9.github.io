@@ -20,25 +20,6 @@
     </header>
 
     <main class="container">
-      <section class="card thresholds-card">
-        <h2>阈值设置</h2>
-        <div class="grid grid-3">
-          <label class="field">
-            <span>达标金额</span>
-            <input id="threshold-basic" type="number" inputmode="decimal" value="10000" />
-          </label>
-          <label class="field">
-            <span>中型客户金额</span>
-            <input id="threshold-mid" type="number" inputmode="decimal" value="500000" />
-          </label>
-          <label class="field">
-            <span>总天数（周期）</span>
-            <input id="total-days" type="number" inputmode="numeric" placeholder="例如：本月天数" />
-          </label>
-        </div>
-        <p class="hint">说明：若不清楚周期，可直接将“目标天数”填为希望评估的日期累计天数。</p>
-      </section>
-
       <section class="card calc-card">
         <h2>单户试算</h2>
         <div class="grid grid-3">
@@ -47,22 +28,26 @@
             <input id="avg-to-date" type="number" inputmode="decimal" placeholder="例如：3560.50" />
           </label>
           <label class="field">
-            <span>已统计天数</span>
-            <input id="elapsed-days" type="number" inputmode="numeric" placeholder="例如：12" />
-          </label>
-          <label class="field">
             <span>当前时点存款（元）</span>
             <input id="current-balance" type="number" inputmode="decimal" placeholder="例如：20000" />
+          </label>
+          <label class="field">
+            <span>统计数据日期</span>
+            <input id="stats-date" type="date" />
           </label>
         </div>
         <div class="grid grid-3">
           <label class="field">
-            <span>目标天数 T</span>
-            <input id="target-days" type="number" inputmode="numeric" placeholder="例如：30（默认用总天数）" />
+            <span>期望达标日期</span>
+            <input id="target-date" type="date" />
           </label>
-          <div class="field align-end">
-            <button id="btn-fill-target" class="btn secondary" type="button">用上面的总天数填入 T</button>
-          </div>
+          <label class="field">
+            <span>目标档位</span>
+            <select id="level-select">
+              <option value="basic">达标户（¥10,000）</option>
+              <option value="mid">中型客户（¥500,000）</option>
+            </select>
+          </label>
           <div class="field align-end">
             <button id="btn-run-single" class="btn primary" type="button">开始计算</button>
           </div>
@@ -70,45 +55,19 @@
 
         <div id="single-results" class="results">
           <div class="result-block">
-            <h3>T 时点是否达标</h3>
-            <div class="two-col">
-              <div>
-                <div class="kpi" id="kpi-basic-status">—</div>
-                <div class="kpi-sub" id="kpi-basic-avg">—</div>
-              </div>
-              <div>
-                <div class="kpi" id="kpi-mid-status">—</div>
-                <div class="kpi-sub" id="kpi-mid-avg">—</div>
-              </div>
-            </div>
+            <h3>目标日是否达标</h3>
+            <div class="kpi" id="kpi-status">—</div>
+            <div class="kpi-sub" id="kpi-avg">—</div>
           </div>
 
           <div class="result-block">
             <h3>在 T 达标需要的时点存款</h3>
-            <div class="two-col">
-              <div>
-                <div class="kpi" id="kpi-basic-needed">—</div>
-                <div class="kpi-sub">达标金额</div>
-              </div>
-              <div>
-                <div class="kpi" id="kpi-mid-needed">—</div>
-                <div class="kpi-sub">中型金额</div>
-              </div>
-            </div>
+            <div class="kpi" id="kpi-needed">—</div>
           </div>
 
           <div class="result-block">
             <h3>以当前时点存款，需要放多久才能达标</h3>
-            <div class="two-col">
-              <div>
-                <div class="kpi" id="kpi-basic-days">—</div>
-                <div class="kpi-sub">达标金额</div>
-              </div>
-              <div>
-                <div class="kpi" id="kpi-mid-days">—</div>
-                <div class="kpi-sub">中型金额</div>
-              </div>
-            </div>
+            <div class="kpi" id="kpi-days">—</div>
           </div>
         </div>
       </section>
@@ -127,7 +86,7 @@
             <button id="btn-run-batch" class="btn primary" type="button">批量计算</button>
           </div>
         </div>
-        <p class="hint">CSV 字段：name,id,avg_to_date,elapsed_days,current_balance,total_days（可选）</p>
+        <p class="hint">CSV 字段：name,id,avg_to_date,current_balance,stats_date(YYYY-MM-DD),target_date(YYYY-MM-DD),level(basic|mid,可选)</p>
         <div class="table-wrap">
           <table id="batch-table">
             <thead>
@@ -135,15 +94,13 @@
                 <th>客户</th>
                 <th>编号</th>
                 <th>截至日日均</th>
-                <th>已统计天数</th>
                 <th>当前时点存款</th>
-                <th>目标天数 T</th>
-                <th>T 是否达标(达标金额)</th>
-                <th>T 是否达标(中型金额)</th>
-                <th>T 达标所需时点(达标)</th>
-                <th>T 达标所需时点(中型)</th>
-                <th>当前M需天数(达标)</th>
-                <th>当前M需天数(中型)</th>
+                <th>统计数据日期</th>
+                <th>期望达标日期</th>
+                <th>档位</th>
+                <th>目标日是否达标</th>
+                <th>T 达标所需时点</th>
+                <th>当前M需天数</th>
               </tr>
             </thead>
             <tbody></tbody>
