@@ -136,15 +136,22 @@ function computeSingle() {
 
   const hit = isMeetingAtT(avgToDate, elapsedDays, currentBalance, targetDays, threshold);
   const needM = requiredBalanceForT(avgToDate, elapsedDays, targetDays, threshold);
-  // For year-end holding days: compute relative to Dec 31 of the same year
+  // Year-end requirement: minimal holding days N with currentBalance to reach threshold by 12/31
   const yearEnd = new Date(statsDate.getFullYear(), 11, 31);
-  const holdDaysYear = daysNeededWithM(avgToDate, elapsedDays, currentBalance, threshold);
+  const remainingDays = Math.max(0, daysSinceYearStartExclusive(yearEnd) - elapsedDays);
+  const needDaysYear = daysNeededWithM(avgToDate, elapsedDays, currentBalance, threshold);
   const avgT = targetDays > 0 ? (avgToDate * elapsedDays + currentBalance * Math.max(0, targetDays - elapsedDays)) / targetDays : NaN;
 
   writeHtml('kpi-status', hit ? `<span class="ok">已达标</span>` : `<span class="not-ok">未达标</span>`);
   writeText('kpi-avg', `${formatDateLocal(targetDate)} 日均：${fmtNumber(avgT)}`);
   writeText('kpi-needed', needM <= 0 ? '0（无需增加）' : (needM === Infinity ? '不可达' : fmtMoney(needM)));
-  writeText('kpi-days', holdDaysYear === Infinity ? '不可达（需提高M）' : `${fmtNumber(Math.ceil(holdDaysYear), 0)} 天（至${formatDateLocal(yearEnd)}）`);
+  if (needDaysYear === Infinity) {
+    writeText('kpi-days', '不可达（需提高M）');
+  } else if (needDaysYear > remainingDays) {
+    writeText('kpi-days', `不可达（需≥${fmtNumber(Math.ceil(needDaysYear), 0)}天，年内仅剩${fmtNumber(remainingDays, 0)}天）`);
+  } else {
+    writeText('kpi-days', `${fmtNumber(Math.ceil(needDaysYear), 0)} 天（至${formatDateLocal(yearEnd)}）`);
+  }
 }
 
 function setupEvents() {
@@ -210,11 +217,15 @@ function handleBatch() {
           const threshold = getThresholdByLevel(r.level === 'mid' ? 'mid' : 'basic');
           const hit = isMeetingAtT(r.avgToDate, elapsedDays, r.currentBalance, targetDays, threshold);
           const needM = requiredBalanceForT(r.avgToDate, elapsedDays, targetDays, threshold);
-          const needDays = daysNeededWithM(r.avgToDate, elapsedDays, r.currentBalance, threshold);
+          const yearEnd = new Date(r.statsDate.getFullYear(), 11, 31);
+          const remainingDays = Math.max(0, daysSinceYearStartExclusive(yearEnd) - elapsedDays);
+          const needDaysYear = daysNeededWithM(r.avgToDate, elapsedDays, r.currentBalance, threshold);
           cells.hitText = hit ? '达标' : '未达标';
           cells.hitClass = hit ? 'ok' : 'not-ok';
           cells.needMText = needM <= 0 ? '0' : (needM === Infinity ? '不可达' : fmtMoney(needM));
-          cells.needDaysText = needDays === Infinity ? '不可达' : `${fmtNumber(Math.ceil(needDays), 0)} 天`;
+          cells.needDaysText = (needDaysYear === Infinity)
+            ? '不可达'
+            : (needDaysYear > remainingDays ? `不可达(需≥${fmtNumber(Math.ceil(needDaysYear), 0)}天，剩${fmtNumber(remainingDays, 0)}天)` : `${fmtNumber(Math.ceil(needDaysYear), 0)} 天`);
         }
 
         const tr = document.createElement('tr');
